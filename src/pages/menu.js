@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import React, { useContext } from "react";
 import { useDrinkContext } from "../../context/drinkContext";
 import { Box, Container, Text, Heading, VStack, Grid, GridItem, Flex, Stack, Spacer} from "@chakra-ui/react";
@@ -122,3 +123,14 @@ const menu = () => {
 >>>>>>> 2495937 (menu page - version 1)
 
 export default Menu;
+=======
+import React from 'react'
+
+const menu = () => {
+  return (
+    <div>menu</div>
+  )
+}
+
+export default menu
+>>>>>>> 93d171d (menu push demo)

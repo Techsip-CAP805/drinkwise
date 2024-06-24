@@ -6,7 +6,7 @@ export default function App({ Component, pageProps }) {
   return (
     <DrinkProvider>
     <ChakraProvider>
-    <Component {...pageProps} />;  
+    <Component {...pageProps} /> 
     </ChakraProvider>
     </DrinkProvider>
   )

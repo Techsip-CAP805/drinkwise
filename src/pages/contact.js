@@ -15,27 +15,27 @@ const Contact = () => {
   };
 
   return (
-    <Box>
-      <VStack>
-        <HStack>
-          <Box>
+    <Box display="flex" justifyContent="center" alignItems="center" bg="gray.50" h="100vh">
+      <VStack spacing={4} padding={6} boxShadow="md" bg="white" borderRadius="md" border="1px" borderColor="gray.200" h="80%">
+        <HStack spacing={4} width="100%">
+          <Box width="100%" border="1px" borderColor="gray.200" padding={2} borderRadius="md">
             <label>Name:</label>
             <Input type="text" ref={nameRef} />
           </Box>
-          <Box>
+          <Box width="100%" border="1px" borderColor="gray.200" padding={2} borderRadius="md">
             <label>Phone:</label>
             <Input type="text" ref={phoneRef} />
           </Box>
-          <Box>
+          <Box width="100%" border="1px" borderColor="gray.200" padding={2} borderRadius="md">
             <label>Email:</label>
             <Input type="text" ref={emailRef} />
           </Box>
         </HStack>
-        <Box>
+        <Box width="100%" h="100%" border="1px" borderColor="gray.200" padding={2} borderRadius="md">
           <label>Message:</label>
-          <Textarea ref={messageRef} placeholder="Enter your message here..." />
+          <Textarea ref={messageRef} h="90%"  placeholder="Enter your message here..." />
         </Box>
-        <Button onClick={handleSubmit} colorScheme="blue" width="100%">Send my msg!</Button>
+        <Button onClick={handleSubmit} colorScheme="blue" width="20%">Send my msg!</Button>
       </VStack>
     </Box>
   );

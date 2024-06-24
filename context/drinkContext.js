@@ -33,6 +33,8 @@ const DrinkProvider = ({ children }) => {
         phoneNumber: "416-808-6969"
     }
   ]);
+
+  
   const [testing, setTesting] = useState("some string here");
 
   const drinkContextObject = {
@@ -51,4 +53,4 @@ const DrinkProvider = ({ children }) => {
   );
 };
 
-export {DrinkContext, DrinkProvider };
+export {DrinkContext, DrinkProvider};

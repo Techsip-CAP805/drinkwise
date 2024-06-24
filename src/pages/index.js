@@ -14,12 +14,12 @@ const Home = () => {
       <Container centerContent p={6}>
         <Text fontSize='lg' fontWeight={700}>Just testing React Context state</Text>
         <br/>
-        {locations.map((location)=> (
-          <>
+        {locations.map((location, index)=> (
+          <div key={index}>
           <h2>{location.name}</h2>
           <p>{location.operatingHour}</p>
           <p>{location.phoneNumber}</p>
-          </>
+          </div>
         ))}
       </Container>
     </Box>

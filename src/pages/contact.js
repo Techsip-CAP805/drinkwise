@@ -33,7 +33,7 @@ const Contact = () => {
         </HStack>
         <Box width="100%" h="100%" border="1px" borderColor="gray.200" padding={2} borderRadius="md">
           <label>Message:</label>
-          <Textarea ref={messageRef} h="90%"  placeholder="Enter your message here..." />
+          <Textarea ref={messageRef} h="93%" resize="none" placeholder="Enter your message here..." />
         </Box>
         <Button onClick={handleSubmit} colorScheme="blue" width="20%">Send my msg!</Button>
       </VStack>

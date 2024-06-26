@@ -1,7 +1,6 @@
 import React, {useState, useContext, useEffect} from 'react';
 import {DrinkContext} from '../../context/drinkContext';
 import {Box, Container, Text} from '@chakra-ui/react';
-// import '../styles/globals.css';
 
 const menu = () => {
 
@@ -12,7 +11,7 @@ const menu = () => {
   const [menu, setMenu] = useState({});
 
   useEffect (() => {
-    //store items by category
+    //store items by category, limit to 5 per category
     const catDrinks = uniqueCategories.reduce((acc, category) => {
       acc[category] = drinks.filter(item => item.category === category).slice(0,5);
       return acc;

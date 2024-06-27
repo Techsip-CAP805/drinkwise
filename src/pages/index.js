@@ -1,6 +1,9 @@
 import React, {useState, useContext} from 'react';
 import {DrinkContext} from '../../context/drinkContext';
-import {Box, Container, Text} from '@chakra-ui/react';
+import {Box, Container, Text, Flex, Center} from '@chakra-ui/react';
+import Navbar from '../../components/Navbar';
+import Footer from '../../components/Footer';
+import Link from 'next/link'
 
 const Home = () => {
 
@@ -10,17 +13,17 @@ const Home = () => {
 
   //main page
   return (
-    <Box bg='red.100'>
-      <Container centerContent p={6}>
-        <Text fontSize='lg' fontWeight={700}>Just testing React Context state</Text>
-        <br/>
-        {locations.map((location, index)=> (
-          <div key={index}>
-          <h2>{location.name}</h2>
-          <p>{location.operatingHour}</p>
-          <p>{location.phoneNumber}</p>
-          </div>
-        ))}
+    <Box bg='gray.200'>
+      <Navbar/>
+      <Container w='100vw' h='100vh' maxH='100vh' maxW='7xl'>
+      <Flex direction='row'  w='100%' h='100%' justify='center' align='center' pb={40}>
+      <Link href='/recommendation'>
+        <Box width={60} h={80} bg='gray.100' borderRadius='2rem' display='flex' direction='row' justifyContent='center' alignItems='center' _hover={{bg:'tomato'}}>
+        <Text>.mp4 is inserted here</Text>
+        </Box>
+      </Link>
+      </Flex>
+      <Footer/>
       </Container>
     </Box>
   )

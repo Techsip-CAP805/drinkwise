@@ -10,28 +10,39 @@ const DrinkProvider = ({ children }) => {
     {
         name: 'North York',
         operatingHour: "11:00am - 9:00pm",
-        phoneNumber: "416-808-6969"
+        phoneNumber: "416-808-6969",
+        image: '/boba.jpeg'
     },
     {
-        name: 'North York',
+        name: 'Vaughan',
         operatingHour: "11:00am - 9:00pm",
-        phoneNumber: "416-808-6969"
+        phoneNumber: "416-808-6969",
+        image: '/boba.jpeg'
     },
     {
-        name: 'North York',
+        name: 'Downtown',
         operatingHour: "11:00am - 9:00pm",
-        phoneNumber: "416-808-6969"
+        phoneNumber: "416-808-6969",
+        image: '/boba.jpeg'
     },
     {
-        name: 'North York',
+        name: 'Toronto',
         operatingHour: "11:00am - 9:00pm",
-        phoneNumber: "416-808-6969"
+        phoneNumber: "416-808-6969",
+        image: '/boba.jpeg'
     },
     {
-        name: 'North York',
+        name: 'Richmond Hill',
         operatingHour: "11:00am - 9:00pm",
-        phoneNumber: "416-808-6969"
-    }
+        phoneNumber: "416-808-6969",
+        image: '/boba.jpeg'
+    },
+    {
+      name: 'Brantford',
+      operatingHour: "11:00am - 9:00pm",
+      phoneNumber: "416-808-6969",
+      image: '/boba.jpeg'
+  }
   ]);
 
   
@@ -43,8 +54,6 @@ const DrinkProvider = ({ children }) => {
     testing,
     setTesting
   }
-
-
 
   return (
     <DrinkContext.Provider value={drinkContextObject}>

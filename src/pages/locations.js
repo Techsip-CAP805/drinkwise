@@ -25,12 +25,13 @@ const Locations = () => {
     <Box bg="#bcc8c3">
       <Navbar />
       <Container w='100vw' h='100vh' maxH='100vh' maxW='7xl' py={10}>
-      <Flex direction="column" justify="center" align="center" w="100%" h='100%' pt={8}>
-          <Grid templateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }} gap={6}>
+      <Flex direction="column" justify="center" align="center" w="100%" h='100%' mt={8}>
+          <Grid templateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }} gap={12}  p={8}>
             {locations.map((location, index) => (
               <GridItem key={index}>
                 <Card
                   borderRadius="lg"
+                  width='x'
                   overflow="hidden"
                   boxShadow="md"
                   bg={cardBgColor}

@@ -21,8 +21,8 @@ const Home = () => {
         </Box>
       </Link>
       </Flex>
-      <Footer/>
       </Container>
+      <Footer/>
     </Box>
   )
 }

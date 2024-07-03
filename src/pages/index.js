@@ -1,19 +1,17 @@
 import React, {useState, useContext} from 'react';
 import {DrinkContext} from '../../context/drinkContext';
 import {Box, Container, Text, Flex, Center} from '@chakra-ui/react';
-import Navbar from '../../components/Navbar';
-import Footer from '../../components/Footer';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 import Link from 'next/link'
 
 const Home = () => {
 
   const {locations, setLocations} = useContext(DrinkContext)
 
-
-
   //main page
   return (
-    <Box bg='gray.200'>
+    <Box bg='#bcc8c3'>
       <Navbar/>
       <Container w='100vw' h='100vh' maxH='100vh' maxW='7xl'>
       <Flex direction='row'  w='100%' h='100%' justify='center' align='center' pb={40}>

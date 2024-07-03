@@ -1,68 +1,71 @@
-import React, { useContext } from 'react';
-import { DrinkContext } from '../../context/drinkContext';
-import { Box, Image, Text, Heading, Grid, GridItem, Card, CardBody, Stack, Divider, CardFooter, ButtonGroup, Button } from '@chakra-ui/react';
+import React, { useContext } from "react";
+import { DrinkContext } from "../../context/drinkContext";
+import Navbar from "../components/Navbar";
+import {
+  Box,
+  Image,
+  Text,
+  Heading,
+  Grid,
+  GridItem,
+  Card,
+  CardBody,
+  Stack,
+  Container,
+  Flex,
+  useColorModeValue
+} from "@chakra-ui/react";
 
 const Locations = () => {
-const { locations } = useContext(DrinkContext);
+  const { locations } = useContext(DrinkContext);
+  const cardBgColor = useColorModeValue("#a0b2ab", "#283E38");
+  const cardHoverBgColor = useColorModeValue("#8f9f9a", "#1F2D2B");
 
-return (
-   
-<Box bg="purple.200">
-<header>
-<Box display="flex" justifyContent="space-between" p="10px 20px" bg="gray.100">
-<Text fontSize="2xl">LogoHere</Text>
-<Box display="flex" gap="20px">
-<Text>Menu</Text>
-<Text>Locations</Text>
-<Text>Order Online</Text>
-<Text>Contact Us</Text>
-</Box>
-</Box>
-</header>
-<Box as="main" p="20px">
-<Grid templateColumns="repeat(3, 1fr)" gap={6}>
-{locations.map((location, index) => (
-<GridItem key={index}>
-  <Card maxW='sm'>
-    <CardBody bg ="red.200">
-      {location.image && (
-        <Image
-          src={location.image}
-          alt={`${location.name} location`}
-          borderRadius='lg'
-          objectFit='cover'
-          height='150px'
-          width='100%'
-        />
-      )}
-      <Stack mt='6' spacing='3'>
-        <Heading size='md'>{location.name}</Heading>
-        <Text>
-          Operating Hours: {location.operatingHour}
-        </Text>
-        <Text color='red.600' fontSize='md'>
-          Phone: {location.phoneNumber}
-        </Text>
-      </Stack>
-    </CardBody>
-    <Divider />
-    <CardFooter>
-      <ButtonGroup spacing='2'>
-        <Button variant='solid' colorScheme='red'>
-          View Details
-        </Button>
-        <Button variant='ghost' colorScheme='red'>
-          Contact
-        </Button>
-      </ButtonGroup>
-    </CardFooter>
-  </Card>
-</GridItem>
-))}
-</Grid>
-</Box>
-</Box>
-);
-}
+  return (
+    <Box bg="#bcc8c3">
+      <Navbar />
+      <Container w='100vw' h='100vh' maxH='100vh' maxW='7xl' py={10}>
+      <Flex direction="column" justify="center" align="center" w="100%" h='100%' pt={8}>
+          <Grid templateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }} gap={6}>
+            {locations.map((location, index) => (
+              <GridItem key={index}>
+                <Card
+                  borderRadius="lg"
+                  overflow="hidden"
+                  boxShadow="md"
+                  bg={cardBgColor}
+                  _hover={{ bg: cardHoverBgColor, transform: "scale(1.05)", transition: "all 0.3s ease-in-out" }}
+                >
+                  {location.image && (
+                    <Image
+                      src={location.image}
+                      alt={`${location.name} location`}
+                      objectFit="cover"
+                      height="200px"
+                      width="100%"
+                    />
+                  )}
+                  <CardBody p={6}>
+                    <Stack spacing={3}>
+                      <Heading size="md" textAlign="center" color="white">
+                        {location.name}
+                      </Heading>
+                      <Text textAlign="center" color="white">
+                        Operating Hours: {location.operatingHour}
+                      </Text>
+                      <Text color="white" fontSize="md" textAlign="center">
+                        Phone: {location.phoneNumber}
+                      </Text>
+                    </Stack>
+                  </CardBody>
+                </Card>
+              </GridItem>
+            ))}
+          </Grid>
+        </Flex>
+      </Container>
+    </Box>
+  );
+};
 
 export default Locations;

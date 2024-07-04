@@ -1,30 +1,44 @@
-import React, {useState, useContext} from 'react';
-import {DrinkContext} from '../../context/drinkContext';
-import {Box, Container, Text, Flex, Center} from '@chakra-ui/react';
+import React, { useContext } from 'react';
+import { DrinkContext } from '../../context/drinkContext';
+import { Box, Container, Flex } from '@chakra-ui/react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import Link from 'next/link'
+import Link from 'next/link';
 
 const Home = () => {
+  const { locations, setLocations } = useContext(DrinkContext);
 
-  const {locations, setLocations} = useContext(DrinkContext)
-
-  //main page
   return (
-    <Box bg='#bcc8c3'>
-      <Navbar/>
+    <Box bg='#bcc8c3' minH='100vh'>
+      <Navbar />
       <Container w='100vw' h='100vh' maxH='100vh' maxW='7xl'>
-      <Flex direction='row'  w='100%' h='100%' justify='center' align='center' pb={40}>
-      <Link href='/recommendation'>
-        <Box width={60} h={80} bg='gray.100' borderRadius='2rem' display='flex' direction='row' justifyContent='center' alignItems='center' _hover={{bg:'tomato'}}>
-        <Text>.mp4 is inserted here</Text>
-        </Box>
-      </Link>
-      </Flex>
+        <Flex direction='row' w='100%' h='100%' justify='center' align='center'  pt={40}>
+          <Link href='/recommendation'>
+            <Box
+              width="400px"
+              height="500px"
+              bg='gray.100'
+              display='flex'
+              direction='row'
+              justifyContent='center'
+              alignItems='center'
+              _hover={{ bg: 'tomato' }}
+              position='relative'
+              overflow='hidden'
+              css={{
+                clipPath: 'path("M50,0 Q200,0 350,0 L350,400 Q200,500 50,400 Z")'
+              }}
+            >
+              <video autoPlay loop muted style={{ width: '100%', height: '100%', objectFit: 'cover' }}>
+                <source src='/KidsEnjoyingTea.mp4' type='video/mp4' />
+              </video>
+            </Box>
+          </Link>
+        </Flex>
       </Container>
-      <Footer/>
+      <Footer />
     </Box>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

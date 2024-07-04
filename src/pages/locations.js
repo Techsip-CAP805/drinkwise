@@ -24,9 +24,9 @@ const Locations = () => {
   return (
     <Box bg="#bcc8c3">
       <Navbar />
-      <Container w='100vw' minH='100vh' maxW='7xl' py={10}>
-      <Flex direction="column" justify="center" align="center" w="100%" h='100%' mt='6vw' >
-          <Grid templateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }} gap={8} p={4}>
+      <Container w='100vw' minH='100vh' maxW='7xl' py={10} >
+      <Flex direction="column" justify="center" align="center" w="100%" h='100%' mt={20}>
+          <Grid templateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }} gap={6} p={4}>
             {locations.map((location, index) => (
               <GridItem key={index}>
                 <Card

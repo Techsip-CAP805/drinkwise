@@ -28,7 +28,7 @@ const Navbar = () => {
         px={{ base: 4, md: 20 }}
         wrap='wrap'
       >
-        <Link><Text as='b' fontSize='lg'>LogoHere</Text></Link>
+        <Link href='/'><Text as='b' fontSize='lg'>LogoHere</Text></Link>
         <Spacer display={{ base: 'none', lg: 'block' }} />
         <Flex
           direction='row'
@@ -40,7 +40,7 @@ const Navbar = () => {
           spacing={4}
         >
           <Link href='/menu' mx={2}><Text as='b' fontSize='md'>Menu</Text></Link>
-          <Link href='/location' mx={2}><Text as='b' fontSize='md'>Location</Text></Link>
+          <Link href='/locations' mx={2}><Text as='b' fontSize='md'>Locations</Text></Link>
           <Link href='/order' mx={2}><Text as='b' fontSize='md'>Order Online</Text></Link>
           <Link href='/contact' mx={2}><Text as='b' fontSize='md'>Contact Us</Text></Link>
         </Flex>

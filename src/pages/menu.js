@@ -22,7 +22,7 @@ const Menu = () => {
         </Heading>
         <Grid templateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }} gap={6}>
           {categories.map((category, index) => (
-            <GridItem key={index} bg='gray.200' borderRadius='lg' py={4} px={2}>
+            <GridItem key={index} bg='gray.100' borderRadius='lg' py={4} px={2}>
               <Box mx={4}>
                 <Text fontSize="xl" fontWeight="bold" color="gray.700" textAlign="center">{category}</Text>
                 <Box mt={4}>

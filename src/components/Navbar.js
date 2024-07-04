@@ -28,7 +28,7 @@ const Navbar = () => {
         px={{ base: 4, md: 20 }}
         wrap='wrap'
       >
-        <Link><Text as='b' fontSize='lg'>LogoHere</Text></Link>
+        <Link href='/'><Text as='b' fontSize='lg'>LogoHere</Text></Link>
         <Spacer display={{ base: 'none', lg: 'block' }} />
         <Flex
           direction='row'

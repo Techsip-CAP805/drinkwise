@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { Box, Button, Input, Textarea, VStack, HStack, useToast, useBreakpointValue } from '@chakra-ui/react';
+import Navbar from '../components/Navbar';
 
 const Contact = () => {
   const nameRef = useRef(null);
@@ -40,39 +41,42 @@ const Contact = () => {
   };
 
   return (
-    <Box display="flex" justifyContent="center" alignItems="center" bg="gray.50" h="100vh">
-      <VStack
-        spacing={4}
-        padding={6}
-        boxShadow="md"
-        bg="white"
-        borderRadius="md"
-        border="1px"
-        borderColor="gray.200"
-        h={{ base: "auto", md: "60%" }}
-        w={{ base: "90%", md: "60%" }}>
-        <HStack spacing={4} w="100%" flexDirection={stackDirection}>
-          <Box w="100%" border="1px" borderColor="gray.200" padding={2} borderRadius="md">
-            <label>Name:</label>
-            <Input type="text" ref={nameRef} />
+    <Box>
+      <Navbar/>
+      <Box display="flex" justifyContent="center" alignItems="center" bg='#bcc8c3' h="100vh">
+        <VStack
+          spacing={4}
+          padding={6}
+          boxShadow="md"
+          bg="gray.50"
+          borderRadius="md"
+          border="1px"
+          borderColor="gray.200"
+          h={{ base: "auto", md: "60%" }}
+          w={{ base: "90%", md: "60%" }}>
+          <HStack spacing={4} w="100%" flexDirection={stackDirection}>
+            <Box w="100%" border="1px" borderColor="gray.200" padding={2} borderRadius="md">
+              <label>Name:</label>
+              <Input type="text" ref={nameRef} />
+            </Box>
+            <Box w="100%" border="1px" borderColor="gray.200" padding={2} borderRadius="md">
+              <label>Phone:</label>
+              <Input type="text" ref={phoneRef} />
+            </Box>
+            <Box w="100%" border="1px" borderColor="gray.200" padding={2} borderRadius="md">
+              <label>Email:</label>
+              <Input type="text" ref={emailRef} />
+            </Box>
+          </HStack>
+          <Box w="100%" h="100%" border="1px" borderColor="gray.200" padding={2} borderRadius="md">
+            <label>Message:</label>
+            <Textarea ref={messageRef} h="90%" resize="none" placeholder="Enter your message here..." />
           </Box>
-          <Box w="100%" border="1px" borderColor="gray.200" padding={2} borderRadius="md">
-            <label>Phone:</label>
-            <Input type="text" ref={phoneRef} />
-          </Box>
-          <Box w="100%" border="1px" borderColor="gray.200" padding={2} borderRadius="md">
-            <label>Email:</label>
-            <Input type="text" ref={emailRef} />
-          </Box>
-        </HStack>
-        <Box w="100%" h="100%" border="1px" borderColor="gray.200" padding={2} borderRadius="md">
-          <label>Message:</label>
-          <Textarea ref={messageRef} h="90%" resize="none" placeholder="Enter your message here..." />
-        </Box>
-        <Button onClick={handleSubmit} w={{ base: "100%", md: "20%" }} colorScheme="blue" >
-          Send my msg!
-        </Button>
-      </VStack>
+          <Button onClick={handleSubmit} w={{ base: "100%", md: "20%" }} py={4} border="1px" borderColor="gray.200" borderRadius="md" >
+            Send my msg!
+          </Button>
+        </VStack>
+      </Box>
     </Box>
   );
 };

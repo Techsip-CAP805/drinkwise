@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { DrinkContext } from "../../context/drinkContext";
 import Navbar from "../components/Navbar";
+import Footer from "@/components/Footer";
 import {
   Box,
   Image,
@@ -65,6 +66,7 @@ const Locations = () => {
           </Grid>
         </Flex>
       </Container>
+      <Footer/>
     </Box>
   );
 };

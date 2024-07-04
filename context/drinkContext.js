@@ -1,50 +1,25 @@
 // context/MyContext.js
-import { createContext, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
+const drinkData = require('../data/drinkData.json');
+
 
 const DrinkContext = createContext();
 
+export const useDrinkContext = () => {
+  return useContext(DrinkContext);
+}
+
 const DrinkProvider = ({ children }) => {
 
-
-  const [locations, setLocations] = useState([
-    {
-        name: 'North York',
-        operatingHour: "11:00am - 9:00pm",
-        phoneNumber: "416-808-6969"
-    },
-    {
-        name: 'North York',
-        operatingHour: "11:00am - 9:00pm",
-        phoneNumber: "416-808-6969"
-    },
-    {
-        name: 'North York',
-        operatingHour: "11:00am - 9:00pm",
-        phoneNumber: "416-808-6969"
-    },
-    {
-        name: 'North York',
-        operatingHour: "11:00am - 9:00pm",
-        phoneNumber: "416-808-6969"
-    },
-    {
-        name: 'North York',
-        operatingHour: "11:00am - 9:00pm",
-        phoneNumber: "416-808-6969"
-    }
-  ]);
-
-  
-  const [testing, setTesting] = useState("some string here");
+  const [locations, setLocations] = useState();
+  const [drinks, setDrinks] = useState(drinkData);
 
   const drinkContextObject = {
     locations,
     setLocations,
-    testing,
-    setTesting
+    drinks,
+    setDrinks
   }
-
-
 
   return (
     <DrinkContext.Provider value={drinkContextObject}>

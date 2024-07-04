@@ -22,3 +22,11 @@ a {
     color-scheme: dark;
   }
 }
+
+.menuCategory table{
+  width: 350px;
+}
+
+.menuCategory table tr td:nth-child(2){
+  text-align: right;
+}

@@ -1,0 +1,38 @@
+[
+    {
+        "name": "North York",
+        "operatingHour": "11:00am - 9:00pm",
+        "phoneNumber": "416-808-6969",
+        "image": "/boba.jpeg"
+    },
+    {
+        "name": "Vaughan",
+        "operatingHour": "11:00am - 9:00pm",
+        "phoneNumber": "416-808-6969",
+        "image": "/boba.jpeg"
+    },
+    {
+        "name": "Downtown",
+        "operatingHour": "11:00am - 9:00pm",
+        "phoneNumber": "416-808-6969",
+        "image": "/boba.jpeg"
+    },
+    {
+        "name": "Toronto",
+        "operatingHour": "11:00am - 9:00pm",
+        "phoneNumber": "416-808-6969",
+        "image": "/boba.jpeg"
+    },
+    {
+        "name": "Richmond Hill",
+        "operatingHour": "11:00am - 9:00pm",
+        "phoneNumber": "416-808-6969",
+        "image": "/boba.jpeg"
+    },
+    {
+        "name": "Brantford",
+        "operatingHour": "11:00am - 9:00pm",
+        "phoneNumber": "416-808-6969",
+        "image": "/boba.jpeg"
+    }
+]

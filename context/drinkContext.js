@@ -12,6 +12,7 @@ export const useDrinkContext = () => {
 
 const DrinkProvider = ({ children }) => {
 
+
   const [locations, setLocations] = useState(locationData);
   const [drinks, setDrinks] = useState(drinkData);
 

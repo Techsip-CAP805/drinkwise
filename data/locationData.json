@@ -3,36 +3,48 @@
         "name": "North York",
         "operatingHour": "11:00am - 9:00pm",
         "phoneNumber": "416-808-6969",
-        "image": "/boba.jpeg"
+        "image": "/boba.jpeg",
+        "postalCode": "M2N 5P9",
+        "address": "1234 Yonge St, North York, ON"
     },
     {
         "name": "Vaughan",
         "operatingHour": "11:00am - 9:00pm",
         "phoneNumber": "416-808-6969",
-        "image": "/boba.jpeg"
+        "image": "/boba.jpeg",
+        "postalCode": "L4K 5W4",
+        "address": "5678 Rutherford Rd, Vaughan, ON"
     },
     {
         "name": "Downtown",
         "operatingHour": "11:00am - 9:00pm",
         "phoneNumber": "416-808-6969",
-        "image": "/boba.jpeg"
+        "image": "/boba.jpeg",
+        "postalCode": "M5V 3M8",
+        "address": "910 King St W, Toronto, ON"
     },
     {
         "name": "Toronto",
         "operatingHour": "11:00am - 9:00pm",
         "phoneNumber": "416-808-6969",
-        "image": "/boba.jpeg"
+        "image": "/boba.jpeg",
+        "postalCode": "M5G 2C3",
+        "address": "1123 Bay St, Toronto, ON"
     },
     {
         "name": "Richmond Hill",
         "operatingHour": "11:00am - 9:00pm",
         "phoneNumber": "416-808-6969",
-        "image": "/boba.jpeg"
+        "image": "/boba.jpeg",
+        "postalCode": "L4C 9V6",
+        "address": "1415 Yonge St, Richmond Hill, ON"
     },
     {
         "name": "Brantford",
         "operatingHour": "11:00am - 9:00pm",
         "phoneNumber": "416-808-6969",
-        "image": "/boba.jpeg"
+        "image": "/boba.jpeg",
+        "postalCode": "N3T 5L7",
+        "address": "1617 Market St, Brantford, ON"
     }
 ]

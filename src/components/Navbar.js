@@ -41,7 +41,7 @@ const Navbar = () => {
         >
           <Link href='/menu' mx={2}><Text as='b' fontSize='md'>Menu</Text></Link>
           <Link href='/locations' mx={2}><Text as='b' fontSize='md'>Locations</Text></Link>
-          <Link href='/order' mx={2}><Text as='b' fontSize='md'>Order Online</Text></Link>
+          <Link href='/order/search-location' mx={2}><Text as='b' fontSize='md'>Order Online</Text></Link>
           <Link href='/contact' mx={2}><Text as='b' fontSize='md'>Contact Us</Text></Link>
         </Flex>
         <IconButton

@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { DrinkContext } from "../../context/drinkContext";
+import { useDrinkContext } from "../../context/drinkContext";
 import Navbar from "../components/Navbar";
 import Footer from "@/components/Footer";
 import {
@@ -18,7 +18,7 @@ import {
 } from "@chakra-ui/react";
 
 const Locations = () => {
-  const { locations } = useContext(DrinkContext);
+  const { locations } = useDrinkContext();
   const cardBgColor = useColorModeValue("#a0b2ab", "#283E38");
   const cardHoverBgColor = useColorModeValue("#8f9f9a", "#1F2D2B");
 

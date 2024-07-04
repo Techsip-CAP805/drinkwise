@@ -1,10 +1,13 @@
 // context/MyContext.js
-import { createContext, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
 const drinkData = require('../data/drinkData.json');
 
 
 const DrinkContext = createContext();
 
+export const useDrinkContext = () => {
+  return useContext(DrinkContext);
+}
 
 const DrinkProvider = ({ children }) => {
 

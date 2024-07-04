@@ -1,5 +1,6 @@
 [
     {
+        "id": 1,
         "name": "North York",
         "operatingHour": "11:00am - 9:00pm",
         "phoneNumber": "416-808-6969",
@@ -8,6 +9,7 @@
         "address": "1234 Yonge St, North York, ON"
     },
     {
+        "id": 2,
         "name": "Vaughan",
         "operatingHour": "11:00am - 9:00pm",
         "phoneNumber": "416-808-6969",
@@ -16,6 +18,7 @@
         "address": "5678 Rutherford Rd, Vaughan, ON"
     },
     {
+        "id": 3,
         "name": "Downtown",
         "operatingHour": "11:00am - 9:00pm",
         "phoneNumber": "416-808-6969",
@@ -24,6 +27,7 @@
         "address": "910 King St W, Toronto, ON"
     },
     {
+        "id": 4,
         "name": "Toronto",
         "operatingHour": "11:00am - 9:00pm",
         "phoneNumber": "416-808-6969",
@@ -32,6 +36,7 @@
         "address": "1123 Bay St, Toronto, ON"
     },
     {
+        "id": 5,
         "name": "Richmond Hill",
         "operatingHour": "11:00am - 9:00pm",
         "phoneNumber": "416-808-6969",
@@ -40,6 +45,7 @@
         "address": "1415 Yonge St, Richmond Hill, ON"
     },
     {
+        "id": 6,
         "name": "Brantford",
         "operatingHour": "11:00am - 9:00pm",
         "phoneNumber": "416-808-6969",

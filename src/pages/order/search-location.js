@@ -5,19 +5,19 @@ import {
   Container,
   Input,
   Select,
-  Flex,
   VStack,
   HStack,
   IconButton,
   Divider,
   SimpleGrid,
   Card,
-  CardBody,
-  Stack
+  CardBody
 } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 import Navbar from '@/components/Navbar';
 import { DrinkContext } from '../../../context/drinkContext';
+import Link from 'next/link';
+import Footer from '@/components/Footer';
 
 const SearchLocation = () => {
   const { locations } = useContext(DrinkContext);
@@ -42,10 +42,8 @@ const SearchLocation = () => {
               onChange={e => setSearchTerm(e.target.value)}
               size='lg'
               mt={2}
-              border='none'
-              borderBottom='2px solid'
-              borderRadius='0'
             />
+            <Divider />
           </Box>
 
           <HStack spacing={4} align='center'>
@@ -54,34 +52,34 @@ const SearchLocation = () => {
               value={sortBy}
               onChange={e => setSortBy(e.target.value)}
               maxW='150px'
-              variant='unstyled'
-              borderBottom='2px solid'
             >
               <option value='name'>Name</option>
               <option value='distance'>Distance</option>
             </Select>
           </HStack>
 
-          <VStack spacing={5} align='stretch'>
+          <SimpleGrid columns={{ base: 1 }} spacing={5}>
             {filteredLocations.map((location, index) => (
-              <Card key={index} borderRadius="md" boxShadow="md" w='100%'>
-                <CardBody>
-                  <HStack justify="space-between">
-                    <VStack align="start">
-                      <Text fontSize="lg" fontWeight="bold">{location.name}</Text>
-                      <Text>{location.address}</Text>
-                      <Text>{location.postalCode}</Text>
-                    </VStack>
-                  </HStack>
-                </CardBody>
-              </Card>
+              <Link href={`/order/${location.id}`} key={index} passHref>
+                  <Card borderRadius="md" boxShadow="md">
+                    <CardBody>
+                      <HStack justify="space-between">
+                        <VStack align="start">
+                          <Text fontSize="lg" fontWeight="bold">{location.name}</Text>
+                          <Text>{location.address}</Text>
+                          <Text>{location.postalCode}</Text>
+                        </VStack>
+                      </HStack>
+                    </CardBody>
+                  </Card>
+              </Link>
             ))}
-          </VStack>
+          </SimpleGrid>
         </VStack>
       </Container>
+      <Footer/>
     </Box>
   );
 };
 
 export default SearchLocation;
-

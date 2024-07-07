@@ -8,7 +8,7 @@ const Navbar = () => {
   return (
     <Box
       w='100%'
-      h={24}
+      h='10vh'
       boxShadow='lg'
       color='white'
       display='flex'
@@ -28,7 +28,7 @@ const Navbar = () => {
         px={{ base: 4, md: 20 }}
         wrap='wrap'
       >
-        <Link href='/'><Text as='b' fontSize='lg'>LogoHere</Text></Link>
+        <Link href='/'><Text as='b' fontSize='lg'>Drinkwise</Text></Link>
         <Spacer display={{ base: 'none', lg: 'block' }} />
         <Flex
           direction='row'

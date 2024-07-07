@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { Box, Button, Input, Textarea, VStack, HStack, useToast, useBreakpointValue } from '@chakra-ui/react';
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 const Contact = () => {
   const nameRef = useRef(null);
@@ -77,6 +78,7 @@ const Contact = () => {
           </Button>
         </VStack>
       </Box>
+      <Footer/>
     </Box>
   );
 };

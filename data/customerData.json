@@ -111,7 +111,24 @@
   "password": "hashedpasswordabc",
   "preferredBranch": "unionville",
   "accountCreationDate": "2023-07-03T17:45:00.000Z",
-  "orders": []
+  "orders": [
+    {
+      "orderID": "yurdh4562",
+      "orderDate": "2023-09-20T10:00:00.000Z",
+      "items": [
+        {
+          "itemName": "Green Tea",
+          "quantity": 1
+        },
+        {
+          "itemName": "Bagel",
+          "quantity": 1
+        }
+      ],
+      "totalAmount": 7.8,
+      "orderStatus":"completed"
+    }
+  ]
 },
 {
   "_id": {
@@ -239,7 +256,24 @@
   "password": "hashedpassword123",
   "preferredBranch": "richmonhill_yonge",
   "accountCreationDate": "2024-03-15T15:30:00.000Z",
-  "orders": []
+  "orders": [
+    {
+      "orderID": "tufkdfgn1234",
+      "orderDate": "2023-12-20T10:00:00.000Z",
+      "items": [
+        {
+          "itemName": "Green Tea",
+          "quantity": 1
+        },
+        {
+          "itemName": "Bagel",
+          "quantity": 1
+        }
+      ],
+      "totalAmount": 7.8,
+      "orderStatus":"completed"
+    }
+  ]
 },
 {
   "_id": {
@@ -251,7 +285,24 @@
   "password": "hashedpassword456",
   "preferredBranch": "kingwest_toronto",
   "accountCreationDate": "2024-04-02T09:45:00.000Z",
-  "orders": []
+  "orders": [
+    {
+      "orderID": "arydfg543434",
+      "orderDate": "2024-01-20T10:00:00.000Z",
+      "items": [
+        {
+          "itemName": "Green Tea",
+          "quantity": 1
+        },
+        {
+          "itemName": "Bagel",
+          "quantity": 1
+        }
+      ],
+      "totalAmount": 7.8,
+      "orderStatus":"completed"
+    }
+  ]
 },
 {
   "_id": {

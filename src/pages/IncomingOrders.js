@@ -38,7 +38,7 @@ const IncomingOrders = () => {
         });
 
     const handleAccept = () => {
-        // Handle accept logic here
+        // Handle accept logic here 
         console.log("Order accepted!");
     };
 
@@ -82,12 +82,12 @@ const IncomingOrders = () => {
                                                 Total Amount: ${order.totalAmount}
                                             </Text>
                                             <HStack spacing={4} mt={6}>
-                                            <Button onClick={handleAccept} colorScheme="green" w="50%">
-                                                Accept
-                                            </Button>
-                                            <Button onClick={handleReject} colorScheme="red"  w="50%">
-                                                Reject
-                                            </Button>
+                                                <Button onClick={handleAccept} colorScheme="green" w="50%">
+                                                    Accept
+                                                </Button>
+                                                <Button onClick={handleReject} colorScheme="red" w="50%">
+                                                    Reject
+                                                </Button>
                                             </HStack>
                                         </Stack>
                                     </CardBody>

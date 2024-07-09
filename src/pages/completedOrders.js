@@ -16,7 +16,7 @@ import {
     useColorModeValue,
 } from "@chakra-ui/react";
 
-const InProgressOrders = () => {
+const CompletedOrders = () => {
     const { customers } = useDrinkContext();
     const cardBgColor = useColorModeValue("#a0b2ab", "#283E38");
 
@@ -24,7 +24,7 @@ const InProgressOrders = () => {
 
     // Filter and sort orders by order date (oldest to newest)
     const filteredOrders = customers
-        .filter((user) => user.orders.some((order) => order.orderStatus === "inProgress"))
+        .filter((user) => user.orders.some((order) => order.orderStatus === "completed"))
         .sort((a, b) => {
             // Sort orders within each user
             const oldestOrderA = a.orders.reduce((oldest, current) =>
@@ -36,10 +36,6 @@ const InProgressOrders = () => {
             return oldestOrderA.orderDate - oldestOrderB.orderDate;
         });
 
-    const handleComplete = () => {
-        // Handle complete logic here
-        console.log("Order Completed!");
-    };
 
 
     return (
@@ -48,7 +44,7 @@ const InProgressOrders = () => {
             <Container w="100vw" minH="100vh" maxW="7xl" py={10}>
                 <Flex direction="column" justify="center" align="center" w="100%" h="100%" mt={20}>
                     <VStack spacing={6} p={4} w="100%" align="center">
-                        <Heading color="white">In Progress Orders</Heading>
+                        <Heading color="white">Completed Orders</Heading>
                         {filteredOrders.map((user, index) =>
                             user.orders.map((order, orderIndex) => (
                                 <Card
@@ -76,11 +72,6 @@ const InProgressOrders = () => {
                                             <Text color="white" fontSize="md" textAlign="center">
                                                 Total Amount: ${order.totalAmount}
                                             </Text>
-                                            <Flex justify="center" mt={4}>
-                                                <Button onClick={handleComplete} colorScheme="blue" w="50%">
-                                                    Complete
-                                                </Button>
-                                            </Flex>
                                         </Stack>
                                     </CardBody>
                                 </Card>
@@ -94,4 +85,4 @@ const InProgressOrders = () => {
     );
 };
 
-export default InProgressOrders;
+export default CompletedOrders;

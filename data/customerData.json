@@ -8,7 +8,24 @@
   "password": "hashedpassword123",
   "preferredBranch": "downtown",
   "accountCreationDate": "2023-01-01T00:00:00.000Z",
-  "orders": []
+  "orders": [
+    {
+      "orderID": "dsfasdf123",
+      "orderDate": "2023-03-10T14:45:00.000Z",
+      "items": [
+        {
+          "itemName": "Latte",
+          "quantity": 2
+        },
+        {
+          "itemName": "Croissant",
+          "quantity": 1
+        }
+      ],
+      "totalAmount": 12.5,
+      "orderStatus":"inProgress"
+    }
+  ]
 },
 {
   "_id": {
@@ -164,7 +181,24 @@
   "password": "hashedpasswordxyz",
   "preferredBranch": "kingwest_toronto",
   "accountCreationDate": "2023-12-01T11:30:00.000Z",
-  "orders": []
+  "orders": [
+    {
+      "orderID": "awjhrg345",
+      "orderDate": "2023-04-10T14:45:00.000Z",
+      "items": [
+        {
+          "itemName": "Latte",
+          "quantity": 2
+        },
+        {
+          "itemName": "Croissant",
+          "quantity": 1
+        }
+      ],
+      "totalAmount": 12.5,
+      "orderStatus":"inProgress"
+    }
+  ]
 },
 {
   "_id": {

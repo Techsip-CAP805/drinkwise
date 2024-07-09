@@ -17,7 +17,7 @@ import {
     HStack,
 } from "@chakra-ui/react";
 
-const IncomingOrders = () => {
+const InProgressOrders = () => {
     const { customers } = useDrinkContext();
     const cardBgColor = useColorModeValue("#a0b2ab", "#283E38");
 
@@ -25,7 +25,7 @@ const IncomingOrders = () => {
 
     // Filter and sort orders by order date (oldest to newest)
     const filteredOrders = customers
-        .filter((user) => user.orders.some((order) => order.orderStatus === "pending"))
+        .filter((user) => user.orders.some((order) => order.orderStatus === "inProgress"))
         .sort((a, b) => {
             // Sort orders within each user
             const oldestOrderA = a.orders.reduce((oldest, current) =>
@@ -37,15 +37,11 @@ const IncomingOrders = () => {
             return oldestOrderA.orderDate - oldestOrderB.orderDate;
         });
 
-    const handleAccept = () => {
-        // Handle accept logic here
-        console.log("Order accepted!");
+    const handleComplete = () => {
+        // Handle complete logic here
+        console.log("Order Completed!");
     };
 
-    const handleReject = () => {
-        // Handle cancel logic here
-        console.log("Order Rejected!");
-    };
 
     return (
         <Box bg="#bcc8c3">
@@ -53,7 +49,7 @@ const IncomingOrders = () => {
             <Container w="100vw" minH="100vh" maxW="7xl" py={10}>
                 <Flex direction="column" justify="center" align="center" w="100%" h="100%" mt={20}>
                     <VStack spacing={6} p={4} w="100%" align="center">
-                        <Heading color="white">Incoming Orders</Heading>
+                        <Heading color="white">In Progress Orders</Heading>
                         {filteredOrders.map((user, index) =>
                             user.orders.map((order, orderIndex) => (
                                 <Card
@@ -81,14 +77,11 @@ const IncomingOrders = () => {
                                             <Text color="white" fontSize="md" textAlign="center">
                                                 Total Amount: ${order.totalAmount}
                                             </Text>
-                                            <HStack spacing={4} mt={6}>
-                                            <Button onClick={handleAccept} colorScheme="green" w="50%">
-                                                Accept
-                                            </Button>
-                                            <Button onClick={handleReject} colorScheme="red"  w="50%">
-                                                Reject
-                                            </Button>
-                                            </HStack>
+                                            <Flex justify="center" mt={4}>
+                                                <Button onClick={handleComplete} colorScheme="blue" w="50%">
+                                                    Complete
+                                                </Button>
+                                            </Flex>
                                         </Stack>
                                     </CardBody>
                                 </Card>
@@ -102,4 +95,4 @@ const IncomingOrders = () => {
     );
 };
 
-export default IncomingOrders;
+export default InProgressOrders;

@@ -2,6 +2,8 @@ import React from "react";
 import { useDrinkContext } from "../../context/drinkContext";
 import Navbar from "../components/Navbar";
 import Footer from "@/components/Footer";
+import SideNav from "../components/SideNav";
+
 import {
     Box,
     Text,
@@ -12,7 +14,6 @@ import {
     Stack,
     Container,
     Flex,
-    Button,
     useColorModeValue,
 } from "@chakra-ui/react";
 
@@ -41,6 +42,7 @@ const CompletedOrders = () => {
     return (
         <Box bg="#bcc8c3">
             <Navbar />
+            <SideNav />
             <Container w="100vw" minH="100vh" maxW="7xl" py={10}>
                 <Flex direction="column" justify="center" align="center" w="100%" h="100%" mt={20}>
                     <VStack spacing={6} p={4} w="100%" align="center">

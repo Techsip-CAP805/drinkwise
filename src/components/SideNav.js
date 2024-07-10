@@ -8,6 +8,7 @@ import {
   DrawerCloseButton,
   DrawerBody,
   Stack,
+  Box,
   Heading,
   Link,
   Text,
@@ -43,10 +44,18 @@ const SideNav = () => {
 
           <DrawerBody>
             <Stack align="center" p={20} spacing={5}>
-              <Heading size="2xl">Orders</Heading>
-              <Link href='/incomingOrders' textDecoration='underline'><Text as='b' fontSize='lg'>Incoming</Text></Link>
-              <Link href='/inProgressOrders' textDecoration='underline'><Text as='b' fontSize='lg'>In Progress</Text></Link>
-              <Link href='/completedOrders' textDecoration='underline'><Text as='b' fontSize='lg'>Completed</Text></Link>
+              <Box textAlign="center">
+            <Heading size="xl">Orders</Heading>
+            </Box>
+              <Link href='/IncomingOrders' textDecoration='underline'><Text as='b' fontSize='m'>Incoming</Text></Link>
+              <Link href='/InProgressOrders' textDecoration='underline'><Text as='b' fontSize='m'>In Progress</Text></Link>
+              <Link href='/completedOrders' textDecoration='underline'><Text as='b' fontSize='m'>Completed</Text></Link>
+              <Box textAlign="center">
+              <Heading size="xl">Employee Account</Heading>
+              </Box>
+              <Link href='/EmployeeAccount' textDecoration='underline'><Text as='b' fontSize='m'>Edit Info</Text></Link>
+             
+         
             </Stack>
           </DrawerBody>
 

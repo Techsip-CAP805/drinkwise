@@ -1,0 +1,203 @@
+[
+    {
+      "employeeID": 1,
+      "firstName": "Jane",
+      "lastName": "Doe",
+      "branchName": "Downtown",
+      "SIN": 123456789,
+      "isAdmin": true,
+      "emailAddress": "jane@example.com",
+      "password": "hashedpassword456"
+    },
+    {
+      "employeeID": 2,
+      "firstName": "John",
+      "lastName": "Smith",
+      "branchName": "Uptown",
+      "SIN": 987654321,
+      "isAdmin": false,
+      "emailAddress": "john@example.com",
+      "password": "hashedpassword789"
+    },
+    {
+      "employeeID": 3,
+      "firstName": "Emily",
+      "lastName": "Johnson",
+      "branchName": "Midtown",
+      "SIN": 456789012,
+      "isAdmin": false,
+      "emailAddress": "emily@example.com",
+      "password": "hashedpasswordabc"
+    },
+    {
+      "employeeID": 4,
+      "firstName": "Michael",
+      "lastName": "Brown",
+      "branchName": "Downtown",
+      "SIN": 789012345,
+      "isAdmin": true,
+      "emailAddress": "michael@example.com",
+      "password": "hashedpassworddef"
+    },
+    {
+      "employeeID": 5,
+      "firstName": "Jessica",
+      "lastName": "Wilson",
+      "branchName": "Uptown",
+      "SIN": 234567890,
+      "isAdmin": false,
+      "emailAddress": "jessica@example.com",
+      "password": "hashedpasswordghi"
+    },
+    {
+      "employeeID": 6,
+      "firstName": "Daniel",
+      "lastName": "Martinez",
+      "branchName": "Midtown",
+      "SIN": 890123456,
+      "isAdmin": false,
+      "emailAddress": "daniel@example.com",
+      "password": "hashedpasswordjkl"
+    },
+    {
+      "employeeID": 7,
+      "firstName": "Sophia",
+      "lastName": "Garcia",
+      "branchName": "Downtown",
+      "SIN": 345678901,
+      "isAdmin": true,
+      "emailAddress": "sophia@example.com",
+      "password": "hashedpasswordmno"
+    },
+    {
+      "employeeID": 8,
+      "firstName": "William",
+      "lastName": "Jones",
+      "branchName": "Uptown",
+      "SIN": 901234567,
+      "isAdmin": false,
+      "emailAddress": "william@example.com",
+      "password": "hashedpasswordpqr"
+    },
+    {
+      "employeeID": 9,
+      "firstName": "Olivia",
+      "lastName": "Lee",
+      "branchName": "Midtown",
+      "SIN": 456789012,
+      "isAdmin": false,
+      "emailAddress": "olivia@example.com",
+      "password": "hashedpasswordstu"
+    },
+    {
+      "employeeID": 10,
+      "firstName": "Ethan",
+      "lastName": "Thompson",
+      "branchName": "Downtown",
+      "SIN": 123450987,
+      "isAdmin": true,
+      "emailAddress": "ethan@example.com",
+      "password": "hashedpasswordvwx"
+    },
+    {
+      "employeeID": 11,
+      "firstName": "Ava",
+      "lastName": "Hernandez",
+      "branchName": "Uptown",
+      "SIN": 890123456,
+      "isAdmin": false,
+      "emailAddress": "ava@example.com",
+      "password": "hashedpasswordyz"
+    },
+    {
+      "employeeID": 12,
+      "firstName": "James",
+      "lastName": "Nguyen",
+      "branchName": "Midtown",
+      "SIN": 567890123,
+      "isAdmin": false,
+      "emailAddress": "james@example.com",
+      "password": "hashedpassword123"
+    },
+    {
+      "employeeID": 13,
+      "firstName": "Sophie",
+      "lastName": "Kim",
+      "branchName": "Downtown",
+      "SIN": 234567890,
+      "isAdmin": true,
+      "emailAddress": "sophie@example.com",
+      "password": "hashedpassword456"
+    },
+    {
+      "employeeID": 14,
+      "firstName": "Logan",
+      "lastName": "Gupta",
+      "branchName": "Uptown",
+      "SIN": 901234567,
+      "isAdmin": false,
+      "emailAddress": "logan@example.com",
+      "password": "hashedpassword789"
+    },
+    {
+      "employeeID": 15,
+      "firstName": "Grace",
+      "lastName": "Chen",
+      "branchName": "Midtown",
+      "SIN": 345678901,
+      "isAdmin": false,
+      "emailAddress": "grace@example.com",
+      "password": "hashedpasswordabc"
+    },
+    {
+      "employeeID": 16,
+      "firstName": "Jackson",
+      "lastName": "Patel",
+      "branchName": "Downtown",
+      "SIN": 789012345,
+      "isAdmin": true,
+      "emailAddress": "jackson@example.com",
+      "password": "hashedpassworddef"
+    },
+    {
+      "employeeID": 17,
+      "firstName": "Madison",
+      "lastName": "Singh",
+      "branchName": "Uptown",
+      "SIN": 234567890,
+      "isAdmin": false,
+      "emailAddress": "madison@example.com",
+      "password": "hashedpasswordghi"
+    },
+    {
+      "employeeID": 18,
+      "firstName": "Jacob",
+      "lastName": "Wong",
+      "branchName": "Midtown",
+      "SIN": 890123456,
+      "isAdmin": false,
+      "emailAddress": "jacob@example.com",
+      "password": "hashedpasswordjkl"
+    },
+    {
+      "employeeID": 19,
+      "firstName": "Charlotte",
+      "lastName": "Rao",
+      "branchName": "Downtown",
+      "SIN": 456789012,
+      "isAdmin": true,
+      "emailAddress": "charlotte@example.com",
+      "password": "hashedpasswordmno"
+    },
+    {
+      "employeeID": 20,
+      "firstName": "Lucas",
+      "lastName": "Ali",
+      "branchName": "Uptown",
+      "SIN": 901234567,
+      "isAdmin": false,
+      "emailAddress": "lucas@example.com",
+      "password": "hashedpasswordpqr"
+    }
+  ]
+  

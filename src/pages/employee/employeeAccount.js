@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Text, Heading, VStack, Card, CardBody, Stack, Container, Flex, Input, Button, HStack, useColorModeValue, } from '@chakra-ui/react';
-import Navbar from "../components/Navbar";
-import SideNav from "../components/SideNav";
-import Footer from "../components/Footer";
-import EditAccountInfo from './EditAccountInfo';
-import employees from '../../data/employees.json';
+import Navbar from "../../components/Navbar";
+import SideNav from "../../components/SideNav";
+import Footer from "../../components/Footer";
+import EditAccountInfo from './editAccountInfo';
+import employees from '../../../data/employees.json';
 
 const EmployeeAccount = () => {
   const [formData, setFormData] = useState(null);

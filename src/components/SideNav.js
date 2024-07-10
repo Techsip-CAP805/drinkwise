@@ -47,13 +47,13 @@ const SideNav = () => {
               <Box textAlign="center">
             <Heading size="xl">Orders</Heading>
             </Box>
-              <Link href='/IncomingOrders' textDecoration='underline'><Text as='b' fontSize='m'>Incoming</Text></Link>
-              <Link href='/InProgressOrders' textDecoration='underline'><Text as='b' fontSize='m'>In Progress</Text></Link>
-              <Link href='/completedOrders' textDecoration='underline'><Text as='b' fontSize='m'>Completed</Text></Link>
+              <Link href='/employee/incomingOrders' textDecoration='underline'><Text as='b' fontSize='m'>Incoming</Text></Link>
+              <Link href='/employee/inProgressOrders' textDecoration='underline'><Text as='b' fontSize='m'>In Progress</Text></Link>
+              <Link href='/employee/completedOrders' textDecoration='underline'><Text as='b' fontSize='m'>Completed</Text></Link>
               <Box textAlign="center">
-              <Heading size="xl">Employee Account</Heading>
+              <Heading size="xl">Account</Heading>
               </Box>
-              <Link href='/EmployeeAccount' textDecoration='underline'><Text as='b' fontSize='m'>Edit Info</Text></Link>
+              <Link href='/employee/employeeAccount' textDecoration='underline'><Text as='b' fontSize='m'>Edit Info</Text></Link>
              
          
             </Stack>

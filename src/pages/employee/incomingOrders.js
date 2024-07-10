@@ -1,8 +1,8 @@
 import React from "react";
-import { useDrinkContext } from "../../context/drinkContext";
-import Navbar from "../components/Navbar";
+import { useDrinkContext } from "../../../context/drinkContext";
+import Navbar from "../../components/Navbar";
 import Footer from "@/components/Footer";
-import SideNav from "../components/SideNav";
+import SideNav from "../../components/SideNav";
 
 import {
     Box,

@@ -6,7 +6,8 @@ export default function Login() {
     <Flex minHeight="100vh" align="center" justify="center" bg="#bcc8c3">
       <Box
         p={10}
-        maxWidth="500px"
+        maxWidth="600px"
+        w={[300,400]}
         borderWidth={1}
         borderRadius={12}
         boxShadow="lg"

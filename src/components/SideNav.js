@@ -32,6 +32,8 @@ const SideNav = () => {
         transform='translateY(-50%)'
         zIndex={1}
         size="lg"
+        borderRadius='0 50% 50% 0'
+        height="50px"
       />
       <Drawer
         isOpen={isOpen}

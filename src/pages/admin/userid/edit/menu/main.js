@@ -1,7 +1,7 @@
 import React, { useContext, useState, useRef } from 'react';
-import { Box, VStack, Heading, Link, Input, Button, Image, HStack, SimpleGrid, Text, IconButton, Container, Card, CardBody } from '@chakra-ui/react';
+import { Box, VStack, Heading, Link, Input, Button, Image, HStack, SimpleGrid, Text, Container, Card, CardBody, Flex } from '@chakra-ui/react';
 import { AddIcon, EditIcon, DeleteIcon } from '@chakra-ui/icons';
-import { useDrinkContext } from '../../../../../context/drinkContext';
+import { useDrinkContext } from '../../../../../../context/drinkContext';
 
 const MainMenu = () => {
   const { drinks, setDrinks } = useDrinkContext();
@@ -55,20 +55,20 @@ const MainMenu = () => {
 
   return (
     <Box bg='#bcc8c3' minH='100vh' p={4}>
-      <HStack spacing={0} alignItems='start'>
-        <VStack align="start" spacing={4} width="200px" h='90vh' p={4} bg='#8fa39b' borderRadius='5px' boxShadow='lg' position='fixed'>
-          <Heading size="md">Drinkwise</Heading>
+      <Flex direction='row' spacing={0} alignItems='start'>
+        <VStack align="start" spacing={4} width="220px" h='90vh' p={4} bg='#8fa39b' borderRadius='5px' boxShadow='lg' position='fixed'>
+          <Heading size="md" mb={4}>Drinkwise</Heading>
           <Link href='/admin/userid/dashboard'>dashboard</Link>
           <Text>Sales</Text>
-          <Link href='/admin/userid/sales' ml={4}>sales overview</Link>
+          <Link href='/admin/userid/sales'>sales overview</Link>
           <Text>Menu</Text>
-          <Link href='/admin/userid/edit/main' ml={4}>edit main menu</Link>
-          <Link href='/admin/userid/edit/order' ml={4}>edit order menu</Link>
+          <Link href='/admin/userid/edit/menu/main'>edit main menu</Link>
+          <Link href='/admin/userid/edit/menu/order'>edit order menu</Link>
           <Text>Locations</Text>
-          <Link href='/admin/userid/locations'>edit locations</Link>
+          <Link href='/admin/userid/edit/locations'>edit locations</Link>
         </VStack>
 
-        <Container w='100vw' minH='100vh' py={10} maxW='6xl'>
+        <Container w='calc(100vw - 260px)' minH='100vh' py={10} maxW='6xl' ml='260px'>
           <VStack spacing={4} alignItems='center' mb={6}>
             <Input
               placeholder='Search drinks...'
@@ -76,25 +76,27 @@ const MainMenu = () => {
               onChange={e => setSearchTerm(e.target.value)}
               bg='white'
               w='70%'
+              boxShadow='md'
             />
             <Box w='70%' bg='white' p={6} borderRadius='md' boxShadow='lg'>
-              <Text fontSize='lg' fontWeight='bold'>Add New Drink</Text>
-              <Input placeholder='Drink Name' ref={drinkNameRef} bg='white' mb={2}/>
-              <Input placeholder='Description' ref={descriptionRef} bg='white' mb={2}/>
-              <Input placeholder='Category' ref={categoryRef} bg='white' mb={2}/>
-              <Input placeholder='Base Price' ref={basePriceRef} bg='white' mb={2}/>
-              <Input placeholder='Image Path' ref={imagePathRef} bg='white' mb={2}/>
-              <Button onClick={handleAddDrink} leftIcon={<AddIcon />} colorScheme='teal'>Add Drink</Button>
+              <Text fontSize='lg' fontWeight='bold' mb={4}>Add New Drink</Text>
+              <Input placeholder='Drink Name' ref={drinkNameRef} bg='white' mb={2} boxShadow='sm'/>
+              <Input placeholder='Description' ref={descriptionRef} bg='white' mb={2} boxShadow='sm'/>
+              <Input placeholder='Category' ref={categoryRef} bg='white' mb={2} boxShadow='sm'/>
+              <Input placeholder='Base Price' ref={basePriceRef} bg='white' mb={2} boxShadow='sm'/>
+              <Input placeholder='Image Path' ref={imagePathRef} bg='white' mb={2} boxShadow='sm'/>
+              <Button onClick={handleAddDrink} leftIcon={<AddIcon />} colorScheme='teal' mt={4}>Add Drink</Button>
             </Box>
             {editingDrink && (
               <Box w='70%' bg='white' p={6} borderRadius='md' boxShadow='lg'>
-                <Text fontSize='lg' fontWeight='bold'>Edit Drink</Text>
+                <Text fontSize='lg' fontWeight='bold' mb={4}>Edit Drink</Text>
                 <Input
                   placeholder='Drink Name'
                   value={editingDrink.drinkName}
                   onChange={e => setEditingDrink({ ...editingDrink, drinkName: e.target.value })}
                   bg='white'
                   mb={2}
+                  boxShadow='sm'
                 />
                 <Input
                   placeholder='Description'
@@ -102,6 +104,7 @@ const MainMenu = () => {
                   onChange={e => setEditingDrink({ ...editingDrink, description: e.target.value })}
                   bg='white'
                   mb={2}
+                  boxShadow='sm'
                 />
                 <Input
                   placeholder='Category'
@@ -109,6 +112,7 @@ const MainMenu = () => {
                   onChange={e => setEditingDrink({ ...editingDrink, category: e.target.value })}
                   bg='white'
                   mb={2}
+                  boxShadow='sm'
                 />
                 <Input
                   placeholder='Base Price'
@@ -116,6 +120,7 @@ const MainMenu = () => {
                   onChange={e => setEditingDrink({ ...editingDrink, basePrice: parseFloat(e.target.value) })}
                   bg='white'
                   mb={2}
+                  boxShadow='sm'
                 />
                 <Input
                   placeholder='Image Path'
@@ -123,23 +128,24 @@ const MainMenu = () => {
                   onChange={e => setEditingDrink({ ...editingDrink, imagePath: e.target.value })}
                   bg='white'
                   mb={2}
+                  boxShadow='sm'
                 />
-                <Button onClick={handleUpdateDrink} leftIcon={<EditIcon />} colorScheme='blue'>Update Drink</Button>
+                <Button onClick={handleUpdateDrink} leftIcon={<EditIcon />} colorScheme='blue' mt={4}>Update Drink</Button>
               </Box>
             )}
           </VStack>
           <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={10} mt={10}>
             {filteredDrinks.map((drink) => (
-              <Card key={drink.drinkID}>
+              <Card key={drink.drinkID} boxShadow='md'>
                 <CardBody>
-                  <Image src={drink.imagePath} alt={drink.drinkName} boxSize='200px' mb={4}/>
-                  <Text fontSize='lg' fontWeight='bold'>{drink.drinkName}</Text>
+                  <Image src={drink.imagePath} alt={drink.drinkName} boxSize='150px' objectFit='cover' mb={4}/>
+                  <Text fontSize='lg' fontWeight='bold' mb={2}>{drink.drinkName}</Text>
                   <Text>ID: {drink.drinkID}</Text>
                   <Text>{drink.description}</Text>
                   <Text>Category: {drink.category}</Text>
                   <Text>Base Price: ${drink.basePrice.toFixed(2)}</Text>
                   <HStack spacing={4} mt={4}>
-                    <Button onClick={() => handleEditDrink(drink)} leftIcon={<EditIcon />}>Edit</Button>
+                    <Button onClick={() => handleEditDrink(drink)} leftIcon={<EditIcon />} colorScheme='blue'>Edit</Button>
                     <Button onClick={() => handleDeleteDrink(drink.drinkID)} leftIcon={<DeleteIcon />} colorScheme='red'>Delete</Button>
                   </HStack>
                 </CardBody>
@@ -147,7 +153,7 @@ const MainMenu = () => {
             ))}
           </SimpleGrid>
         </Container>
-      </HStack>
+      </Flex>
     </Box>
   );
 };

@@ -40,10 +40,10 @@ import {
             <Text>Sales</Text>
             <Link href='/admin/userid/sales' ml={4}>sales overview</Link>
             <Text>Menu</Text>
-            <Link href='/admin/userid/edit/main' ml={4}>edit main menu</Link>
-            <Link href='/admin/userid/edit/order' ml={4}>edit order menu</Link>
-            <Text>Locations</Text>
-            <Link href='/admin/userid/locations'>edit locations</Link>
+            <Link href='/admin/userid/edit/menu/main' ml={4}>edit main menu</Link>
+          <Link href='/admin/userid/edit/menu/order' ml={4}>edit order menu</Link>
+          <Text>Locations</Text>
+          <Link href='/admin/userid/edit/locations'>edit locations</Link>
           </VStack>
           <Box flex="1" p={4}>
             <Heading>Dashboard</Heading>

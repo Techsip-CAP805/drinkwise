@@ -13,6 +13,7 @@ import {
     VStack,
   } from '@chakra-ui/react';
   import { Line } from 'react-chartjs-2';
+  import Link from 'next/link';
   import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
   
   ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
@@ -31,19 +32,18 @@ import {
   
   export default function Dashboard() {
     return (
-      <Flex direction="column" minHeight="100vh" bg="#bcc8c3" p={4}>
+      <Flex direction="column" minHeight="100vh" bg="#a8b8b1" p={4}>
         <Flex>
-          <VStack align="start" spacing={4} width="200px" p={4}>
+          <VStack align="start" spacing={4} width="200px" p={4} bg='#8fa39b' borderRadius='5px' boxShadow='lg'>
             <Heading size="md">Drinkwise</Heading>
-            <Text>dashboard</Text>
-            <Text>locations</Text>
+            <Link href='/admin/userid/dashboard'>dashboard</Link>
             <Text>Sales</Text>
-            <Text ml={4}>sales overview</Text>
+            <Link href='/admin/userid/sales' ml={4}>sales overview</Link>
             <Text>Menu</Text>
-            <Text ml={4}>edit main menu</Text>
-            <Text ml={4}>edit order menu</Text>
-            <Text>Locations</Text>
-            <Text ml={4}>add location</Text>
+            <Link href='/admin/userid/edit/menu/main' ml={4}>edit main menu</Link>
+          <Link href='/admin/userid/edit/menu/order' ml={4}>edit order menu</Link>
+          <Text>Locations</Text>
+          <Link href='/admin/userid/edit/locations'>edit locations</Link>
           </VStack>
           <Box flex="1" p={4}>
             <Heading>Dashboard</Heading>

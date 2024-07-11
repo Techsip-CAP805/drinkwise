@@ -12,7 +12,7 @@ const menu = () => {
   const handleShowClick = () => setShowPassword(!showPassword);
 
   return (
-    <Box bg='gray.200'>
+    <Box bg='#bcc8c3'>
     <Navbar/>
     <Container w='100vw' h='100vh' maxH='100vh' maxW='7xl'>
     {/* <Flex direction='row'  w='100%' h='100%' justify='center' align='center' pb={40}> */}
@@ -37,13 +37,13 @@ const menu = () => {
             <Stack
               spacing={4}
               p="3rem"
-              backgroundColor="whiteAlpha.900"
+              backgroundColor="#a0b2ab"
               boxShadow="md"
               borderRadius='2em'
             >
               <FormControl>
                 <InputGroup>
-                  <Input type="email" placeholder="you@domain.com" />
+                  <Input type="email" placeholder="you@domain.com" backgroundColor="whiteAlpha.900" />
                 </InputGroup>
               </FormControl>
               <FormControl>
@@ -51,6 +51,7 @@ const menu = () => {
                   <Input
                     type={showPassword ? "text" : "password"}
                     placeholder="Password"
+                    backgroundColor="whiteAlpha.900" 
                   />
                   <InputRightElement width="4.5rem">
                     <Button h="1.75rem" size="sm" onClick={handleShowClick}>
@@ -59,7 +60,7 @@ const menu = () => {
                   </InputRightElement>
                 </InputGroup>
                 <FormHelperText textAlign="right">
-                  <Link _hover={{color:'tomato'}}>forgot password?</Link>
+                  <Link _hover={{color:'teal'}}>forgot password?</Link>
                 </FormHelperText>
               </FormControl>
               <Button
@@ -68,7 +69,7 @@ const menu = () => {
                 variant="solid"
                 // colorScheme="teal"
                 width="full"
-                _hover={{bg:'tomato'}}
+                _hover={{bg:'teal'}}
               >
                 Login
               </Button>
@@ -78,7 +79,7 @@ const menu = () => {
       </Stack>
       <Box>
         New to us?{" "}
-        <Link href="#" _hover={{color:'tomato'}}> Sign Up </Link>
+        <Link href="#" _hover={{color:'teal'}}> Sign Up </Link>
       </Box>
     </Flex>
     <Footer/>

@@ -5,7 +5,7 @@ import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 // import { FaUserAlt, FaLock } from "react-icons/fa";
 
-const login = () => {
+const Login = () => {
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -100,4 +100,4 @@ const login = () => {
   )
 }
 
-export default login
+export default Login

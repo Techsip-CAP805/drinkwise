@@ -3,6 +3,7 @@ import { createContext, useContext, useState } from 'react';
 const drinkData = require('../data/drinkData.json');
 const locationData = require('../data/locationData.json');
 const customerData = require('../data/customerData.json');
+const ingredientsData = require('../data/ingredientsData.json');
 
 
 const DrinkContext = createContext();
@@ -17,6 +18,7 @@ const DrinkProvider = ({ children }) => {
   const [locations, setLocations] = useState(locationData);
   const [drinks, setDrinks] = useState(drinkData);
   const [customers, setCustomers] = useState(customerData);
+  const [ingredients, setIngredients] = useState(ingredientsData);
 
   const drinkContextObject = {
     locations,
@@ -24,7 +26,9 @@ const DrinkProvider = ({ children }) => {
     drinks,
     setDrinks,
     customers,
-    setCustomers
+    setCustomers,
+    ingredients,
+    setIngredients
   }
 
   return (

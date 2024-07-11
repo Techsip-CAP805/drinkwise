@@ -52,7 +52,7 @@ const SideNav = () => {
               <Link href='/employee/completedOrders' textDecoration='underline'><Text as='b' fontSize='m'>Completed</Text></Link>
               <Heading size="xl">Menu</Heading>
               <Link href='/employee/editMenu' textDecoration='underline'><Text as='b' fontSize='m'>Edit Menu</Text></Link>
-
+              <Link href='/employee/ingredients' textDecoration='underline'><Text as='b' fontSize='m'>Ingredients</Text></Link>
               <Heading size="xl">Account</Heading>
               <Link href='/employee/employeeAccount' textDecoration='underline'><Text as='b' fontSize='m'>Edit Info</Text></Link>
 

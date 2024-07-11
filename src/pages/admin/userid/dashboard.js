@@ -15,6 +15,7 @@ import {
   import { Line } from 'react-chartjs-2';
   import Link from 'next/link';
   import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
+import { useDrinkContext } from '../../../../context/drinkContext';
   
   ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
   
@@ -31,6 +32,9 @@ import {
   };
   
   export default function Dashboard() {
+
+    const {locations} = useDrinkContext();
+
     return (
       <Flex direction="column" minHeight="100vh" bg="#a8b8b1" p={4}>
         <Flex>
@@ -70,10 +74,10 @@ import {
             </Box>
           </Box>
           <Box p={4} bg="white" borderRadius="md" shadow="md" width="200px">
-            <Heading size="md">Location earning</Heading>
-            <Text mt={4}>Location 1</Text>
-            <Text mt={4}>Location 2</Text>
-            <Text mt={4}>Location 3</Text>
+          <Heading size="md" mb={1}>Location earning</Heading>
+            {locations.map((location)=> (
+              <Text mt={2} key={location.id}>{location.name}</Text>
+            ))}
           </Box>
         </Flex>
       </Flex>

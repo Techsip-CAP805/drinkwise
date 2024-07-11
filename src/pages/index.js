@@ -66,9 +66,9 @@ const Home = () => {
             </VStack>
           </SimpleGrid>
           <VStack w='100%' minH='100vh' pt={24}>
-          <Text fontSize='xl' color='white' as='b'>First time and can&#39;t decide? </Text>
+          <Text fontSize='xl' as='b'>First time and can&#39;t decide?</Text>
           <Text fontSize='lg'>Checkout our recommendation tool!</Text>
-          <Box bg='#93a39d' h='40vh' w='100%' textAlign='center'>Carousel here</Box>
+          <Box bg='#93a39d' h='40vh' w='100%' textAlign='center' pt={40}>Carousel here</Box>
           <IconButton
               aria-label='Scroll down'
               icon={<ArrowDownIcon />}

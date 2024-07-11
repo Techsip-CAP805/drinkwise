@@ -1,5 +1,6 @@
 // pages/login.js
-import { Flex, Box, Heading, Input, Button, Stack } from '@chakra-ui/react';
+import { Flex, Box, Heading, Input, Button, Stack, Text} from '@chakra-ui/react';
+import Link from 'next/link';
 
 export default function Login() {
   return (
@@ -46,26 +47,7 @@ export default function Login() {
             </Stack>
           </form>
         </Box>
-        <Flex mt={4} justifyContent="space-around">
-          <Button
-            bg="white"
-            border="1px"
-            borderColor="gray.200"
-            borderRadius="full"
-            p={2}
-          >
-            F
-          </Button>
-          <Button
-            bg="white"
-            border="1px"
-            borderColor="gray.200"
-            borderRadius="full"
-            p={2}
-          >
-            G
-          </Button>
-        </Flex>
+        <Link href='/admin/resetpass'><Text as='u'>Reset Password</Text></Link>
       </Box>
     </Flex>
   );

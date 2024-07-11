@@ -1,5 +1,5 @@
 import React, { useContext, useRef, useState } from 'react';
-import { Box, Container, SimpleGrid, Card, CardBody, Image, Text, VStack, Input, Select, HStack, Button, IconButton, Heading, Flex} from '@chakra-ui/react';
+import { Box, Container, SimpleGrid, Card, CardBody, Image, Text, VStack, Input, Select, HStack, Button, IconButton, Heading, Flex, Spacer} from '@chakra-ui/react';
 import { AddIcon, EditIcon, DeleteIcon } from '@chakra-ui/icons';
 import { useDrinkContext } from '../../../../../context/drinkContext';
 import Link from 'next/link';
@@ -56,9 +56,8 @@ const Locations = () => {
 
   return (
     <Box bg='#bcc8c3' minH='100vh'>
-      <Flex direction='row' spacing={0} alignItems='start'>
-        <VStack align="start" spacing={4} width="220px" p={4} mt={4} ml={4} h='90vh' bg='#8fa39b' borderRadius='5px' boxShadow='lg' position='fixed'>
-          <Heading size="md" mb={4}>Drinkwise</Heading>
+        <VStack align="start" spacing={4} width='12vw' p={4} mt={4} ml={4} h='90vh' bg='#8fa39b' borderRadius='5px' boxShadow='lg' position='fixed'>
+          <Heading size="md">Drinkwise</Heading>
           <Link href='/admin/userid/dashboard'>dashboard</Link>
           <Text>Sales</Text>
           <Link href='/admin/userid/sales' ml={4}>sales overview</Link>
@@ -68,8 +67,7 @@ const Locations = () => {
           <Text>Locations</Text>
           <Link href='/admin/userid/edit/locations'>edit locations</Link>
         </VStack>
-
-        <Container w='calc(100vw - 240px)' minH='100vh' py={10} maxW='6xl' ml='240px'>
+        <Container w='calc(100vw - 240px)' minH='100vh' py={10} maxW='6xl'  centerContent >
           <VStack spacing={4} alignItems='center' mb={6}>
             <Input
               placeholder='Search locations...'
@@ -80,7 +78,7 @@ const Locations = () => {
               boxShadow='md'
             />
             <HStack spacing={4} w='70%'>
-              <Text>Sort by:</Text>
+              <Text w='15%'>Sort by:</Text>
               <Select value={sortBy} onChange={e => setSortBy(e.target.value)} bg='white' boxShadow='md'>
                 <option value='name'>Name</option>
                 <option value='operatingHour'>Operating Hour</option>
@@ -170,7 +168,6 @@ const Locations = () => {
             ))}
           </SimpleGrid>
         </Container>
-      </Flex>
     </Box>
   );
 };

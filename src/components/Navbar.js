@@ -8,7 +8,7 @@ const Navbar = () => {
   return (
     <Box
       w='100%'
-      h='10vh'
+      h={24}
       boxShadow='lg'
       color='white'
       display='flex'
@@ -39,11 +39,10 @@ const Navbar = () => {
           display={{ base: 'none', lg: 'flex' }}
           spacing={4}
         >
-          <Link href='/employee/login' mx={2}><Text as='b' fontSize='md'>Employee</Text></Link>
-          <Link href='/menu' mx={2}><Text as='b' fontSize='md'>Menu</Text></Link>
-          <Link href='/locations' mx={2}><Text as='b' fontSize='md'>Locations</Text></Link>
-          <Link href='/order/search-location' mx={2}><Text as='b' fontSize='md'>Order Online</Text></Link>
-          <Link href='/contact' mx={2}><Text as='b' fontSize='md'>Contact Us</Text></Link>
+          <Link href='/menu' mx={2}><Text as='b' fontSize={['md', 'lg']}>Menu</Text></Link>
+          <Link href='/locations' mx={2}><Text as='b' fontSize={['md', 'lg']}>Locations</Text></Link>
+          <Link href='/order/search-location' mx={2}><Text as='b' fontSize={['md', 'lg']}>Order Online</Text></Link>
+          <Link href='/contact' mx={2}><Text as='b' fontSize={['md', 'lg']}>Contact Us</Text></Link>
         </Flex>
         <IconButton
           aria-label={isOpen ? 'Close menu' : 'Open menu'}

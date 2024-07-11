@@ -18,11 +18,11 @@ const OrderMenu = () => {
 
   return (
     <Box bg='#bcc8c3' minH='100vh' display='flex'>
-      <VStack align="start" spacing={4} width="200px" p={4} bg='#8fa39b' borderRadius='5px' boxShadow='lg' ml={4} mt={4}>
+      <VStack align="start" spacing={4} width='12vw' p={4} bg='#8fa39b' borderRadius='5px' boxShadow='lg' ml={4} mt={4}>
         <Heading size="md">Drinkwise</Heading>
         <Link href='/admin/userid/dashboard'>dashboard</Link>
         <Text>Sales</Text>
-        <Link href='/admin/userid/sales' ml={4}>sales overview</Link>
+        <Link href='/admin/userid/sales'>sales overview</Link>
         <Text>Menu</Text>
         <Link href='/admin/userid/edit/menu/main'>edit main menu</Link>
         <Link href='/admin/userid/edit/menu/order'>edit order menu</Link>

@@ -67,7 +67,7 @@ const Home = () => {
           </SimpleGrid>
           <VStack w='100%' minH='100vh' pt={24}>
           <Text fontSize='xl' color='white' as='b'>First time and can&#39;t decide? </Text>
-          <Text fontsize='lg'>Checkout our recommendation tool!</Text>
+          <Text fontSize='lg'>Checkout our recommendation tool!</Text>
           <Box bg='#93a39d' h='40vh' w='100%' textAlign='center'>Carousel here</Box>
           <IconButton
               aria-label='Scroll down'

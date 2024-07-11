@@ -34,7 +34,7 @@ import {
     return (
       <Flex direction="column" minHeight="100vh" bg="#a8b8b1" p={4}>
         <Flex>
-          <VStack align="start" spacing={4} width="200px" p={4} bg='#8fa39b' borderRadius='5px' boxShadow='lg'>
+          <VStack align="start" spacing={4} width='12vw' p={4} bg='#8fa39b' borderRadius='5px' boxShadow='lg'>
             <Heading size="md">Drinkwise</Heading>
             <Link href='/admin/userid/dashboard'>dashboard</Link>
             <Text>Sales</Text>

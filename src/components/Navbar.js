@@ -35,10 +35,11 @@ const Navbar = () => {
           justify='space-around'
           align='center'
           h='100%'
-          w='30%'
+          w='40%'
           display={{ base: 'none', lg: 'flex' }}
           spacing={4}
         >
+          <Link href='/employee/login' mx={2}><Text as='b' fontSize='md'>Employee</Text></Link>
           <Link href='/menu' mx={2}><Text as='b' fontSize='md'>Menu</Text></Link>
           <Link href='/locations' mx={2}><Text as='b' fontSize='md'>Locations</Text></Link>
           <Link href='/order/search-location' mx={2}><Text as='b' fontSize='md'>Order Online</Text></Link>

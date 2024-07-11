@@ -1,0 +1,318 @@
+[{
+    "_id": {
+      "$oid": "6675d5905ed2207408afdcb2"
+    },
+    "ingredientName": "Black tea",
+    "description": "Black tea",
+    "imagePath": "/images/ingredients/black_tea.png"
+  },
+  {
+    "_id": {
+      "$oid": "6675d5905ed2207408afdcb3"
+    },
+    "ingredientName": "Milk",
+    "description": "Fresh milk",
+    "imagePath": "/images/ingredients/milk.png"
+  },
+  {
+    "_id": {
+      "$oid": "6675d5905ed2207408afdcb4"
+    },
+    "ingredientName": "Tapioca pearls",
+    "description": "Pearls made out of tapioca and sugar",
+    "price": 0.7,
+    "imagePath": "/images/ingredients/tapioca_pearls.png"
+  },
+
+  {
+    "_id": {
+      "$oid": "6675d5905ed2207408afdcb7"
+    },
+    "ingredientName": "Black or green tea",
+    "description": "",
+    "imagePath": "/images/ingredients/bg_tea.png"
+  },
+  {
+    "_id": {
+      "$oid": "6675d5905ed2207408afdcb8"
+    },
+    "ingredientName": "Matcha powder",
+    "description": "Powder from dried green tea leaves",
+    "imagePath": "/images/ingredients/matcha_powder.png"
+  },
+  {
+    "_id": {
+      "$oid": "6675d5905ed2207408afdcbb"
+    },
+    "ingredientName": "Sugar",
+    "description": "Sweetener",
+    "imagePath": "/images/ingredients/sugar.png"
+  },
+  {
+    "_id": {
+      "$oid": "6675d5905ed2207408afdcbc"
+    },
+    "ingredientName": "Jasmine tea",
+    "description": "",
+    "imagePath": "/images/ingredients/jasmine_tea.png"
+  },
+  {
+    "_id": {
+      "$oid": "6675d5905ed2207408afdcbf"
+    },
+    "ingredientName": "Almond powder or syrup",
+    "description": "",
+    "imagePath": "/images/ingredients/almond_powder.png"
+  },
+  {
+    "_id": {
+      "$oid": "6675d5905ed2207408afdcc1"
+    },
+    "ingredientName": "Oolong tea",
+    "description": "",
+    "imagePath": "/images/ingredients/oolong_tea.png"
+  },
+  {
+    "_id": {
+      "$oid": "6675d5905ed2207408afdcc2"
+    },
+    "ingredientName": "Brown sugar syrup",
+    "description": "Syrup from muscovado sugar",
+    "imagePath": "/images/ingredients/brown_sugar_syrup.png"
+  },
+
+  {
+    "_id": {
+      "$oid": "6675d5905ed2207408afdcc5"
+    },
+    "ingredientName": "Coffee",
+    "description": "",
+    "imagePath": "/images/ingredients/coffee.png"
+  },
+
+  {
+    "_id": {
+      "$oid": "6675d5905ed2207408afdcc8"
+    },
+    "ingredientName": "Cocoa powder",
+    "description": "",
+    "imagePath": "/images/ingredients/cocoa_powder.png"
+  },
+  {
+    "_id": {
+      "$oid": "6675d5905ed2207408afdcca"
+    },
+    "ingredientName": "Caramel syrup",
+    "description": "",
+    "imagePath": "/images/ingredients/caramel_syrup.png"
+  },
+  {
+    "_id": {
+      "$oid": "6675d5905ed2207408afdccc"
+    },
+    "ingredientName": "Avocado puree",
+    "description": "",
+    "imagePath": "/images/ingredients/avocado_puree.png"
+  },
+  {
+    "_id": {
+      "$oid": "6675d5905ed2207408afdcce"
+    },
+    "ingredientName": "Water",
+    "description": "",
+    "imagePath": "/images/ingredients/water.png"
+  },
+  {
+    "_id": {
+      "$oid": "6675d5905ed2207408afdcd0"
+    },
+    "ingredientName": "Black tea leaves",
+    "description": "",
+    "imagePath": "/images/ingredients/black_tea_leaves.png"
+  },
+  {
+    "_id": {
+      "$oid": "6675d5905ed2207408afdcd4"
+    },
+    "ingredientName": "Green tea",
+    "description": "",
+    "imagePath": "/images/ingredients/green_tea.png"
+  },
+  {
+    "_id": {
+      "$oid": "6675d5905ed2207408afdcd5"
+    },
+    "ingredientName": "Ice",
+    "description": "",
+    "imagePath": "/images/ingredients/ice.png"
+  },
+  {
+    "_id": {
+      "$oid": "6675d5905ed2207408afdcd6"
+    },
+    "ingredientName": "Mango syrup",
+    "description": "",
+    "imagePath": "/images/ingredients/mango_syrup.png"
+  },
+  {
+    "_id": {
+      "$oid": "6675d5905ed2207408afdcd7"
+    },
+    "ingredientName": "Lychee syrup",
+    "description": "",
+    "imagePath": "/images/ingredients/lychee_syrup.png"
+  },
+  {
+    "_id": {
+      "$oid": "6675d5905ed2207408afdcd9"
+    },
+    "ingredientName": "Grapefruit syrup",
+    "description": "",
+    "imagePath": "/images/ingredients/grapefruit_syrup.png"
+  },
+  {
+    "_id": {
+      "$oid": "6675d5905ed2207408afdcdb"
+    },
+    "ingredientName": "Honey",
+    "description": "",
+    "imagePath": "/images/ingredients/honey.png"
+  },
+  {
+    "_id": {
+      "$oid": "6675d5905ed2207408afdcdc"
+    },
+    "ingredientName": "Kumquat syrup",
+    "description": "",
+    "imagePath": "/images/ingredients/kumquat_syrup.png"
+  },
+  {
+    "_id": {
+      "$oid": "6675d5905ed2207408afdcde"
+    },
+    "ingredientName": "Kiwi syrup",
+    "description": "",
+    "imagePath": "/images/ingredients/kiwi_syrup.png"
+  },
+  {
+    "_id": {
+      "$oid": "6675d5905ed2207408afdcdf"
+    },
+    "ingredientName": "Blueberry syrup",
+    "description": "",
+    "imagePath": "/images/ingredients/blueberry_syrup.png"
+  },
+  {
+    "_id": {
+      "$oid": "6675d5905ed2207408afdce4"
+    },
+    "ingredientName": "Cheese foam",
+    "description": "",
+    "price": 2,
+    "imagePath": "/images/ingredients/cheese_foam.png"
+  },
+  {
+    "_id": {
+      "$oid": "6675d5905ed2207408afdce5"
+    },
+    "ingredientName": "Yakult",
+    "description": "",
+    "imagePath": "/images/ingredients/yakult.png"
+  },
+  {
+    "_id": {
+      "$oid": "6675d5905ed2207408afdcec"
+    },
+    "ingredientName": "Chia seeds",
+    "description": "",
+    "price": 1.1,
+    "imagePath": "/images/ingredients/chia_seeds.png"
+  },
+  {
+    "_id": {
+      "$oid": "6675d5905ed2207408afdcf1"
+    },
+    "ingredientName": "Cold water",
+    "description": "",
+    "imagePath": "/images/ingredients/cold_water.png"
+  },
+  {
+    "_id": {
+      "$oid": "6675d5905ed2207408afdcf2"
+    },
+    "ingredientName": "Lemon juice",
+    "description": "",
+    "imagePath": "/images/ingredients/lemon_juice.png"
+  },
+  {
+    "_id": {
+      "$oid": "6675d5905ed2207408afdcf5"
+    },
+    "ingredientName": "Sago",
+    "description": "",
+    "price": 0.7,
+    "imagePath": "/images/ingredients/sago.png"
+  },
+  {
+    "_id": {
+      "$oid": "6675d5905ed2207408afdcf6"
+    },
+    "ingredientName": "Mango popping boba",
+    "description": "",
+    "price": 1.1,
+    "imagePath": "/images/ingredients/mango_popping_boba.png"
+  },
+  {
+    "_id": {
+      "$oid": "6675d5905ed2207408afdcf9"
+    },
+    "ingredientName": "Grass jelly",
+    "description": "",
+    "price": 0.7,
+    "imagePath": "/images/ingredients/grass_jelly.png"
+  },
+  {
+    "_id": {
+      "$oid": "6675d5905ed2207408afdcfa"
+    },
+    "ingredientName": "Aloe vera",
+    "description": "",
+    "price": 0.7,
+    "imagePath": "/images/ingredients/aloe_vera.png"
+  },
+  {
+    "_id": {
+      "$oid": "6675d5905ed2207408afdcfb"
+    },
+    "ingredientName": "Coconut jelly",
+    "description": "",
+    "price": 1.1,
+    "imagePath": "/images/ingredients/coconut_jelly.png"
+  },
+  {
+    "_id": {
+      "$oid": "6675d5905ed2207408afdcfc"
+    },
+    "ingredientName": "Red bean",
+    "description": "",
+    "price": 0.7,
+    "imagePath": "/images/ingredients/red_bean.png"
+  },
+  {
+    "_id": {
+      "$oid": "6675d5905ed2207408afdcfd"
+    },
+    "ingredientName": "Pudding",
+    "description": "",
+    "price": 1.1,
+    "imagePath": "/images/ingredients/pudding.png"
+  },
+  {
+    "_id": {
+      "$oid": "6675d5905ed2207408afdcfe"
+    },
+    "ingredientName": "Mango chunks",
+    "description": "",
+    "price": 1.2,
+    "imagePath": "/images/ingredients/mango_chunks.png"
+  }]

@@ -1,0 +1,1386 @@
+[{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8b0"
+  },
+  "username": "john_doe",
+  "customerName": "John Doe",
+  "emailAddress": "john@example.com",
+  "password": "hashedpassword123",
+  "preferredBranch": "downtown",
+  "accountCreationDate": "2023-01-01T00:00:00.000Z",
+  "orders": [
+    {
+      "orderID": "dsfasdf123",
+      "orderDate": "2023-03-10T14:45:00.000Z",
+      "items": [
+        {
+          "itemName": "Latte",
+          "quantity": 2
+        },
+        {
+          "itemName": "Croissant",
+          "quantity": 1
+        }
+      ],
+      "totalAmount": 12.5,
+      "orderStatus":"inProgress"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8b1"
+  },
+  "username": "jane_smith",
+  "customerName": "Jane Smith",
+  "emailAddress": "jane@example.com",
+  "password": "hashedpassword456",
+  "preferredBranch": "richmonhill_yonge",
+  "accountCreationDate": "2023-02-15T08:30:00.000Z",
+  "orders": [
+    {
+      "orderID": "abcd1234",
+      "orderDate": "2023-03-10T14:45:00.000Z",
+      "items": [
+        {
+          "itemName": "Latte",
+          "quantity": 2
+        },
+        {
+          "itemName": "Croissant",
+          "quantity": 1
+        }
+      ],
+      "totalAmount": 12.5,
+      "orderStatus":"pending"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8b2"
+  },
+  "username": "mike_jones",
+  "customerName": "Mike Jones",
+  "emailAddress": "mike@example.com",
+  "password": "hashedpassword789",
+  "preferredBranch": "downtown",
+  "accountCreationDate": "2023-04-20T11:00:00.000Z",
+  "orders": [
+    {
+      "orderID": "efgh5678",
+      "orderDate": "2023-05-05T09:30:00.000Z",
+      "items": [
+        {
+          "itemName": "Espresso",
+          "quantity": 1
+        },
+        {
+          "itemName": "Blueberry Muffin",
+          "quantity": 2
+        }
+      ],
+      "totalAmount": 8.75,
+      "orderStatus":"pending"
+    },
+    {
+      "orderID": "ijkl9012",
+      "orderDate": "2023-06-15T16:20:00.000Z",
+      "items": [
+        {
+          "itemName": "Cappuccino",
+          "quantity": 1
+        },
+        {
+          "itemName": "Chocolate Chip Cookie",
+          "quantity": 3
+        }
+      ],
+      "totalAmount": 11.2,
+      "orderStatus":"pending"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8b3"
+  },
+  "username": "sarah_brown",
+  "customerName": "Sarah Brown",
+  "emailAddress": "sarah@example.com",
+  "password": "hashedpasswordabc",
+  "preferredBranch": "unionville",
+  "accountCreationDate": "2023-07-03T17:45:00.000Z",
+  "orders": [
+    {
+      "orderID": "yurdh4562",
+      "orderDate": "2023-09-20T10:00:00.000Z",
+      "items": [
+        {
+          "itemName": "Green Tea",
+          "quantity": 1
+        },
+        {
+          "itemName": "Bagel",
+          "quantity": 1
+        }
+      ],
+      "totalAmount": 7.8,
+      "orderStatus":"completed"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8b4"
+  },
+  "username": "david_wilson",
+  "customerName": "David Wilson",
+  "emailAddress": "david@example.com",
+  "password": "hashedpassworddef",
+  "preferredBranch": "downtown",
+  "accountCreationDate": "2023-08-11T13:15:00.000Z",
+  "orders": [
+    {
+      "orderID": "mnop3456",
+      "orderDate": "2023-09-20T10:00:00.000Z",
+      "items": [
+        {
+          "itemName": "Green Tea",
+          "quantity": 1
+        },
+        {
+          "itemName": "Bagel",
+          "quantity": 1
+        }
+      ],
+      "totalAmount": 7.8,
+      "orderStatus":"pending"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8b5"
+  },
+  "username": "emily_thompson",
+  "customerName": "Emily Thompson",
+  "emailAddress": "emily@example.com",
+  "password": "hashedpasswordegf",
+  "preferredBranch": "richmonhill_yonge",
+  "accountCreationDate": "2023-10-05T09:00:00.000Z",
+  "orders": [
+    {
+      "orderID": "qrst5679",
+      "orderDate": "2023-11-15T14:30:00.000Z",
+      "items": [
+        {
+          "itemName": "Chai Latte",
+          "quantity": 1
+        },
+        {
+          "itemName": "Cinnamon Roll",
+          "quantity": 2
+        }
+      ],
+      "totalAmount": 10.5,
+      "orderStatus":"pending"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8b6"
+  },
+  "username": "alex_rodriguez",
+  "customerName": "Alex Rodriguez",
+  "emailAddress": "alex@example.com",
+  "password": "hashedpasswordxyz",
+  "preferredBranch": "kingwest_toronto",
+  "accountCreationDate": "2023-12-01T11:30:00.000Z",
+  "orders": [
+    {
+      "orderID": "awjhrg345",
+      "orderDate": "2023-04-10T14:45:00.000Z",
+      "items": [
+        {
+          "itemName": "Latte",
+          "quantity": 2
+        },
+        {
+          "itemName": "Croissant",
+          "quantity": 1
+        }
+      ],
+      "totalAmount": 12.5,
+      "orderStatus":"inProgress"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8b7"
+  },
+  "username": "lisa_garcia",
+  "customerName": "Lisa Garcia",
+  "emailAddress": "lisa@example.com",
+  "password": "hashedpasswordlmn",
+  "preferredBranch": "downtown",
+  "accountCreationDate": "2024-01-10T08:00:00.000Z",
+  "orders": [
+    {
+      "orderID": "qrst1234",
+      "orderDate": "2024-02-20T12:00:00.000Z",
+      "items": [
+        {
+          "itemName": "Hot Chocolate",
+          "quantity": 1
+        },
+        {
+          "itemName": "Blueberry Scone",
+          "quantity": 1
+        }
+      ],
+      "totalAmount": 6.9,
+      "orderStatus":"pending"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8b8"
+  },
+  "username": "mark_jackson",
+  "customerName": "Mark Jackson",
+  "emailAddress": "mark@example.com",
+  "password": "hashedpassword123",
+  "preferredBranch": "richmonhill_yonge",
+  "accountCreationDate": "2024-03-15T15:30:00.000Z",
+  "orders": [
+    {
+      "orderID": "tufkdfgn1234",
+      "orderDate": "2023-12-20T10:00:00.000Z",
+      "items": [
+        {
+          "itemName": "Green Tea",
+          "quantity": 1
+        },
+        {
+          "itemName": "Bagel",
+          "quantity": 1
+        }
+      ],
+      "totalAmount": 7.8,
+      "orderStatus":"completed"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8b9"
+  },
+  "username": "hannah_taylor",
+  "customerName": "Hannah Taylor",
+  "emailAddress": "hannah@example.com",
+  "password": "hashedpassword456",
+  "preferredBranch": "kingwest_toronto",
+  "accountCreationDate": "2024-04-02T09:45:00.000Z",
+  "orders": [
+    {
+      "orderID": "arydfg543434",
+      "orderDate": "2024-01-20T10:00:00.000Z",
+      "items": [
+        {
+          "itemName": "Green Tea",
+          "quantity": 1
+        },
+        {
+          "itemName": "Bagel",
+          "quantity": 1
+        }
+      ],
+      "totalAmount": 7.8,
+      "orderStatus":"completed"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8ba"
+  },
+  "username": "peter_anderson",
+  "customerName": "Peter Anderson",
+  "emailAddress": "peter@example.com",
+  "password": "hashedpassword789",
+  "preferredBranch": "downtown",
+  "accountCreationDate": "2024-05-12T11:00:00.000Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8bb"
+  },
+  "username": "sophia_miller",
+  "customerName": "Sophia Miller",
+  "emailAddress": "sophia@example.com",
+  "password": "hashedpasswordabc",
+  "preferredBranch": "richmonhill_yonge",
+  "accountCreationDate": "2024-06-20T08:00:00.000Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8bc"
+  },
+  "username": "william_roberts",
+  "customerName": "William Roberts",
+  "emailAddress": "william@example.com",
+  "password": "hashedpassworddef",
+  "preferredBranch": "kingwest_toronto",
+  "accountCreationDate": "2024-07-11T16:00:00.000Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8bd"
+  },
+  "username": "olivia_thomas",
+  "customerName": "Olivia Thomas",
+  "emailAddress": "olivia@example.com",
+  "password": "hashedpasswordegf",
+  "preferredBranch": "downtown",
+  "accountCreationDate": "2024-08-05T10:30:00.000Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8be"
+  },
+  "username": "daniel_walker",
+  "customerName": "Daniel Walker",
+  "emailAddress": "daniel@example.com",
+  "password": "hashedpasswordxyz",
+  "preferredBranch": "richmonhill_yonge",
+  "accountCreationDate": "2024-09-15T12:15:00.000Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8bf"
+  },
+  "username": "ava_scott",
+  "customerName": "Ava Scott",
+  "emailAddress": "ava@example.com",
+  "password": "hashedpasswordlmn",
+  "preferredBranch": "kingwest_toronto",
+  "accountCreationDate": "2024-10-22T09:00:00.000Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8c0"
+  },
+  "username": "matthew_king",
+  "customerName": "Matthew King",
+  "emailAddress": "matthew@example.com",
+  "password": "hashedpassword123",
+  "preferredBranch": "downtown",
+  "accountCreationDate": "2024-11-11T13:45:00.000Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8c1"
+  },
+  "username": "mia_rodriguez",
+  "customerName": "Mia Rodriguez",
+  "emailAddress": "mia@example.com",
+  "password": "hashedpassword456",
+  "preferredBranch": "richmonhill_yonge",
+  "accountCreationDate": "2024-12-03T10:00:00.000Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8c2"
+  },
+  "username": "ethan_adams",
+  "customerName": "Ethan Adams",
+  "emailAddress": "ethan@example.com",
+  "password": "hashedpassword789",
+  "preferredBranch": "kingwest_toronto",
+  "accountCreationDate": "2025-01-18T11:30:00.000Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8c3"
+  },
+  "username": "amelia_campbell",
+  "customerName": "Amelia Campbell",
+  "emailAddress": "amelia@example.com",
+  "password": "hashedpasswordabc",
+  "preferredBranch": "downtown",
+  "accountCreationDate": "2025-02-10T08:45:00.000Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8c4"
+  },
+  "username": "vmaffezzoli0",
+  "customerName": "Vern Maffezzoli",
+  "emailAddress": "vmaffezzoli0@mac.com",
+  "password": "qS9.KTgu/&@1fLi",
+  "preferredBranch": "kingwest_toronto",
+  "accountCreationDate": "2023-03-23T13:27:07Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8c5"
+  },
+  "username": "bhannaford1",
+  "customerName": "Brigitta Hannaford",
+  "emailAddress": "bhannaford1@nydailynews.com",
+  "password": "gY2/<k~YlMfs`{1",
+  "preferredBranch": "kingwest_toronto",
+  "accountCreationDate": "2023-11-04T06:17:32Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8c6"
+  },
+  "username": "rmeijer2",
+  "customerName": "Rosanna Meijer",
+  "emailAddress": "rmeijer2@gravatar.com",
+  "password": "oJ2+27z!G'NL",
+  "preferredBranch": "kingwest_toronto",
+  "accountCreationDate": "2023-06-10T12:50:28Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8c7"
+  },
+  "username": "amorshead3",
+  "customerName": "Aundrea Morshead",
+  "emailAddress": "amorshead3@php.net",
+  "password": "rF3)(Fm#3X\\p}(RZ(\"'3",
+  "preferredBranch": "downtown",
+  "accountCreationDate": "2023-07-04T22:32:46Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8c8"
+  },
+  "username": "wgirardy4",
+  "customerName": "Willard Girardy",
+  "emailAddress": "wgirardy4@webeden.co.uk",
+  "password": "fC2\"94x6&GqlhUtnwlD",
+  "preferredBranch": "downtown",
+  "accountCreationDate": "2023-12-06T11:00:16Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8c9"
+  },
+  "username": "sgabala5",
+  "customerName": "Stacey Gabala",
+  "emailAddress": "sgabala5@sourceforge.net",
+  "password": "zC6/(tV<\"*<f",
+  "preferredBranch": "richmonhill_yonge",
+  "accountCreationDate": "2023-07-15T10:44:56Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8ca"
+  },
+  "username": "emcneely6",
+  "customerName": "Eddi McNeely",
+  "emailAddress": "emcneely6@skype.com",
+  "password": "nJ7>K9gn\\n)RzgF@|dNOf&s",
+  "preferredBranch": "downtown",
+  "accountCreationDate": "2023-07-05T02:33:29Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8cb"
+  },
+  "username": "bblampy7",
+  "customerName": "Bevan Blampy",
+  "emailAddress": "bblampy7@friendfeed.com",
+  "password": "nV7~yLFIVxMixS@_+",
+  "preferredBranch": "downtown",
+  "accountCreationDate": "2023-02-14T04:15:23Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8cc"
+  },
+  "username": "ewigelsworth8",
+  "customerName": "Elmira Wigelsworth",
+  "emailAddress": "ewigelsworth8@digg.com",
+  "password": "bA1&$sMyhP4wMo{&0T<3",
+  "preferredBranch": "richmonhill_yonge",
+  "accountCreationDate": "2023-11-04T03:36:49Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8cd"
+  },
+  "username": "mwelberry9",
+  "customerName": "Mortimer Welberry",
+  "emailAddress": "mwelberry9@youtube.com",
+  "password": "nE3&VYyoj!Shy`Y&y\\#em2v",
+  "preferredBranch": "kingwest_toronto",
+  "accountCreationDate": "2023-10-26T14:17:37Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8ce"
+  },
+  "username": "kmcskeagana",
+  "customerName": "Kennedy McSkeagan",
+  "emailAddress": "kmcskeagana@nhs.uk",
+  "password": "qB3>E)bge01k66ca",
+  "preferredBranch": "downtown",
+  "accountCreationDate": "2023-06-20T17:58:40Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8cf"
+  },
+  "username": "tleerb",
+  "customerName": "Tabby Leer",
+  "emailAddress": "tleerb@auda.org.au",
+  "password": "vE8%S{'Zsg$JnHltw$#H!DD0",
+  "preferredBranch": "kingwest_toronto",
+  "accountCreationDate": "2023-02-09T03:50:02Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8d0"
+  },
+  "username": "acallowc",
+  "customerName": "Andree Callow",
+  "emailAddress": "acallowc@jigsy.com",
+  "password": "vL1~c${}.Pq#=j?",
+  "preferredBranch": "kingwest_toronto",
+  "accountCreationDate": "2023-05-29T12:36:38Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8d1"
+  },
+  "username": "babarrowd",
+  "customerName": "Benedicto A'Barrow",
+  "emailAddress": "babarrowd@bizjournals.com",
+  "password": "cR1>m*)%jY7S2~)y0%<4\"d",
+  "preferredBranch": "kingwest_toronto",
+  "accountCreationDate": "2023-12-27T01:29:23Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8d2"
+  },
+  "username": "mfinnese",
+  "customerName": "Mattie Finnes",
+  "emailAddress": "mfinnese@vkontakte.ru",
+  "password": "wD0?DJC`9<T~Dls@L@",
+  "preferredBranch": "richmonhill_yonge",
+  "accountCreationDate": "2023-05-25T06:52:38Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8d3"
+  },
+  "username": "ccanedof",
+  "customerName": "Chad Canedo",
+  "emailAddress": "ccanedof@chicagotribune.com",
+  "password": "pZ0/$!=(Na\\jWV",
+  "preferredBranch": "richmonhill_yonge",
+  "accountCreationDate": "2023-03-14T18:29:31Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8d4"
+  },
+  "username": "dbraineg",
+  "customerName": "Doreen Braine",
+  "emailAddress": "dbraineg@opensource.org",
+  "password": "sC2.GmA`Yep7+aJ9mIKO",
+  "preferredBranch": "kingwest_toronto",
+  "accountCreationDate": "2023-01-05T20:28:04Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8d5"
+  },
+  "username": "dthomkeh",
+  "customerName": "Derward Thomke",
+  "emailAddress": "dthomkeh@marriott.com",
+  "password": "fJ2*GAP#6nY<9aqV~",
+  "preferredBranch": "kingwest_toronto",
+  "accountCreationDate": "2023-12-04T23:29:16Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8d6"
+  },
+  "username": "jpittmani",
+  "customerName": "Jessa Pittman",
+  "emailAddress": "jpittmani@cmu.edu",
+  "password": "iE8$l(UJ|U&HJ",
+  "preferredBranch": "downtown",
+  "accountCreationDate": "2023-01-06T09:57:35Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8d7"
+  },
+  "username": "bjahnckej",
+  "customerName": "Barnard Jahncke",
+  "emailAddress": "bjahnckej@berkeley.edu",
+  "password": "uW5+w9O\"NJ==DGxsCWoqz{",
+  "preferredBranch": "downtown",
+  "accountCreationDate": "2023-04-13T16:31:37Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8d8"
+  },
+  "username": "jortask",
+  "customerName": "Jermaine Ortas",
+  "emailAddress": "jortask@g.co",
+  "password": "iH1$'1H(UNRoi55ist,v",
+  "preferredBranch": "kingwest_toronto",
+  "accountCreationDate": "2023-05-09T06:46:11Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8d9"
+  },
+  "username": "mbennerl",
+  "customerName": "Marni Benner",
+  "emailAddress": "mbennerl@apple.com",
+  "password": "uF4&ICW)K9QS|cl!LYvxL5Y",
+  "preferredBranch": "financial_toronto",
+  "accountCreationDate": "2023-02-15T19:43:15Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8da"
+  },
+  "username": "dflewittm",
+  "customerName": "Devlin Flewitt",
+  "emailAddress": "dflewittm@cocolog-nifty.com",
+  "password": "uA0!Jo$_>y~eMn.6+,99ZJOr",
+  "preferredBranch": "richmonhill_yonge",
+  "accountCreationDate": "2023-08-06T23:44:49Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8db"
+  },
+  "username": "iitzkovichn",
+  "customerName": "Inglis Itzkovich",
+  "emailAddress": "iitzkovichn@networkadvertising.org",
+  "password": "lU2<uo.<Mk7+(x=BbU",
+  "preferredBranch": "richmonhill_yonge",
+  "accountCreationDate": "2023-04-08T12:52:19Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8dc"
+  },
+  "username": "kmacronaldo",
+  "customerName": "Kordula MacRonald",
+  "emailAddress": "kmacronaldo@mail.ru",
+  "password": "tC6.zY#sY(imEhDO1B7OJa",
+  "preferredBranch": "richmonhill_yonge",
+  "accountCreationDate": "2023-05-06T09:54:20Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8dd"
+  },
+  "username": "amayhoup",
+  "customerName": "Alvy Mayhou",
+  "emailAddress": "amayhoup@psu.edu",
+  "password": "tM9$'YI,+P5nYms",
+  "preferredBranch": "unionville",
+  "accountCreationDate": "2023-04-24T02:13:00Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8de"
+  },
+  "username": "rluffq",
+  "customerName": "Randene Luff",
+  "emailAddress": "rluffq@cbc.ca",
+  "password": "pD2!'kYVZ|,0n1rxe",
+  "preferredBranch": "richmonhill_yonge",
+  "accountCreationDate": "2023-10-29T14:47:21Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8df"
+  },
+  "username": "bcaddanr",
+  "customerName": "Bertina Caddan",
+  "emailAddress": "bcaddanr@vk.com",
+  "password": "tH5(*,U9A$0o<xv",
+  "preferredBranch": "financial_toronto",
+  "accountCreationDate": "2023-04-04T15:31:54Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8e0"
+  },
+  "username": "bhudspiths",
+  "customerName": "Binni Hudspith",
+  "emailAddress": "bhudspiths@economist.com",
+  "password": "lR9#<dzpdqv&?",
+  "preferredBranch": "unionville",
+  "accountCreationDate": "2023-01-27T12:35:54Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8e1"
+  },
+  "username": "rolennanet",
+  "customerName": "Ruthe O'Lennane",
+  "emailAddress": "rolennanet@networksolutions.com",
+  "password": "aA3\\?BM!YzTFQ0_h",
+  "preferredBranch": "financial_toronto",
+  "accountCreationDate": "2023-07-18T13:59:03Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8e2"
+  },
+  "username": "fhabdenu",
+  "customerName": "Fenelia Habden",
+  "emailAddress": "fhabdenu@etsy.com",
+  "password": "lH8(+OJUPby7\\I!W*SZ!",
+  "preferredBranch": "richmonhill_yonge",
+  "accountCreationDate": "2023-12-01T06:37:22Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8e3"
+  },
+  "username": "nsmithersv",
+  "customerName": "Nicolette Smithers",
+  "emailAddress": "nsmithersv@hao123.com",
+  "password": "bP1~oX3al/FXz",
+  "preferredBranch": "financial_toronto",
+  "accountCreationDate": "2023-10-08T17:30:43Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8e4"
+  },
+  "username": "ctilsonw",
+  "customerName": "Carmina Tilson",
+  "emailAddress": "ctilsonw@mediafire.com",
+  "password": "dR2~lt2S8|#Uwes/M*pZ",
+  "preferredBranch": "financial_toronto",
+  "accountCreationDate": "2023-03-03T05:07:52Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8e5"
+  },
+  "username": "dsheirlawx",
+  "customerName": "Dodie Sheirlaw",
+  "emailAddress": "dsheirlawx@chronoengine.com",
+  "password": "mK1.xL|SXetesW4mb)",
+  "preferredBranch": "financial_toronto",
+  "accountCreationDate": "2023-10-27T15:24:52Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8e6"
+  },
+  "username": "eluesleyy",
+  "customerName": "Esmeralda Luesley",
+  "emailAddress": "eluesleyy@cpanel.net",
+  "password": "aH3=xomNixU(=O",
+  "preferredBranch": "richmonhill_yonge",
+  "accountCreationDate": "2023-12-01T01:23:11Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8e7"
+  },
+  "username": "klovedayz",
+  "customerName": "Kylen Loveday",
+  "emailAddress": "klovedayz@privacy.gov.au",
+  "password": "dJ2}c4rmEi_1zKCr&mU(5",
+  "preferredBranch": "unionville",
+  "accountCreationDate": "2023-02-05T08:17:00Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8e8"
+  },
+  "username": "kbedbrough10",
+  "customerName": "Kalle Bedbrough",
+  "emailAddress": "kbedbrough10@dmoz.org",
+  "password": "xM1*_P09BgKqZ.vv",
+  "preferredBranch": "richmonhill_yonge",
+  "accountCreationDate": "2023-11-28T09:57:12Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8e9"
+  },
+  "username": "ghoyt11",
+  "customerName": "Georgie Hoyt",
+  "emailAddress": "ghoyt11@flickr.com",
+  "password": "nL9/zUmKY!2(hHj=eL{",
+  "preferredBranch": "financial_toronto",
+  "accountCreationDate": "2023-01-04T09:32:15Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8ea"
+  },
+  "username": "lwaber12",
+  "customerName": "Lori Waber",
+  "emailAddress": "lwaber12@cnn.com",
+  "password": "iZ7|u#?|E1=Xfxd=%yW`Sp",
+  "preferredBranch": "unionville",
+  "accountCreationDate": "2023-10-06T15:07:20Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8eb"
+  },
+  "username": "cdumphreys13",
+  "customerName": "Chaddy Dumphreys",
+  "emailAddress": "cdumphreys13@scribd.com",
+  "password": "mD4{SC#O.TMVi9Y?Dc01v",
+  "preferredBranch": "richmonhill_yonge",
+  "accountCreationDate": "2023-09-27T05:21:53Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8ec"
+  },
+  "username": "amoulder14",
+  "customerName": "Alvina Moulder",
+  "emailAddress": "amoulder14@hc360.com",
+  "password": "eX8\"%YK\\<5(gBpy(Mb(9{?i9",
+  "preferredBranch": "unionville",
+  "accountCreationDate": "2023-05-08T02:25:13Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8ed"
+  },
+  "username": "rheugel15",
+  "customerName": "Rachele Heugel",
+  "emailAddress": "rheugel15@springer.com",
+  "password": "zQ3)ww)il`#%QSG3_Tanu@\"",
+  "preferredBranch": "financial_toronto",
+  "accountCreationDate": "2023-09-18T08:30:22Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8ee"
+  },
+  "username": "nmilleton16",
+  "customerName": "Nissie Milleton",
+  "emailAddress": "nmilleton16@cpanel.net",
+  "password": "dY6\"cy(k@INlYK6a{d..'zR",
+  "preferredBranch": "financial_toronto",
+  "accountCreationDate": "2023-03-21T21:31:22Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8ef"
+  },
+  "username": "tgorling17",
+  "customerName": "Thornie Gorling",
+  "emailAddress": "tgorling17@youku.com",
+  "password": "lX1!dpmLp4,QAoNlAFkft",
+  "preferredBranch": "unionville",
+  "accountCreationDate": "2023-06-29T20:26:26Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8f0"
+  },
+  "username": "euridge18",
+  "customerName": "Ed Uridge",
+  "emailAddress": "euridge18@lulu.com",
+  "password": "uG0=sw$?G6S@",
+  "preferredBranch": "financial_toronto",
+  "accountCreationDate": "2023-11-12T14:25:27Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8f1"
+  },
+  "username": "alilie19",
+  "customerName": "Ashely Lilie",
+  "emailAddress": "alilie19@unblog.fr",
+  "password": "xR9!U,l<+mz17$<xn!<6LXot",
+  "preferredBranch": "unionville",
+  "accountCreationDate": "2023-07-22T14:25:00Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8f2"
+  },
+  "username": "mdeveraux1a",
+  "customerName": "Muire Deveraux",
+  "emailAddress": "mdeveraux1a@samsung.com",
+  "password": "eF3{{t~+Bt)beY6d,v",
+  "preferredBranch": "richmonhill_yonge",
+  "accountCreationDate": "2023-09-09T04:35:31Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8f3"
+  },
+  "username": "hemm1b",
+  "customerName": "Hadley Emm",
+  "emailAddress": "hemm1b@surveymonkey.com",
+  "password": "qC7$6R(K5au3}g%B#I",
+  "preferredBranch": "richmonhill_yonge",
+  "accountCreationDate": "2023-01-05T01:03:04Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8f4"
+  },
+  "username": "glinny1c",
+  "customerName": "Garwin Linny",
+  "emailAddress": "glinny1c@booking.com",
+  "password": "kX0$$!JQNxGhylhs+1k)",
+  "preferredBranch": "unionville",
+  "accountCreationDate": "2023-12-15T14:32:47Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8f5"
+  },
+  "username": "cbalthasar1d",
+  "customerName": "Cassey Balthasar",
+  "emailAddress": "cbalthasar1d@chicagotribune.com",
+  "password": "rX1`YpS&tWY*`@|uqoC",
+  "preferredBranch": "unionville",
+  "accountCreationDate": "2023-11-02T20:55:37Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8f6"
+  },
+  "username": "agildersleeve1e",
+  "customerName": "Ailsun Gildersleeve",
+  "emailAddress": "agildersleeve1e@slate.com",
+  "password": "fZ5!$SZ3w.}m6qi.+&r",
+  "preferredBranch": "financial_toronto",
+  "accountCreationDate": "2023-03-30T12:55:56Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8f7"
+  },
+  "username": "hfist1f",
+  "customerName": "Hope Fist",
+  "emailAddress": "hfist1f@yelp.com",
+  "password": "iV8.H!Gt!|l,XTD7~",
+  "preferredBranch": "unionville",
+  "accountCreationDate": "2023-10-18T14:09:38Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8f8"
+  },
+  "username": "bivushkin1g",
+  "customerName": "Bryce Ivushkin",
+  "emailAddress": "bivushkin1g@bloglovin.com",
+  "password": "oA5_4l{,La*65",
+  "preferredBranch": "richmonhill_yonge",
+  "accountCreationDate": "2023-12-28T13:06:44Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8f9"
+  },
+  "username": "cteligin1h",
+  "customerName": "Cazzie Teligin",
+  "emailAddress": "cteligin1h@java.com",
+  "password": "kL7}XIadEmKfImx@/i/",
+  "preferredBranch": "richmonhill_yonge",
+  "accountCreationDate": "2023-03-24T05:52:11Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8fa"
+  },
+  "username": "dfrays1i",
+  "customerName": "Daloris Frays",
+  "emailAddress": "dfrays1i@hibu.com",
+  "password": "cU1/OUrfEE/TFONm>hEnRy(+",
+  "preferredBranch": "unionville",
+  "accountCreationDate": "2023-08-13T02:44:35Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8fb"
+  },
+  "username": "nthwaite1j",
+  "customerName": "Nikki Thwaite",
+  "emailAddress": "nthwaite1j@vimeo.com",
+  "password": "iM3+Vts9CswKc1pZ}Z2~B",
+  "preferredBranch": "unionville",
+  "accountCreationDate": "2023-12-20T07:47:34Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8fc"
+  },
+  "username": "wparadine1k",
+  "customerName": "Welby Paradine",
+  "emailAddress": "wparadine1k@phpbb.com",
+  "password": "eL9~HPI<{aDGs4B&,@\\",
+  "preferredBranch": "richmonhill_yonge",
+  "accountCreationDate": "2023-09-06T12:25:54Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8fd"
+  },
+  "username": "bdufaire1l",
+  "customerName": "Berk Dufaire",
+  "emailAddress": "bdufaire1l@state.gov",
+  "password": "hP3(C)|ptLc??e0X<%~UdS4",
+  "preferredBranch": "financial_toronto",
+  "accountCreationDate": "2023-06-11T00:40:57Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8fe"
+  },
+  "username": "bbeckson1m",
+  "customerName": "Britni Beckson",
+  "emailAddress": "bbeckson1m@networksolutions.com",
+  "password": "gK0*|AeER?XM$",
+  "preferredBranch": "unionville",
+  "accountCreationDate": "2023-09-19T19:13:51Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b8ff"
+  },
+  "username": "bdixon1n",
+  "customerName": "Blayne Dixon",
+  "emailAddress": "bdixon1n@geocities.jp",
+  "password": "hP1~7~s3w+R~E$",
+  "preferredBranch": "richmonhill_yonge",
+  "accountCreationDate": "2023-11-14T14:07:29Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b900"
+  },
+  "username": "lhedlestone1o",
+  "customerName": "Leanor Hedlestone",
+  "emailAddress": "lhedlestone1o@list-manage.com",
+  "password": "jH8~kv6RV0WqaP?!hl6h_T>0",
+  "preferredBranch": "financial_toronto",
+  "accountCreationDate": "2023-09-08T18:26:08Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b901"
+  },
+  "username": "ashwenn1p",
+  "customerName": "Ambrosi Shwenn",
+  "emailAddress": "ashwenn1p@tuttocitta.it",
+  "password": "mX7>{WlhE%'{?+C",
+  "preferredBranch": "unionville",
+  "accountCreationDate": "2023-08-26T05:46:03Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b902"
+  },
+  "username": "gtrayling1q",
+  "customerName": "Goober Trayling",
+  "emailAddress": "gtrayling1q@cmu.edu",
+  "password": "aF3`@{lp~3ge2Ij\"B>t",
+  "preferredBranch": "financial_toronto",
+  "accountCreationDate": "2023-06-10T01:19:16Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b903"
+  },
+  "username": "mphillipson1r",
+  "customerName": "Marcos Phillipson",
+  "emailAddress": "mphillipson1r@umn.edu",
+  "password": "tE0#aHS%K`)xwa7hTNh0J",
+  "preferredBranch": "richmonhill_yonge",
+  "accountCreationDate": "2023-07-25T07:06:25Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b904"
+  },
+  "username": "hscrowby1s",
+  "customerName": "Hermina Scrowby",
+  "emailAddress": "hscrowby1s@blogs.com",
+  "password": "xN8`=,LdqX8?G&",
+  "preferredBranch": "financial_toronto",
+  "accountCreationDate": "2023-08-26T01:12:30Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b905"
+  },
+  "username": "emallord1t",
+  "customerName": "Elisabet Mallord",
+  "emailAddress": "emallord1t@linkedin.com",
+  "password": "rU2$o%b~okzd0@9($I`D2cO",
+  "preferredBranch": "richmonhill_yonge",
+  "accountCreationDate": "2023-06-16T14:26:12Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b906"
+  },
+  "username": "cmacneilly1u",
+  "customerName": "Chickie MacNeilly",
+  "emailAddress": "cmacneilly1u@narod.ru",
+  "password": "jP4'a.8q`Y`/Fy<29Gtmk{)A",
+  "preferredBranch": "downtown",
+  "accountCreationDate": "2023-05-15T01:28:03Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b907"
+  },
+  "username": "ttock1v",
+  "customerName": "Tades Tock",
+  "emailAddress": "ttock1v@paginegialle.it",
+  "password": "cW8@,`Cu~h9+{jg",
+  "preferredBranch": "downtown",
+  "accountCreationDate": "2023-10-11T18:56:39Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b908"
+  },
+  "username": "pmacgillreich1w",
+  "customerName": "Pauly MacGillreich",
+  "emailAddress": "pmacgillreich1w@rambler.ru",
+  "password": "pL8~VZKaECW}Z",
+  "preferredBranch": "richmonhill_yonge",
+  "accountCreationDate": "2023-10-14T14:15:48Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b909"
+  },
+  "username": "bmaffei1x",
+  "customerName": "Bartram Maffei",
+  "emailAddress": "bmaffei1x@whitehouse.gov",
+  "password": "yJ6~Gpz1?PJXn!_GV0$H",
+  "preferredBranch": "richmonhill_yonge",
+  "accountCreationDate": "2023-08-31T20:55:20Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b90a"
+  },
+  "username": "bwesson1y",
+  "customerName": "Bessy Wesson",
+  "emailAddress": "bwesson1y@thetimes.co.uk",
+  "password": "sU3!TvL%mtyZN",
+  "preferredBranch": "richmonhill_yonge",
+  "accountCreationDate": "2023-08-21T22:54:35Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b90b"
+  },
+  "username": "rpenhale1z",
+  "customerName": "Richie Penhale",
+  "emailAddress": "rpenhale1z@pcworld.com",
+  "password": "sN3'c9+QTO38TwIhq\"O",
+  "preferredBranch": "richmonhill_yonge",
+  "accountCreationDate": "2023-11-19T06:46:31Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b90c"
+  },
+  "username": "vcranney20",
+  "customerName": "Veradis Cranney",
+  "emailAddress": "vcranney20@dmoz.org",
+  "password": "oO7,\"OsaGR{@euXv+I.NM3",
+  "preferredBranch": "richmonhill_yonge",
+  "accountCreationDate": "2023-04-03T22:58:48Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b90d"
+  },
+  "username": "hjohnikin21",
+  "customerName": "Hannah Johnikin",
+  "emailAddress": "hjohnikin21@cdbaby.com",
+  "password": "sP4&yBpCzS0KQ$@+NaPS}",
+  "preferredBranch": "downtown",
+  "accountCreationDate": "2023-02-12T19:15:26Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b90e"
+  },
+  "username": "owychard22",
+  "customerName": "Olivia Wychard",
+  "emailAddress": "owychard22@blinklist.com",
+  "password": "cF3\\?(aSqZF*jB",
+  "preferredBranch": "unionville",
+  "accountCreationDate": "2023-02-05T11:01:06Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b90f"
+  },
+  "username": "mrupert23",
+  "customerName": "Mel Rupert",
+  "emailAddress": "mrupert23@utexas.edu",
+  "password": "qC2@ObN9qmNCUCL8sL\"",
+  "preferredBranch": "richmonhill_yonge",
+  "accountCreationDate": "2023-03-05T06:09:08Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b910"
+  },
+  "username": "bjodlowski24",
+  "customerName": "Bendite Jodlowski",
+  "emailAddress": "bjodlowski24@soundcloud.com",
+  "password": "uB0+}$.rkfFR",
+  "preferredBranch": "richmonhill_yonge",
+  "accountCreationDate": "2023-06-30T22:01:37Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b911"
+  },
+  "username": "dtiner25",
+  "customerName": "Domenic Tiner",
+  "emailAddress": "dtiner25@usnews.com",
+  "password": "vW5$Yr5h*W!z?WN<=|.d<S>",
+  "preferredBranch": "downtown",
+  "accountCreationDate": "2023-07-22T08:58:26Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b912"
+  },
+  "username": "roxx26",
+  "customerName": "Rabbi Oxx",
+  "emailAddress": "roxx26@gizmodo.com",
+  "password": "gI5`VK.#U}|*~R\"b",
+  "preferredBranch": "downtown",
+  "accountCreationDate": "2023-10-16T14:45:39Z",
+  "orders": []
+},
+{
+  "_id": {
+    "$oid": "6675d916df0ee7992b11b913"
+  },
+  "username": "mjosilevich27",
+  "customerName": "Marilyn Josilevich",
+  "emailAddress": "mjosilevich27@google.es",
+  "password": "wT0\\)K|~Hy(2K(Wd$9Z$onF",
+  "preferredBranch": "downtown",
+  "accountCreationDate": "2023-12-25T17:49:31Z",
+  "orders": []
+}]

@@ -65,7 +65,7 @@
         "sugarLevel": 100
       }
     ],
-    "imagePath": "/images/drink_25.jpg"
+    "imagePath": "/boba.jpeg"
   },
   {
     "_id": {
@@ -133,7 +133,7 @@
         "sugarLevel": 100
       }
     ],
-    "imagePath": "/images/drink_11.jpg"
+    "imagePath": "/boba.jpeg"
   },
   {
     "_id": {
@@ -204,7 +204,7 @@
         "sugarLevel": 100
       }
     ],
-    "imagePath": "/images/drink_6.jpg"
+    "imagePath": "/boba.jpeg"
   },
   {
     "_id": {
@@ -272,7 +272,7 @@
         "sugarLevel": 100
       }
     ],
-    "imagePath": "/images/drink_18.jpg"
+    "imagePath": "/boba.jpeg"
   },
   {
     "_id": {
@@ -340,7 +340,7 @@
         "sugarLevel": 100
       }
     ],
-    "imagePath": "/images/drink_44.jpg"
+    "imagePath": "/boba.jpeg"
   },
   {
     "_id": {
@@ -408,7 +408,7 @@
         "sugarLevel": 100
       }
     ],
-    "imagePath": "/images/drink_58.jpg"
+    "imagePath": "/boba.jpeg"
   },
   {
     "_id": {
@@ -473,7 +473,7 @@
         "sugarLevel": 100
       }
     ],
-    "imagePath": "/images/drink_30.jpg"
+    "imagePath": "/boba.jpeg"
   },
   {
     "_id": {
@@ -538,7 +538,7 @@
         "sugarLevel": 100
       }
     ],
-    "imagePath": "/images/drink_38.jpg"
+    "imagePath": "/boba.jpeg"
   },
   {
     "_id": {
@@ -606,7 +606,7 @@
         "sugarLevel": 100
       }
     ],
-    "imagePath": "/images/drink_43.jpg"
+    "imagePath": "/boba.jpeg"
   },
   {
     "_id": {
@@ -674,7 +674,7 @@
         "sugarLevel": 100
       }
     ],
-    "imagePath": "/images/drink_57.jpg"
+    "imagePath": "/boba.jpeg"
   },
   {
     "_id": {
@@ -742,7 +742,7 @@
         "sugarLevel": 100
       }
     ],
-    "imagePath": "/images/drink_63.jpg"
+    "imagePath": "/boba.jpeg"
   },
   {
     "_id": {
@@ -810,7 +810,7 @@
         "sugarLevel": 100
       }
     ],
-    "imagePath": "/images/drink_70.jpg"
+    "imagePath": "/boba.jpeg"
   },
   {
     "_id": {
@@ -878,7 +878,7 @@
         "sugarLevel": 100
       }
     ],
-    "imagePath": "/images/drink_61.jpg"
+    "imagePath": "/boba.jpeg"
   },
   {
     "_id": {
@@ -949,7 +949,7 @@
         "sugarLevel": 100
       }
     ],
-    "imagePath": "/images/drink_69.jpg"
+    "imagePath": "/boba.jpeg"
   },
   {
     "_id": {
@@ -1020,7 +1020,7 @@
         "sugarLevel": 100
       }
     ],
-    "imagePath": "/images/drink_7.jpg"
+    "imagePath": "/boba.jpeg"
   },
   {
     "_id": {
@@ -1088,7 +1088,7 @@
         "sugarLevel": 100
       }
     ],
-    "imagePath": "/images/drink_29.jpg"
+    "imagePath": "/boba.jpeg"
   },
   {
     "_id": {
@@ -1156,7 +1156,7 @@
         "sugarLevel": 100
       }
     ],
-    "imagePath": "/images/drink_32.jpg"
+    "imagePath": "/boba.jpeg"
   },
   {
     "_id": {
@@ -1224,7 +1224,7 @@
         "sugarLevel": 100
       }
     ],
-    "imagePath": "/images/drink_62.jpg"
+    "imagePath": "/boba.jpeg"
   },
   {
     "_id": {
@@ -1292,7 +1292,7 @@
         "sugarLevel": 100
       }
     ],
-    "imagePath": "/images/drink_52.jpg"
+    "imagePath": "/boba.jpeg"
   },
   {
     "_id": {
@@ -1360,7 +1360,7 @@
         "sugarLevel": 100
       }
     ],
-    "imagePath": "/images/drink_64.jpg"
+    "imagePath": "/boba.jpeg"
   },
   {
     "_id": {
@@ -1428,7 +1428,7 @@
         "sugarLevel": 100
       }
     ],
-    "imagePath": "/images/drink_66.jpg"
+    "imagePath": "/boba.jpeg"
   },
   {
     "_id": {
@@ -1493,7 +1493,7 @@
         "sugarLevel": 100
       }
     ],
-    "imagePath": "/images/drink_48.jpg"
+    "imagePath": "/boba.jpeg"
   },
   {
     "_id": {
@@ -1558,7 +1558,7 @@
         "sugarLevel": 100
       }
     ],
-    "imagePath": "/images/drink_22.jpg"
+    "imagePath": "/boba.jpeg"
   },
   {
     "_id": {
@@ -1626,7 +1626,7 @@
         "sugarLevel": 100
       }
     ],
-    "imagePath": "/images/drink_50.jpg"
+    "imagePath": "/boba.jpeg"
   },
   {
     "_id": {
@@ -1694,7 +1694,7 @@
         "sugarLevel": 100
       }
     ],
-    "imagePath": "/images/drink_65.jpg"
+    "imagePath": "/boba.jpeg"
   },
   {
     "_id": {
@@ -1762,7 +1762,7 @@
         "sugarLevel": 100
       }
     ],
-    "imagePath": "/images/drink_53.jpg"
+    "imagePath": "/boba.jpeg"
   },
   {
     "_id": {
@@ -1830,7 +1830,7 @@
         "sugarLevel": 100
       }
     ],
-    "imagePath": "/images/drink_41.jpg"
+    "imagePath": "/boba.jpeg"
   },
   {
     "_id": {
@@ -1892,6 +1892,6 @@
         "sugarLevel": 100
       }
     ],
-    "imagePath": "/images/drink_42.jpg"
+    "imagePath": "/boba.jpeg"
   }
 ]

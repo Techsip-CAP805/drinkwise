@@ -1,8 +1,8 @@
 import React, {useState, useContext, useEffect} from 'react';
 import {DrinkContext} from '../../context/drinkContext';
 import { Box, Container, Flex, Input, Button, InputGroup, Stack, Link, FormControl, FormHelperText, InputRightElement, Avatar} from '@chakra-ui/react';
-import Navbar from '../../components/Navbar';
-import Footer from '../../components/Footer';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 // import { FaUserAlt, FaLock } from "react-icons/fa";
 
 const Login = () => {

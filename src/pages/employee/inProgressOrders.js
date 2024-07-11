@@ -16,11 +16,14 @@ import {
     Flex,
     Button,
     useColorModeValue,
+    useToast
 } from "@chakra-ui/react";
 
 const InProgressOrders = () => {
     const { customers } = useDrinkContext();
     const cardBgColor = useColorModeValue("#a0b2ab", "#283E38");
+    
+    const toast = useToast();
 
     let cardNumber = 1;
 
@@ -39,8 +42,13 @@ const InProgressOrders = () => {
         });
 
     const handleComplete = () => {
-        // Handle complete logic here
-        console.log("Order Completed!");
+        
+        toast({
+            description: "Order Completed!",
+            status: 'success',
+            duration: 5000,
+            isClosable: true,
+        });
     };
 
 

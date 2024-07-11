@@ -17,11 +17,14 @@ import {
     Button,
     useColorModeValue,
     HStack,
+    useToast
 } from "@chakra-ui/react";
 
 const IncomingOrders = () => {
     const { customers } = useDrinkContext();
     const cardBgColor = useColorModeValue("#a0b2ab", "#283E38");
+
+    const toast = useToast();
 
     let cardNumber = 1;
 
@@ -40,13 +43,21 @@ const IncomingOrders = () => {
         });
 
     const handleAccept = () => {
-        // Handle accept logic here 
-        console.log("Order accepted!");
+        toast({
+            description: "Order Accepted!",
+            status: 'success',
+            duration: 5000,
+            isClosable: true,
+        });
     };
 
     const handleReject = () => {
-        // Handle cancel logic here
-        console.log("Order Rejected!");
+        toast({
+            description: "Order Rejected!",
+            status: 'warning',
+            duration: 5000,
+            isClosable: true,
+        });
     };
 
     return (

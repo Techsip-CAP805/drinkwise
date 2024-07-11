@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Link, Spacer, Flex, IconButton, VStack, useDisclosure, useColorModeValue, Text } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
+import Image from 'next/image';
 
 const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -28,7 +29,7 @@ const Navbar = () => {
         px={{ base: 4, md: 20 }}
         wrap='wrap'
       >
-        <Link href='/'><Text as='b' fontSize='lg'>Drinkwise</Text></Link>
+        <Link href='/'><Image src='/header-log.png' width={150} height={100} alt='logo'/></Link>
         <Spacer display={{ base: 'none', lg: 'block' }} />
         <Flex
           direction='row'

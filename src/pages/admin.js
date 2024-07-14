@@ -1,8 +1,41 @@
 // pages/login.js
 import { Flex, Box, Heading, Input, Button, Stack, Text} from '@chakra-ui/react';
+import {useRef} from 'react';
 import Link from 'next/link';
+import {useRouter, usePathname} from 'next/navigation';
+import { useDrinkContext} from '../../context/drinkContext';
 
 export default function Login() {
+
+  const router = useRouter();
+  const pathname = usePathname();
+  const userNameRef = useRef("");
+  const passwordRef = useRef("");
+  const {employees, setEmployees} = useDrinkContext();
+
+  console.log(usePathname());
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    console.log("username: ", userNameRef.current.value);
+    console.log("password: ", passwordRef.current.value);
+
+    //check if username and password is empty
+    if (userNameRef.current.value && passwordRef.current.value){
+      //get list of employees that are admins
+      const admins = employees.filter((employee)=> employee.isAdmin ==true);
+      //go to employeeData and check for info
+      const user = admins.filter((admin)=> admin.emailAddress == userNameRef.current.value && admin.password == passwordRef.current.value);
+
+
+      //if matches, redirect to /admin/userid/dashboard
+        if (user.length > 0){
+          router.push(pathname + `/${user[0].emailAddress.split('@')[0]}/dashboard`);
+      }
+    }
+  }
+
   return (
     <Flex minHeight="100vh" align="center" justify="center" bg="#bcc8c3">
       <Box
@@ -18,10 +51,12 @@ export default function Login() {
           <Heading size="lg">Sign in</Heading>
         </Box>
         <Box my={4} textAlign="left">
-          <form>
+          <form onSubmit={onSubmit}>
             <Stack spacing={4}>
               <Input
                 type="text"
+                isRequired={true}
+                ref={userNameRef}
                 placeholder="Username"
                 bg="gray.100"
                 border={0}
@@ -30,6 +65,8 @@ export default function Login() {
               />
               <Input
                 type="password"
+                isRequired={true}
+                ref={passwordRef}
                 placeholder="Password"
                 bg="gray.100"
                 border={0}

@@ -1,119 +1,116 @@
+
 import React from "react";
 import { useDrinkContext } from "../../../context/drinkContext";
 import Navbar from "../../components/Navbar";
-import Footer from "@/components/Footer";
+import Footer from "../../components/Footer";
 import SideNav from "../../components/SideNav";
-
-import {
-    Box,
-    Text,
-    Heading,
-    VStack,
-    Card,
-    CardBody,
-    Stack,
-    Container,
-    Flex,
-    Button,
-    useColorModeValue,
-    HStack,
-    useToast
-} from "@chakra-ui/react";
+import { Box, Heading, SimpleGrid, useToast } from "@chakra-ui/react";
+import OrdersColumn from "../../components/OrdersColumn";
 
 const IncomingOrders = () => {
-    const { customers } = useDrinkContext();
-    const cardBgColor = useColorModeValue("#a0b2ab", "#283E38");
+  const { customers, setCustomers } = useDrinkContext();
+  const toast = useToast();
 
-    const toast = useToast();
+  // Function to handle order status change
 
-    let cardNumber = 1;
+  // Function to handle order status change
+  const handleOrderStatusChange = (customerId, orderId, newStatus) => {
+    // Calculate number of orders in inProgress status
+    const inProgressOrdersCount = customers.reduce((count, user) => {
+      return (
+        count +
+        user.orders.filter(order => order.orderStatus === "inProgress").length
+      );
+    }, 0);
 
-    // Filter and sort orders by order date (oldest to newest)
-    const filteredOrders = customers
-        .filter((user) => user.orders.some((order) => order.orderStatus === "pending"))
-        .sort((a, b) => {
-            // Sort orders within each user
-            const oldestOrderA = a.orders.reduce((oldest, current) =>
-                oldest.orderDate < current.orderDate ? oldest : current
-            );
-            const oldestOrderB = b.orders.reduce((oldest, current) =>
-                oldest.orderDate < current.orderDate ? oldest : current
-            );
-            return oldestOrderA.orderDate - oldestOrderB.orderDate;
+    // Check if inProgressOrdersCount is already 5
+    if (newStatus === "inProgress" && inProgressOrdersCount >= 5) {
+      toast({
+        description: "Cannot accept more than 5 orders in progress!",
+        status: "warning",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom-right"
+      });
+      return; // Exit function without updating status
+    }
+
+    // Find the specific customer
+    const updatedCustomers = customers.map((customer) => {
+      if (customer._id.$oid === customerId) {
+        // Find the specific order and update its status
+        const updatedOrders = customer.orders.map((order) => {
+          if (order.orderID === orderId) {
+            return { ...order, orderStatus: newStatus };
+          }
+          return order;
         });
 
-    const handleAccept = () => {
-        toast({
-            description: "Order Accepted!",
-            status: 'success',
-            duration: 5000,
-            isClosable: true,
-        });
-    };
+        // Return updated customer with updated orders
+        return { ...customer, orders: updatedOrders };
+      }
+      return customer;
+    });
 
-    const handleReject = () => {
-        toast({
-            description: "Order Rejected!",
-            status: 'warning',
-            duration: 5000,
-            isClosable: true,
-        });
-    };
+    // Update the state with the modified customers array
+    setCustomers(updatedCustomers);
 
+    // Show appropriate toast message
+    if (newStatus === "inProgress") {
+      toast({
+        description: "Order Accepted!",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom-right"
+      });
+    } else if (newStatus === "rejected") {
+      toast({
+        description: "Order Rejected!",
+        status: "warning",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom-right"
+      });
+    }
+  };
+
+  // Calculate number of pending orders
+  const pendingOrdersCount = customers.reduce((count, user) => {
     return (
-        <Box bg="#bcc8c3">
-            <Navbar />
-            <SideNav />
-            <Container w="100vw" minH="100vh" maxW="7xl" py={10}>
-                <Flex direction="column" justify="center" align="center" w="100%" h="100%" mt={20}>
-                    <VStack spacing={6} p={4} w="100%" align="center">
-                        <Heading color="white">Incoming Orders</Heading>
-                        {filteredOrders.map((user, index) =>
-                            user.orders.map((order, orderIndex) => (
-                                <Card
-                                    key={`${index}-${orderIndex}`}
-                                    borderRadius="lg"
-                                    width={{ base: "90%", md: "80%", lg: "60%" }}
-                                    overflow="hidden"
-                                    boxShadow="md"
-                                    bg={cardBgColor}
-                                >
-                                    <CardBody p={4}>
-                                        <Stack spacing={3}>
-                                            <Text color="gray.500" fontSize="sm">
-                                                #{cardNumber++}
-                                            </Text>
-                                            <Heading size="md" textAlign="center" color="white">
-                                                Order ID: {order.orderID}
-                                            </Heading>
-                                            <Text textAlign="center" color="white">
-                                                Customer Name: {user.customerName}
-                                            </Text>
-                                            <Text textAlign="center" color="white">
-                                                Order Date: {new Date(order.orderDate).toLocaleDateString("en-US")}
-                                            </Text>
-                                            <Text color="white" fontSize="md" textAlign="center">
-                                                Total Amount: ${order.totalAmount}
-                                            </Text>
-                                            <HStack spacing={4} mt={6}>
-                                                <Button onClick={handleAccept} colorScheme="green" w="50%">
-                                                    Accept
-                                                </Button>
-                                                <Button onClick={handleReject} colorScheme="red" w="50%">
-                                                    Reject
-                                                </Button>
-                                            </HStack>
-                                        </Stack>
-                                    </CardBody>
-                                </Card>
-                            ))
-                        )}
-                    </VStack>
-                </Flex>
-            </Container>
-            <Footer />
-        </Box>
+      count +
+      user.orders.filter((order) => order.orderStatus === "pending").length
     );
+  }, 0);
+
+  return (
+    <Box bg="#bcc8c3" minHeight="100vh">
+      <Navbar />
+      <SideNav />
+      <Box py={5} px={{ base: 4, md: 12 }}>
+        <Heading color="white" textAlign="center" mt={20}>
+          Incoming Orders ({pendingOrdersCount})
+        </Heading>
+        <SimpleGrid columns={1} mt={5} spacing={5}>
+          {/* Display Incoming Orders */}
+          <OrdersColumn
+            orders={customers
+              .filter((user) =>
+                user.orders.some((order) => order.orderStatus === "pending")
+              )
+              .map((user) => ({
+                ...user,
+                orders: user.orders.filter(
+                  (order) => order.orderStatus === "pending"
+                ),
+              }))}
+            onStatusChange={handleOrderStatusChange}
+          />
+        </SimpleGrid>
+      </Box>
+      <Footer />
+    </Box>
+  );
 };
 
 export default IncomingOrders;

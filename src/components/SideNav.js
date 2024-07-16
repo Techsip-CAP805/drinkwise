@@ -46,7 +46,7 @@ const SideNav = () => {
 
           <DrawerBody>
             <Stack align="center" p={20} spacing={5}>
-              <Heading size="xl">Orders</Heading>
+              <Link href='/employee/orders' textDecoration='underline'><Heading size="xl">Orders</Heading></Link>
               <Link href='/employee/incomingOrders' textDecoration='underline'><Text as='b' fontSize='m'>Incoming</Text></Link>
               <Link href='/employee/inProgressOrders' textDecoration='underline'><Text as='b' fontSize='m'>In Progress</Text></Link>
               <Link href='/employee/completedOrders' textDecoration='underline'><Text as='b' fontSize='m'>Completed</Text></Link>

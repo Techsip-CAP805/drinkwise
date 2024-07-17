@@ -25,23 +25,24 @@ const OrderMenu = () => {
   };
 
   const handleSaveDrink = () => {
+    const updatedDrink = {
+      ...currentDrink,
+      basePrice: parseFloat(currentDrink.basePrice), // Ensure basePrice is a number
+    };
 
-    //check drink already exists
-    if (currentDrink.drinkID) {
+    // Check if drink already exists
+    if (updatedDrink.drinkID) {
       setDrinks((prevDrinks) =>
         prevDrinks.map((drink) =>
-          drink.drinkID === currentDrink.drinkID ? currentDrink : drink
+          drink.drinkID === updatedDrink.drinkID ? updatedDrink : drink
         )
       );
     } else {
-      // console.log("PREVIOUS drink array length: " + drinks.length);
       const newDrink = {
-        ...currentDrink,
-        drinkID: drinks.length +1,
+        ...updatedDrink,
+        drinkID: drinks.length + 1,
       };
-      // console.log("NEW DRINK: ", newDrink);
       setDrinks((prevDrinks) => [...prevDrinks, newDrink]);
-      // console.log("AFTER drink array length: " + drinks.length);
     }
 
     onClose();

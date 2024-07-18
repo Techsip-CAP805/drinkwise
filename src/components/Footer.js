@@ -1,5 +1,6 @@
 import { VStack, Text, Flex, Box, Spacer, Center, useColorModeValue, HStack, Link } from '@chakra-ui/react';
 import React from 'react';
+import Image from 'next/image';
 
 const Footer = () => {
   const bgColor = useColorModeValue('#b9c6c0', '#2D3748');
@@ -13,8 +14,8 @@ const Footer = () => {
         w='100%'
         maxW='1200px'
         mx='auto'
-        px={8}
-        py={8}
+        px={12}
+        py={16}
         direction={{ base: 'column', md: 'row' }}
         align={{ base: 'center', md: 'stretch' }}
         textAlign={{ base: 'center', md: 'left' }}
@@ -27,9 +28,9 @@ const Footer = () => {
         </VStack>
         <Spacer display={{ base: 'none', md: 'block' }} />
         <VStack align='center' mb={{ base: 8, md: 0 }}>
-          <Center w='full' h={24}>
-            <Box as='span' fontSize='3xl' fontWeight='bold'>LOGO</Box>
-          </Center>
+          <Box>
+            <Image src='/footer-logo.png' width={90} height={50} alt='logo'/>
+          </Box>
           <HStack spacing={4}>
             <Link href='/privacy' fontSize='sm' _hover={{ textDecoration: 'underline' }}>Privacy Policy</Link>
             <Link href='/terms' fontSize='sm' _hover={{ textDecoration: 'underline' }}>Terms of Service</Link>

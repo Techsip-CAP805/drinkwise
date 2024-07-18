@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Link, Spacer, Flex, IconButton, VStack, useDisclosure, useColorModeValue, Text } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
+import Image from 'next/image';
 
 const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -8,7 +9,7 @@ const Navbar = () => {
   return (
     <Box
       w='100%'
-      h='10vh'
+      h={24}
       boxShadow='lg'
       color='white'
       display='flex'
@@ -28,7 +29,7 @@ const Navbar = () => {
         px={{ base: 4, md: 20 }}
         wrap='wrap'
       >
-        <Link href='/'><Text as='b' fontSize='lg'>Drinkwise</Text></Link>
+        <Link href='/'><Image src='/header-log.png' width={150} height={100} alt='logo'/></Link>
         <Spacer display={{ base: 'none', lg: 'block' }} />
         <Flex
           direction='row'
@@ -39,11 +40,10 @@ const Navbar = () => {
           display={{ base: 'none', lg: 'flex' }}
           spacing={4}
         >
-          <Link href='/employee/login' mx={2}><Text as='b' fontSize='md'>Employee</Text></Link>
-          <Link href='/menu' mx={2}><Text as='b' fontSize='md'>Menu</Text></Link>
-          <Link href='/locations' mx={2}><Text as='b' fontSize='md'>Locations</Text></Link>
-          <Link href='/order/search-location' mx={2}><Text as='b' fontSize='md'>Order Online</Text></Link>
-          <Link href='/contact' mx={2}><Text as='b' fontSize='md'>Contact Us</Text></Link>
+          <Link href='/menu' mx={2}><Text as='b' fontSize={['md', 'lg']}>Menu</Text></Link>
+          <Link href='/locations' mx={2}><Text as='b' fontSize={['md', 'lg']}>Locations</Text></Link>
+          <Link href='/order/search-location' mx={2}><Text as='b' fontSize={['md', 'lg']}>Order Online</Text></Link>
+          <Link href='/contact' mx={2}><Text as='b' fontSize={['md', 'lg']}>Contact Us</Text></Link>
         </Flex>
         <IconButton
           aria-label={isOpen ? 'Close menu' : 'Open menu'}

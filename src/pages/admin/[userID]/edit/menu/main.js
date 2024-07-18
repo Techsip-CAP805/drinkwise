@@ -56,8 +56,8 @@ const MainMenu = () => {
   return (
     <Box bg='#bcc8c3' minH='100vh' p={4}>
       <Flex direction='row' spacing={0} alignItems='start'>
-        <VStack align="start" spacing={4} width="220px" h='90vh' p={4} bg='#8fa39b' borderRadius='5px' boxShadow='lg' position='fixed'>
-          <Heading size="md" mb={4}>Drinkwise</Heading>
+        <VStack align="start" spacing={4} w='12vw' h='90vh' p={4} bg='#8fa39b' borderRadius='5px' boxShadow='lg' position='fixed'>
+          <Heading size="md">Drinkwise</Heading>
           <Link href='/admin/userid/dashboard'>dashboard</Link>
           <Text>Sales</Text>
           <Link href='/admin/userid/sales'>sales overview</Link>
@@ -68,7 +68,7 @@ const MainMenu = () => {
           <Link href='/admin/userid/edit/locations'>edit locations</Link>
         </VStack>
 
-        <Container w='calc(100vw - 260px)' minH='100vh' py={10} maxW='6xl' ml='260px'>
+        <Container w='calc(100vw - 260px)' minH='100vh' py={10} maxW='6xl'>
           <VStack spacing={4} alignItems='center' mb={6}>
             <Input
               placeholder='Search drinks...'

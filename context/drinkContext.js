@@ -3,6 +3,7 @@ const drinkData = require('../data/drinkData.json');
 const locationData = require('../data/locationData.json');
 const customerData = require('../data/customerData.json');
 const ingredientsData = require('../data/ingredientsData.json');
+const employeeData = require('../data/employeeData.json');
 
 const DrinkContext = createContext();
 
@@ -15,6 +16,7 @@ const DrinkProvider = ({ children }) => {
   const [drinks, setDrinks] = useState(drinkData);
   const [customers, setCustomers] = useState(customerData);
   const [ingredients, setIngredients] = useState(ingredientsData);
+  const [employees, setEmployees] = useState(employeeData)
 
   const drinkContextObject = {
     locations,
@@ -24,7 +26,9 @@ const DrinkProvider = ({ children }) => {
     customers,
     setCustomers,
     ingredients,
-    setIngredients
+    setIngredients,
+    employees,
+    setEmployees
   }
 
   return (

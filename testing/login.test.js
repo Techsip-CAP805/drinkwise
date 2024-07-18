@@ -4,7 +4,7 @@ import {
     , screen
     , fireEvent
 } from '@testing-library/react';
-import LoginPage from './login.js';
+import LoginPage from '../src/pages/employee/login.js';
 import {
     ChakraProvider
     , useToast
@@ -138,7 +138,7 @@ describe('Employee Login Page', () => {
 
         expect(mockToast).toHaveBeenCalledWith({
             title: 'Login failed.',
-            description: "Email field is required.",
+            description: "Password field is required.",
             status: 'error',
             duration: 5000,
             isClosable: true,

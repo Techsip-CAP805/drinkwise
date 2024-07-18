@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
-import EditMenuModal from './editMenuModal.js';
+import EditMenuModal from '../src/pages/employee/editMenuModal.js';
 import '@testing-library/jest-dom';
 
 // Mock props for testing

@@ -1,13 +1,14 @@
-import {DrinkProvider} from '../../context/drinkContext';
+import React from 'react'; // Add this line
+import { DrinkProvider } from '../../context/drinkContext';
 import "@/styles/globals.css";
 import { ChakraProvider } from '@chakra-ui/react';
 
 export default function App({ Component, pageProps }) {
   return (
     <DrinkProvider>
-    <ChakraProvider>
-    <Component {...pageProps} />
-    </ChakraProvider>
+      <ChakraProvider>
+        <Component {...pageProps} />
+      </ChakraProvider>
     </DrinkProvider>
-  )
+  );
 }

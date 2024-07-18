@@ -1,5 +1,5 @@
 // pages/login.js
-import { Flex, Box, Heading, Input, Button, Stack, Text} from '@chakra-ui/react';
+import { Flex, Box, Heading, Input, Button, Stack, Text, useToast} from '@chakra-ui/react';
 import {useRef} from 'react';
 import Link from 'next/link';
 import {useRouter, usePathname} from 'next/navigation';
@@ -12,14 +12,15 @@ export default function Login() {
   const userNameRef = useRef("");
   const passwordRef = useRef("");
   const {employees, setEmployees} = useDrinkContext();
+  const toast = useToast()
 
-  console.log(usePathname());
+  // console.log(usePathname());
 
   const onSubmit = (e) => {
     e.preventDefault();
 
-    console.log("username: ", userNameRef.current.value);
-    console.log("password: ", passwordRef.current.value);
+    // console.log("username: ", userNameRef.current.value);
+    // console.log("password: ", passwordRef.current.value);
 
     //check if username and password is empty
     if (userNameRef.current.value && passwordRef.current.value){
@@ -28,11 +29,18 @@ export default function Login() {
       //go to employeeData and check for info
       const user = admins.filter((admin)=> admin.emailAddress == userNameRef.current.value && admin.password == passwordRef.current.value);
 
-
       //if matches, redirect to /admin/userid/dashboard
         if (user.length > 0){
           router.push(pathname + `/${user[0].emailAddress.split('@')[0]}/dashboard`);
-      }
+        }else{
+          toast({
+            title: 'Did not find an acconut',
+            description: "please check username and password",
+            status: 'error',
+            duration: 8000,
+            isClosable: true,
+          })
+        }
     }
   }
 

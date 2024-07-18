@@ -1,0 +1,8 @@
+
+Dylan
+
+Manual (inputting username: ‘admin’, password: ‘admin123” would redirect you to admin/admin123/dashboard) (test completed)
+Manual (pressing on nav button on main-page should navigate you to the next reference point) test completed. 
+Unit testing (get length of current amount number of drinks(state), use addToAll() function, and then check length of current num of drinks again (state))
+Unit testing (searching for specific location, changing name that location to another name, and then searching for that location again)
+problem: had no idea how to test with react context, also I think because next already pre-configured babel in some way, you have to arrange babel in specific way

@@ -1,5 +1,5 @@
 // context/MyContext.js
-import { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 const drinkData = require('../data/drinkData.json');
 const locationData = require('../data/locationData.json');
 const customerData = require('../data/customerData.json');

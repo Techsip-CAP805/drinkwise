@@ -1,9 +1,10 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
+import '@testing-library/jest-dom'; // Ensure this is imported to use the custom matchers
 import EmployeeAccount from './employeeAccount';
-import employees from '../../../data/employees.json';
+import employees from '../../../data/employeeData.json';
 
-jest.mock('../../../data/employees.json', () => [
+jest.mock('../../../data/employeeData.json', () => [
   {
     "employeeID": 1,
     "firstName": "Jane",

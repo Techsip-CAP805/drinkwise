@@ -1,13 +1,3 @@
-<<<<<<< HEAD
-module.exports = {
-    setupFilesAfterEnv: ["<rootDir>/setupTests.js"],
-    transform: {
-      "^.+\\.jsx?$": "babel-jest"
-    },
-    testEnvironment: "jest-environment-jsdom"
-  };
-  
-=======
 /**
  * For a detailed explanation regarding each configuration property, visit:
  * https://jestjs.io/docs/configuration
@@ -206,4 +196,3 @@ const config = {
 };
 
 module.exports = config;
->>>>>>> origin/main

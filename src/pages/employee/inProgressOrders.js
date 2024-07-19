@@ -51,7 +51,7 @@ const InProgressOrders = () => {
     }, 0);
 
     return (
-        <Box bg="#bcc8c3" minHeight="100vh">
+        <Box bg="#bcc8c3" minHeight="100vh" ml="250px">
             <Box py={5} px={{ base: 4, md: 12 }}>
                 <Heading color="white" textAlign="center" mt={20}>
                     In Progress Orders ({inProgressOrdersCount})

@@ -27,7 +27,7 @@ const Orders = () => {
       <Box>
       <Flex>
         <SideNav setCurrentView={setCurrentView} />
-        <Box flex="1" py={5} px={{ base: 4, md: 12 }}>
+        <Box flex="1" py={5} px={{ base: 4, md: 12 }} ml="250px">
           {renderOrders()}
         </Box>
       </Flex>

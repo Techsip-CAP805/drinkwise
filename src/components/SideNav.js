@@ -1,39 +1,53 @@
 import React from 'react';
 import {
-  IconButton,
-  Drawer,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerCloseButton,
-  DrawerBody,
   Stack,
   Box,
   Heading,
   Link,
   Text,
+  Center
 } from '@chakra-ui/react';
 import { useDisclosure } from '@chakra-ui/react';
-import { ArrowForwardIcon, ArrowBackIcon } from '@chakra-ui/icons';
+import Image from 'next/image';
 
 const SideNav = ({ setCurrentView }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <>
-      <Stack align="center" p={20} spacing={5}>
-      <Link href='/employee/orders' textDecoration='underline'>
-        <Heading size="xl">Orders</Heading>
+    <Box
+      position="fixed"
+      bg="#A0B2AB"
+      width="250px"
+      height="100vh"
+      p={5}
+    >
+      <Stack spacing={5}>
+        <Link href="/employee/orders/incoming"  my={3}>
+          <Center><Image src='/header-log.png' width={150} height={100} alt='logo'/></Center>
         </Link>
-        <Link onClick={() => setCurrentView("incoming")} textDecoration='underline'><Text as='b' fontSize='m'>Incoming</Text></Link>
-        <Link onClick={() => setCurrentView("inProgress")} textDecoration='underline'><Text as='b' fontSize='m'>In Progress</Text></Link>
-        <Link onClick={() => setCurrentView("completed")} textDecoration='underline'><Text as='b' fontSize='m'>Completed</Text></Link>
-        <Heading size="xl">Menu</Heading>
-        <Link href='/employee/editMenu' textDecoration='underline'><Text as='b' fontSize='m'>Edit Menu</Text></Link>
-        <Link href='/employee/ingredients' textDecoration='underline'><Text as='b' fontSize='m'>Ingredients</Text></Link>
-        <Heading size="xl">Account</Heading>
-        <Link href='/employee/employeeAccount' textDecoration='underline'><Text as='b' fontSize='m'>Edit Info</Text></Link>
+        <Heading size="md">Orders</Heading>
+        <Link href="/employee/orders/incoming">
+          <Text pl={10}>Incoming</Text>
+        </Link>
+        <Link href="/employee/orders/inProgress">
+          <Text pl={10}>In Progress</Text>
+        </Link>
+        <Link href="/employee/orders/completed">
+          <Text pl={10}>Completed</Text>
+        </Link>
+        <Heading size="md">Menu</Heading>
+        <Link href='/employee/editMenu'>
+          <Text pl={10}>Edit Menu</Text>
+        </Link>
+        <Link href='/employee/ingredients'>
+          <Text pl={10}>Ingredients</Text>
+        </Link>
+        <Heading size="md">Account</Heading>
+        <Link href='/employee/employeeAccount'>
+          <Text pl={10}>Edit Info</Text>
+        </Link>
       </Stack>
-    </>
+    </Box>
   );
 };
 

@@ -45,9 +45,10 @@ const EditMenu = () => {
   const sortedIngredients = sortIngredients(ingredients);
 
   return (
-    <Box bg="#bcc8c3">
-      <Navbar />
+    <Box bg="#bcc8c3" >
+      {/* <Navbar /> */}
       <SideNav />
+      <Box ml="250px">
       <Container w='100vw' minH='100vh' maxW='7xl' py={10}>
         <Flex direction="column" justify="center" align="center" w="100%" h='100%' mt={20}>
           {/* {Object.keys(sortedIngredients).map(() => ( */}
@@ -57,7 +58,7 @@ const EditMenu = () => {
                   <GridItem key={index}>
                     <Card
                       borderRadius="lg"
-                      width="280px"
+                      // width="280px"
                       overflow="hidden"
                       boxShadow="md"
                       bg={cardBgColor}
@@ -97,14 +98,15 @@ const EditMenu = () => {
                   </GridItem>
                 ))}
               </Grid>
-              <Divider my={8} />
+              {/* <Divider my={8} /> */}
             </Box>
           
           {/* } */}
         </Flex>
       </Container>
+      </Box>
       {/* <EditMenuModal isOpen={isMenuOpen} onClose={onCloseMenu} drink={modalDrink} /> */}
-      <Footer />
+      {/* <Footer /> */}
     </Box>
   );
 };

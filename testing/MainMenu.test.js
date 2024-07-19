@@ -1,8 +1,8 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import MainMenu from './main'; 
-import { DrinkContext } from '../../../../../../context/drinkContext';
+import MainMenu from '../src/pages/admin/[userID]/edit/menu/main'; 
+import { DrinkContext } from '../context/drinkContext';
 
 const mockDrinks = [
   {

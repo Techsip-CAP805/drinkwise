@@ -1,9 +1,6 @@
 
 import React from "react";
 import { useDrinkContext } from "../../../context/drinkContext";
-import Navbar from "../../components/Navbar";
-import Footer from "../../components/Footer";
-import SideNav from "../../components/SideNav";
 import { Box, Heading, SimpleGrid, useToast } from "@chakra-ui/react";
 import OrdersColumn from "../../components/OrdersColumn";
 
@@ -55,8 +52,6 @@ const InProgressOrders = () => {
 
     return (
         <Box bg="#bcc8c3" minHeight="100vh">
-            <Navbar />
-            <SideNav />
             <Box py={5} px={{ base: 4, md: 12 }}>
                 <Heading color="white" textAlign="center" mt={20}>
                     In Progress Orders ({inProgressOrdersCount})
@@ -78,7 +73,6 @@ const InProgressOrders = () => {
                     />
                 </SimpleGrid>
             </Box>
-            <Footer />
         </Box>
     );
 };

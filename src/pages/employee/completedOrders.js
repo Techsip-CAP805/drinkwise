@@ -1,9 +1,6 @@
 
 import React from "react";
 import { useDrinkContext } from "../../../context/drinkContext";
-import Navbar from "../../components/Navbar";
-import Footer from "../../components/Footer";
-import SideNav from "../../components/SideNav";
 import { Box, Heading, SimpleGrid } from "@chakra-ui/react";
 import OrdersColumn from "../../components/OrdersColumn";
 
@@ -25,8 +22,6 @@ const CompletedOrders = () => {
 
     return (
         <Box bg="#bcc8c3" minHeight="100vh">
-            <Navbar />
-            <SideNav />
             <Box py={5} px={{ base: 4, md: 12 }}>
                 <Heading color="white" textAlign="center" mt={20}>
                     Completed Orders ({completedOrdersCount})
@@ -48,7 +43,6 @@ const CompletedOrders = () => {
                     />
                 </SimpleGrid>
             </Box>
-            <Footer />
         </Box>
     );
 };

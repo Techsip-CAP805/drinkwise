@@ -12,6 +12,8 @@ import {
     Box,
 } from "@chakra-ui/react";
 
+
+
 const OrdersColumn = ({ orders, onStatusChange }) => {
     const cardBgColor = useColorModeValue("#a0b2ab", "#283E38");
 
@@ -21,8 +23,6 @@ const OrdersColumn = ({ orders, onStatusChange }) => {
 
     return (
         <Box
-            maxH="70vh"
-            overflowY="auto"
             px={{ base: 4, md: 12 }}
             mb={10}
         >

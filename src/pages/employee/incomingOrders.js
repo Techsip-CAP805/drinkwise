@@ -1,9 +1,6 @@
 
 import React from "react";
 import { useDrinkContext } from "../../../context/drinkContext";
-import Navbar from "../../components/Navbar";
-import Footer from "../../components/Footer";
-import SideNav from "../../components/SideNav";
 import { Box, Heading, SimpleGrid, useToast } from "@chakra-ui/react";
 import OrdersColumn from "../../components/OrdersColumn";
 
@@ -11,7 +8,6 @@ const IncomingOrders = () => {
   const { customers, setCustomers } = useDrinkContext();
   const toast = useToast();
 
-  // Function to handle order status change
 
   // Function to handle order status change
   const handleOrderStatusChange = (customerId, orderId, newStatus) => {
@@ -85,8 +81,6 @@ const IncomingOrders = () => {
 
   return (
     <Box bg="#bcc8c3" minHeight="100vh">
-      <Navbar />
-      <SideNav />
       <Box py={5} px={{ base: 4, md: 12 }}>
         <Heading color="white" textAlign="center" mt={20}>
           Incoming Orders ({pendingOrdersCount})
@@ -108,7 +102,6 @@ const IncomingOrders = () => {
           />
         </SimpleGrid>
       </Box>
-      <Footer />
     </Box>
   );
 };

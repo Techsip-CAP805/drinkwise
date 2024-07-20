@@ -1,14 +1,41 @@
-import React, { useState } from 'react';
-import { Box, Container, VStack, Select, Button, SimpleGrid, Card, CardBody, Image, Text, HStack, Input, Heading, Link, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, FormControl, FormLabel, Input as ChakraInput, useDisclosure } from '@chakra-ui/react';
-import { useDrinkContext } from '../../../../../../context/drinkContext';
+import React, { useState, useEffect } from 'react';
+import {
+  Box, Container, VStack, Select, Button, SimpleGrid, Card, CardBody, Image, Text, HStack, Input, Heading, Link,
+  Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, FormControl, FormLabel,
+  Input as ChakraInput, useDisclosure
+} from '@chakra-ui/react';
 import { AddIcon, EditIcon } from '@chakra-ui/icons';
 
 const OrderMenu = () => {
-  const { locations, drinks, setDrinks } = useDrinkContext();
+  const [locations, setLocations] = useState([]);
+  const [drinks, setDrinks] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [currentDrink, setCurrentDrink] = useState({ drinkName: '', description: '', basePrice: '', imagePath: '' });
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  useEffect(() => {
+    const fetchLocations = async () => {
+      const response = await fetch('/api/locations');
+      const data = await response.json();
+      if (response.ok) {
+        setLocations(data);
+      } else {
+        console.error('Failed to fetch locations:', data.error);
+      }
+    };
+
+    const fetchDrinks = async () => {
+      const response = await fetch('/api/editMenu');
+      const data = await response.json();
+      if (response.ok) {
+        setDrinks(data.data);
+      }
+    };
+
+    fetchLocations();
+    fetchDrinks();
+  }, []);
 
   const handleLocationChange = (event) => {
     setSelectedLocation(event.target.value);
@@ -23,32 +50,71 @@ const OrderMenu = () => {
     setCurrentDrink(drink);
     onOpen();
   };
-
-  const handleSaveDrink = () => {
+  const handleSaveDrink = async () => {
     const updatedDrink = {
       ...currentDrink,
-      basePrice: parseFloat(currentDrink.basePrice), // Ensure basePrice is a number
+      basePrice: parseFloat(currentDrink.basePrice),
     };
-
-    // Check if drink already exists
-    if (updatedDrink.drinkID) {
-      setDrinks((prevDrinks) =>
-        prevDrinks.map((drink) =>
-          drink.drinkID === updatedDrink.drinkID ? updatedDrink : drink
-        )
-      );
-    } else {
-      const newDrink = {
-        ...updatedDrink,
-        drinkID: drinks.length + 1,
-      };
-      setDrinks((prevDrinks) => [...prevDrinks, newDrink]);
+  
+    console.log('Saving drink:', updatedDrink);
+  
+    let response;
+    try {
+      if (currentDrink._id) {
+        // Update existing drink
+        response = await fetch(`/api/editMenu/${currentDrink._id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(updatedDrink),
+        });
+      } else {
+        const updatedDrink = {
+          ...currentDrink,
+          drinkID: drinks.length +1,
+        };
+        // Add new drink
+        response = await fetch('/api/editMenu', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(updatedDrink),
+        });
+      }
+  
+      const data = await response.json();
+      if (response.ok) {
+        setDrinks((prevDrinks) =>
+          currentDrink._id
+            ? prevDrinks.map((drink) => (drink._id === currentDrink._id ? data.data : drink))
+            : [...prevDrinks, data.data]
+        );
+        onClose();
+      } else {
+        console.error('Failed to save drink:', data.error);
+      }
+    } catch (error) {
+      console.error('Error saving drink:', error);
     }
+  };
+  
+  
 
-    onClose();
+  const handleDeleteDrink = async (id) => {
+    const response = await fetch(`/api/editMenu/${id}`, {
+      method: 'DELETE',
+    });
+
+    const data = await response.json();
+    if (response.ok) {
+      setDrinks((prevDrinks) => prevDrinks.filter((drink) => drink._id !== id));
+    }
   };
 
-  const filteredDrinks = drinks.slice(0, 10).filter(drink =>
+  // const filteredDrinks = drinks.slice(0, 10).filter(drink =>
+    const filteredDrinks = drinks.filter(drink =>
     drink.drinkName.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -75,7 +141,7 @@ const OrderMenu = () => {
           <HStack spacing={4} justify='space-between' w='100%'>
             <Select placeholder='Select location' onChange={handleLocationChange} maxW='300px'>
               {locations.map(location => (
-                <option key={location.id} value={location.name}>{location.name}</option>
+                <option key={location._id} value={location.branchName}>{location.branchName}</option>
               ))}
             </Select>
             <Button rightIcon={<AddIcon />} colorScheme='teal' onClick={handleAddDrink}>Add to all</Button>
@@ -95,7 +161,10 @@ const OrderMenu = () => {
                   <Text fontSize='lg' fontWeight='bold'>{drink.drinkName}</Text>
                   <Text>{drink.description}</Text>
                   <Text>${Number(drink.basePrice).toFixed(2)}</Text>
-                  <Button leftIcon={<EditIcon />} mt={2} colorScheme='teal' onClick={() => handleEditDrink(drink)}>Edit Drink</Button>
+                  <HStack mt={2} spacing={4}>
+                    <Button leftIcon={<EditIcon />} colorScheme='teal' onClick={() => handleEditDrink(drink)}>Edit</Button>
+                    <Button leftIcon={<EditIcon />} colorScheme='red' onClick={() => handleDeleteDrink(drink._id)}>Delete</Button>
+                  </HStack>
                 </CardBody>
               </Card>
             ))}

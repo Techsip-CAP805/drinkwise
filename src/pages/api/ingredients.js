@@ -1,4 +1,3 @@
-// pages/api/ingredients.js
 import { connectToDatabase } from '../../../lib/mongodb';
 import Ingredient from '../../../model/ingredientModel';
 

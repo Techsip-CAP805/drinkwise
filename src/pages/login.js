@@ -1,56 +1,65 @@
 import React, { useState, useRef } from 'react';
-import { useDrinkContext } from '../../context/drinkContext';
-import { useToast, Box, Container, Flex, Input, Button, InputGroup, Stack, Link, FormControl, FormHelperText, InputRightElement, Avatar } from '@chakra-ui/react';
+import { useToast, Box, Container, Flex, Input, Button, InputGroup, Stack, Link, FormControl, FormHelperText, InputRightElement } from '@chakra-ui/react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
-export const isValid = (email, password, customers) => {
-  return customers.some(customer => customer.emailAddress === email && customer.password === password);
-}
-
 const Login = () => {
-  const { customers } = useDrinkContext();
-
   const [showPassword, setShowPassword] = useState(false);
-
-  const handleShowClick = () => setShowPassword(!showPassword);
-  const toast = useToast();
-
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
+  const toast = useToast();
 
+  const handleShowClick = () => setShowPassword(!showPassword);
 
-
-  const handleLogin = (event) => {
+  const handleLogin = async (event) => {
     event.preventDefault();
 
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
 
-
-    if (isValid(email, password, customers)) {
-      toast({
-        title: 'Login Successful',
-        description: 'Welcome back!',
-        status: 'success',
-        duration: 3000,
-        isClosable: true,
+    try {
+      const response = await fetch('/api/customerLogin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ emailAddress: email, password: password }),
       });
-    } else {
+
+      if (response.ok) {
+        const data = await response.json();
+        toast({
+          title: 'Login Successful',
+          description: 'Welcome back!',
+          status: 'success',
+          duration: 3000,
+          isClosable: true,
+        });
+      } else {
+        toast({
+          title: 'Login Failed',
+          description: 'Invalid credentials. Please try again.',
+          status: 'error',
+          duration: 3000,
+          isClosable: true,
+        });
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
       toast({
         title: 'Login Failed',
-        description: 'Invalid credentials. Please try again.',
+        description: 'Something went wrong. Please try again.',
         status: 'error',
         duration: 3000,
         isClosable: true,
       });
     }
   };
+
   return (
     <Box bg='#bcc8c3'>
       <Navbar />
       <Container w='100vw' h='100vh' maxH='100vh' maxW='7xl'>
-        {/* <Flex direction='row'  w='100%' h='100%' justify='center' align='center' pb={40}> */}
         <Flex
           flexDirection="column"
           width="100wh"
@@ -64,9 +73,7 @@ const Login = () => {
             justifyContent="center"
             alignItems="center"
           >
-            {/* <Avatar bg='tomato' /> */}
             <Box minW={{ base: "90%", md: "468px" }}>
-              {/* <Box> */}
               <form onSubmit={handleLogin}>
                 <Stack
                   spacing={4}
@@ -126,19 +133,7 @@ const Login = () => {
         <Footer />
       </Container>
     </Box>
-
-
-    // <Flex
-    //   flexDirection="column"
-    //   width="100wh"
-    //   height="100vh"
-    //   backgroundColor="gray.200"
-    //   justifyContent="center"
-    //   alignItems="center"
-    // >
-
-    // </Flex>
-  )
-}
+  );
+};
 
 export default Login;

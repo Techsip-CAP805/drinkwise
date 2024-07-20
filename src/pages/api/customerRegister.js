@@ -1,3 +1,4 @@
+// pages/api/customerRegister.js
 import { connectToDatabase } from '../../../lib/mongodb';
 import Customer from '../../../model/customerModel';
 import bcrypt from 'bcrypt';

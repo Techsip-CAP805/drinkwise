@@ -1,7 +1,17 @@
 import React from 'react';
-import { Box, Link, Spacer, Flex, IconButton, VStack, useDisclosure, useColorModeValue, Text } from '@chakra-ui/react';
+import { Box, Spacer, Flex, IconButton, VStack, useDisclosure, useColorModeValue, Text } from '@chakra-ui/react';
+import { Link } from '@chakra-ui/next-js'
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import Image from 'next/image';
+import { Mukta, Playfair_Display_SC} from 'next/font/google'
+
+const mukta = Mukta({
+  subsets: ['latin'],
+  display: 'swap',
+  weight: '500'
+})
+
+
 
 const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -40,10 +50,10 @@ const Navbar = () => {
           display={{ base: 'none', lg: 'flex' }}
           spacing={4}
         >
-          <Link href='/menu' mx={2}><Text as='b' fontSize={['md', 'lg']}>Menu</Text></Link>
-          <Link href='/locations' mx={2}><Text as='b' fontSize={['md', 'lg']}>Locations</Text></Link>
-          <Link href='/order/search-location' mx={2}><Text as='b' fontSize={['md', 'lg']}>Order Online</Text></Link>
-          <Link href='/contact' mx={2}><Text as='b' fontSize={['md', 'lg']}>Contact Us</Text></Link>
+          <Link href='/menu' mx={2} _hover={{}}><Text as='b' fontSize={['md', 'lg']} className={mukta.className} color='#374B43'>MENU</Text></Link>
+          <Link href='/locations' mx={2} _hover={{}}><Text as='b' fontSize={['md', 'lg']} className={mukta.className} color='#374B43'>LOCATIONS</Text></Link>
+          <Link href='/order/search-location' mx={2} _hover={{}}><Text as='b' fontSize={['md', 'lg']} className={mukta.className} color='#374B43'>ORDER ONLINE</Text></Link>
+          <Link href='/contact' mx={2} _hover={{}}><Text as='b' fontSize={['md', 'lg']} className={mukta.className} color='#374B43'>CONTACT US</Text></Link>
         </Flex>
         <IconButton
           aria-label={isOpen ? 'Close menu' : 'Open menu'}

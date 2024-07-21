@@ -4,12 +4,20 @@ import { Box, Container, Flex, Text, IconButton, VStack, HStack, Image, SimpleGr
 import {Link as ScrollLink, animateScroll as scroll} from 'react-scroll';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import Link from 'next/link';
+import { Link } from '@chakra-ui/next-js'
 import { ArrowDownIcon } from '@chakra-ui/icons';
+import {Fira_Sans} from 'next/font/google'
+
+const fira = Fira_Sans({
+  subsets: ['latin'],
+  display: 'swap',
+  weight: '400',
+  style: 'italic'
+})
 
 const Home = () => {
-  const { locations, setLocations } = useContext(DrinkContext);
 
+  const { locations, setLocations } = useContext(DrinkContext);
 
   const scrollMore = (pixel) => {
     scroll.scrollMore(pixel); // Scrolling an additional 100px from the current scroll position.
@@ -37,7 +45,7 @@ const Home = () => {
                 </video>
               </Box>
             </Link>
-            <Text color='white' fontSize='2xl' as='em' my={14}>&quot;It&#39;s not a choice, It&#39;s a Lifestyle.&quot;</Text>
+            <Text color='#374B43' fontSize='2xl' as='em' mt={8} mb={12}>&quot;It&#39;s not a choice, It&#39;s a Lifestyle.&quot;</Text>
             <ScrollLink 
               spy={true} 
               smooth={true} 
@@ -54,7 +62,7 @@ const Home = () => {
                 bg='gray.200'
                 _hover={{ bg: 'white' }}
                 _active={{ bg: 'white' }}
-                mt={4}
+                mt={3}
               />
             </ScrollLink>
           </VStack>

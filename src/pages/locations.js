@@ -8,7 +8,7 @@ export default function LocationsPage({ locations }) {
   const cardBgColor = useColorModeValue("#a0b2ab", "#283E38");
   const cardHoverBgColor = useColorModeValue("#8f9f9a", "#1F2D2B");
 
-  console.log(locations);
+  // console.log(locations);
 
   return (
     <Box bg="#bcc8c3">

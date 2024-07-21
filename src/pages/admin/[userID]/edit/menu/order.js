@@ -5,6 +5,7 @@ import {
   Input as ChakraInput, useDisclosure
 } from '@chakra-ui/react';
 import { AddIcon, EditIcon } from '@chakra-ui/icons';
+import AdminSideNav from '@/components/AdminSideNav.js';
 
 const OrderMenu = () => {
   const [locations, setLocations] = useState([]);
@@ -50,13 +51,14 @@ const OrderMenu = () => {
     setCurrentDrink(drink);
     onOpen();
   };
+  
   const handleSaveDrink = async () => {
     const updatedDrink = {
       ...currentDrink,
       basePrice: parseFloat(currentDrink.basePrice),
     };
   
-    console.log('Saving drink:', updatedDrink);
+    // console.log('Saving drink:', updatedDrink);
   
     let response;
     try {
@@ -125,7 +127,7 @@ const OrderMenu = () => {
 
   return (
     <Box bg='#bcc8c3' minH='100vh' display='flex'>
-      <VStack align="start" spacing={4} width='12vw' p={4} bg='#8fa39b' borderRadius='5px' boxShadow='lg' ml={4} mt={4}>
+      {/* <VStack align="start" spacing={4} width='12vw' p={4} bg='#8fa39b' borderRadius='5px' boxShadow='lg' ml={4} mt={4}>
         <Heading size="md">Drinkwise</Heading>
         <Link href='/admin/userid/dashboard'>dashboard</Link>
         <Text>Sales</Text>
@@ -135,8 +137,9 @@ const OrderMenu = () => {
         <Link href='/admin/userid/edit/menu/order'>edit order menu</Link>
         <Text>Locations</Text>
         <Link href='/admin/userid/edit/locations'>edit locations</Link>
-      </VStack>
-      <Container w='100%' minH='100vh' py={10} maxW='7xl'>
+      </VStack> */}
+      <AdminSideNav />
+      <Container w='100%' minH='100vh' py={10} maxW='7xl' ml ="250px">
         <VStack spacing={4} align='stretch'>
           <HStack spacing={4} justify='space-between' w='100%'>
             <Select placeholder='Select location' onChange={handleLocationChange} maxW='300px'>

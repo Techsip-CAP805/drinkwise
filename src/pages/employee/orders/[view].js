@@ -1,8 +1,6 @@
 // pages/orders/[view].js
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
 import SideNav from '@/components/SideNav';
 import IncomingOrders from '@/pages/employee/incomingOrders';
 import InProgressOrders from '@/pages/employee/inProgressOrders';
@@ -12,7 +10,7 @@ import { Box, Flex, Spacer } from '@chakra-ui/react';
 const Orders = () => {
     const router = useRouter();
     const { view } = router.query;
-    console.log(view);
+    // console.log(view);
     const [currentView, setCurrentView] = useState(view || 'incoming');
 
     useEffect(() => {

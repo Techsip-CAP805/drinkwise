@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Box, VStack, Heading, Link, Input, Button, Image, HStack, SimpleGrid, Text, Container, Card, CardBody, Flex } from '@chakra-ui/react';
 import { AddIcon, EditIcon, DeleteIcon } from '@chakra-ui/icons';
+import AdminSideNav from '@/components/AdminSideNav.js';
 
 const MainMenu = () => {
   const [drinks, setDrinks] = useState([]);
@@ -100,9 +101,9 @@ const MainMenu = () => {
   );
 
   return (
-    <Box bg='#bcc8c3' minH='100vh' p={4}>
+    <Box bg='#bcc8c3' minH='100vh' p={0}>
       <Flex direction='row' spacing={0} alignItems='start'>
-        <VStack align="start" spacing={4} w='12vw' h='90vh' p={4} bg='#8fa39b' borderRadius='5px' boxShadow='lg' position='fixed'>
+        {/* <VStack align="start" spacing={4} w='12vw' h='90vh' p={4} bg='#8fa39b' borderRadius='5px' boxShadow='lg' position='fixed'>
           <Heading size="md">Drinkwise</Heading>
           <Link href='/admin/userid/dashboard'>dashboard</Link>
           <Text>Sales</Text>
@@ -112,7 +113,9 @@ const MainMenu = () => {
           <Link href='/admin/userid/edit/menu/order'>edit order menu</Link>
           <Text>Locations</Text>
           <Link href='/admin/userid/edit/locations'>edit locations</Link>
-        </VStack>
+        </VStack> */}
+        <AdminSideNav />
+
 
         <Container w='calc(100vw - 260px)' minH='100vh' py={10} maxW='6xl'>
           <VStack spacing={4} alignItems='center' mb={6}>

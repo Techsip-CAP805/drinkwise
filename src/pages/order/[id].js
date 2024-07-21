@@ -13,11 +13,11 @@ const LocationDetails = () => {
 
   useEffect(() => {
     if (id && locations.length) {
-        console.log(id);
-        console.log(locations);
+        // console.log(id);
+        // console.log(locations);
         const numericId = parseInt(id, 10); // Convert id to a number
       const foundLocation = locations.find(location => location.id === numericId);
-      console.log("FOUND LOCATION: ", foundLocation);
+      // console.log("FOUND LOCATION: ", foundLocation);
       setLocation(foundLocation);
     }
   }, [id, locations]);

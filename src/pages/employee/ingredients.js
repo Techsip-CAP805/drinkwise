@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../../components/Navbar";
-import Footer from "@/components/Footer";
 import SideNav from "../../components/SideNav";
 import {
   Box,
@@ -24,31 +22,20 @@ import {
 } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 
-// Function to arrange ingredients alphabetically
 const sortIngredients = (ingredients) => {
-  // Assuming ingredients is an array of objects
-  return ingredients.sort((a, b) => {
-    if (a.ingredientName < b.ingredientName) {
-      return -1;
-    }
-    if (a.ingredientName > b.ingredientName) {
-      return 1;
-    }
-    return 0;
-  });
+  return ingredients.sort((a, b) => a.ingredientName.localeCompare(b.ingredientName));
 }
 
 const EditMenu = ({ ingredients, currentBranch }) => {
   const cardBgColor = useColorModeValue("#a0b2ab", "#283E38");
   const cardHoverBgColor = useColorModeValue("#8f9f9a", "#1F2D2B");
 
-  // Sort ingredients alphabetically
   const sortedIngredients = sortIngredients(ingredients);
-
-  const unavailableIngredients = currentBranch[0].unavailableIngredients.map(ingredient => ingredient.ingredientName);
-  console.log(unavailableIngredients);
   
-  // Create a state to keep track of switch statuses
+  const [unavailableIngredients, setUnavailableIngredients] = useState(
+    currentBranch[0].unavailableIngredients.map(ingredient => ingredient.ingredientName)
+  );
+
   const [switchStatus, setSwitchStatus] = useState({});
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredIngredients, setFilteredIngredients] = useState(sortedIngredients);
@@ -56,8 +43,7 @@ const EditMenu = ({ ingredients, currentBranch }) => {
   useEffect(() => {
     const initialStatus = {};
     sortedIngredients.forEach(ingredient => {
-      const isUnavailable = unavailableIngredients.includes(ingredient.ingredientName);
-      initialStatus[ingredient.ingredientName] = !isUnavailable;
+      initialStatus[ingredient.ingredientName] = !unavailableIngredients.includes(ingredient.ingredientName);
     });
     setSwitchStatus(initialStatus);
   }, [sortedIngredients, unavailableIngredients]);
@@ -70,11 +56,37 @@ const EditMenu = ({ ingredients, currentBranch }) => {
     );
   }, [searchQuery, sortedIngredients]);
 
-  const handleToggle = (ingredientName) => {
+  const handleToggle = async (ingredientName) => {
+    const newStatus = !switchStatus[ingredientName];
     setSwitchStatus(prevStatus => ({
       ...prevStatus,
-      [ingredientName]: !prevStatus[ingredientName]
+      [ingredientName]: newStatus
     }));
+
+    const method = newStatus ? 'REMOVE' : 'ADD';
+
+    try {
+      await fetch('/api/updateLocationIngredients', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ingredientName,
+          branchId: currentBranch[0]._id,
+          method,
+        }),
+      });
+
+      // Update the unavailableIngredients array
+      setUnavailableIngredients(prevState =>
+        method === 'ADD'
+          ? [...prevState, ingredientName]
+          : prevState.filter(item => item !== ingredientName)
+      );
+    } catch (error) {
+      console.error('Error updating location ingredients:', error);
+    }
   };
 
   return (

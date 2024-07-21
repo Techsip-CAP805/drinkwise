@@ -7,6 +7,7 @@ import {
 } from '@chakra-ui/react';
 import { AddIcon, EditIcon, DeleteIcon } from '@chakra-ui/icons';
 import Link from 'next/link';
+import AdminSideNav from '@/components/AdminSideNav.js';
 
 const EditLocations = () => {
   const [locations, setLocations] = useState([]);
@@ -143,7 +144,7 @@ const EditLocations = () => {
 
   return (
     <Box bg='#bcc8c3' minH='100vh'>
-      <VStack align="start" spacing={4} width='12vw' p={4} mt={4} ml={4} h='90vh' bg='#8fa39b' borderRadius='5px' boxShadow='lg' position='fixed'>
+      {/* <VStack align="start" spacing={4} width='12vw' p={4} mt={4} ml={4} h='90vh' bg='#8fa39b' borderRadius='5px' boxShadow='lg' position='fixed'>
         <Heading size="md">Drinkwise</Heading>
         <Link href='/admin/userid/dashboard'>dashboard</Link>
         <Text>Sales</Text>
@@ -153,7 +154,8 @@ const EditLocations = () => {
         <Link href='/admin/userid/edit/menu/order' ml={4}>edit order menu</Link>
         <Text>Locations</Text>
         <Link href='/admin/userid/edit/locations'>edit locations</Link>
-      </VStack>
+      </VStack> */}
+      <AdminSideNav />
       <Container w='calc(100vw - 240px)' minH='100vh' py={10} maxW='6xl' centerContent>
         <VStack spacing={4} alignItems='center' mb={6}>
           <Input

@@ -23,7 +23,7 @@ const EmployeeAccount = () => {
       const data = await res.json();
       if (res.ok) {
         setFormData(data);
-        console.log('Fetched data:', data);
+        // console.log('Fetched data:', data);
       } else {
         setFormData(null);
         console.error('Employee not found');
@@ -74,7 +74,7 @@ const EmployeeAccount = () => {
       const data = await res.json();
       if (res.ok) {
         setFormData(data);
-        console.log('Updated data:', data);
+        // console.log('Updated data:', data);
       } else {
         console.error('Failed to update employee data');
       }

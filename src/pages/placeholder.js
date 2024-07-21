@@ -8,7 +8,7 @@ const Menu = () => {
   const { drinks } = useDrinkContext();
 
   //want to see how many drinks, currently: 28
-  console.log(drinks.length);
+  // console.log(drinks.length);
 
   // Extract unique categories from drinks
   const categories = Array.from(new Set(drinks.map(drink => drink.category)));

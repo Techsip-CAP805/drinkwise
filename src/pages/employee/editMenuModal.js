@@ -70,6 +70,7 @@ const EditMenuModal = (props) => {
                                 width="320px"
                                 _hover={{ borderColor: "#A0B2AB" }}
                                 _focus={{ borderColor: "#A0B2AB" }}
+                                isReadOnly
                             />
                         </Flex>
                     </FormControl>
@@ -86,6 +87,7 @@ const EditMenuModal = (props) => {
                                 width="320px"
                                 _hover={{ borderColor: "#A0B2AB" }}
                                 _focus={{ borderColor: "#A0B2AB" }}
+                                isReadOnly
                             />
                         </Flex>
                     </FormControl>
@@ -94,8 +96,7 @@ const EditMenuModal = (props) => {
                         <Flex align="center">
                             <FormLabel color="#372F2F">Category</FormLabel>
                             <Spacer />
-                            <Select
-                            //  {/* added drink?. */}
+                            {/* <Select
                                 defaultValue={drink?.category}
                                 backgroundColor="#F3F1E8"
                                 borderColor="#7B7875"
@@ -109,7 +110,53 @@ const EditMenuModal = (props) => {
                                 <option value="Specialty Drinks">Specialty Drinks</option>
                                 <option value="Smoothie">Smoothie</option>
                                 <option value="Other">Other</option>
-                            </Select>
+                            </Select> */}
+                            <Input
+                                defaultValue={drink?.category}
+                                backgroundColor="#F3F1E8"
+                                borderColor="#7B7875"
+                                width="320px"
+                                _hover={{ borderColor: "#A0B2AB" }}
+                                _focus={{ borderColor: "#A0B2AB" }}
+                                isReadOnly
+                            >
+                            </Input>
+                        </Flex>
+                    </FormControl>
+
+                    <FormControl mt={4}>
+                        <Flex align="center">
+                            <FormLabel color="#372F2F">Ingredients</FormLabel>
+                            <Spacer />
+                            <Textarea
+                            //  {/* added drink?. */}
+                                defaultValue={drink?.ingredients?.map(ingredient => ingredient.ingredientName).join('\n')}
+                                backgroundColor="#F3F1E8"
+                                borderColor="#7B7875"
+                                width="320px"
+                                _hover={{ borderColor: "#A0B2AB" }}
+                                _focus={{ borderColor: "#A0B2AB" }}
+                                rows={3}
+                                isReadOnly
+                            />
+                        </Flex>
+                    </FormControl>
+
+                    <FormControl mt={4}>
+                        <Flex align="center">
+                            <FormLabel color="#372F2F">Base Price</FormLabel>
+                            <Spacer />
+                            <Box pr="5px">$</Box>
+                            <Input
+                            //  {/* added drink?. */}
+                                defaultValue={drink?.basePrice}
+                                backgroundColor="#F3F1E8"
+                                borderColor="#7B7875"
+                                width="80px"
+                                _hover={{ borderColor: "#A0B2AB" }}
+                                _focus={{ borderColor: "#A0B2AB" }}
+                                isReadOnly
+                            />
                         </Flex>
                     </FormControl>
 
@@ -169,39 +216,6 @@ const EditMenuModal = (props) => {
                         </Flex>
                     </FormControl>
 
-                    <FormControl mt={4}>
-                        <Flex align="center">
-                            <FormLabel color="#372F2F">Ingredients</FormLabel>
-                            <Spacer />
-                            <Textarea
-                            //  {/* added drink?. */}
-                                defaultValue={drink?.ingredients?.map(ingredient => ingredient.ingredientName).join('\n')}
-                                backgroundColor="#F3F1E8"
-                                borderColor="#7B7875"
-                                width="320px"
-                                _hover={{ borderColor: "#A0B2AB" }}
-                                _focus={{ borderColor: "#A0B2AB" }}
-                                rows={3}
-                            />
-                        </Flex>
-                    </FormControl>
-
-                    <FormControl mt={4}>
-                        <Flex align="center">
-                            <FormLabel color="#372F2F">Base Price</FormLabel>
-                            <Spacer />
-                            <Box pr="5px">$</Box>
-                            <Input
-                            //  {/* added drink?. */}
-                                defaultValue={drink?.basePrice}
-                                backgroundColor="#F3F1E8"
-                                borderColor="#7B7875"
-                                width="80px"
-                                _hover={{ borderColor: "#A0B2AB" }}
-                                _focus={{ borderColor: "#A0B2AB" }}
-                            />
-                        </Flex>
-                    </FormControl>
                 </ModalBody>
                 <HStack>
                     <Spacer />

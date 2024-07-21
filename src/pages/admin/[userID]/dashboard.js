@@ -16,6 +16,7 @@ import { Line } from 'react-chartjs-2';
 import Link from 'next/link';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 import { useEffect, useState } from 'react';
+import AdminSideNav from '@/components/AdminSideNav.js';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
@@ -49,9 +50,9 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <Flex direction="column" minHeight="100vh" bg="#a8b8b1" p={4}>
-      <Flex>
-        <VStack align="start" spacing={4} width='12vw' p={4} bg='#8fa39b' borderRadius='5px' boxShadow='lg'>
+    <Flex direction="column" minHeight="100vh" bg="#a8b8b1">
+      <Box>
+        {/* <VStack align="start" spacing={4} width='12vw' p={4} bg='#8fa39b' borderRadius='5px' boxShadow='lg'>
           <Heading size="md">Drinkwise</Heading>
           <Link href='/admin/userid/dashboard'>dashboard</Link>
           <Text>Sales</Text>
@@ -61,8 +62,9 @@ export default function Dashboard() {
           <Link href='/admin/userid/edit/menu/order' ml={4}>edit order menu</Link>
           <Text>Locations</Text>
           <Link href='/admin/userid/edit/locations'>edit locations</Link>
-        </VStack>
-        <Box flex="1" p={4}>
+        </VStack> */}
+        <AdminSideNav />
+        <Box flex="1" p={4} ml="250px">
           <Heading>Dashboard</Heading>
           <Grid templateColumns="repeat(2, 1fr)" gap={6} mt={4}>
             <Stat p={4} bg="white" borderRadius="md" shadow="md">
@@ -92,7 +94,7 @@ export default function Dashboard() {
             <Text mt={2} key={location._id}>{location.branchName}</Text>
           ))}
         </Box>
-      </Flex>
+      </Box>
     </Flex>
   );
 }

@@ -12,7 +12,7 @@ const Menu = () => {
       try {
         const drinksRes = await fetch('/api/drinkMenu');
         const drinksData = await drinksRes.json();
-        console.log('Drinks data:', drinksData);
+        // console.log('Drinks data:', drinksData);
 
         const drinksWithIngredients = drinksData.map(drink => {
           return {
@@ -21,7 +21,7 @@ const Menu = () => {
           };
         });
 
-        console.log('Drinks with ingredients:', drinksWithIngredients);
+        // console.log('Drinks with ingredients:', drinksWithIngredients);
         setDrinks(drinksWithIngredients);
       } catch (error) {
         console.error('Failed to fetch data:', error);
@@ -52,7 +52,7 @@ const Menu = () => {
                         <Box width="320px">
                           <Text fontSize="md" color="gray.700">{drink.drinkName}</Text>
                           <Text fontSize="sm" color="gray.500">{drink.description}</Text>
-                          <Text fontSize="sm" color="gray.500">Ingredients: {drink.ingredients.join(", ")}</Text>
+                          {/* <Text fontSize="sm" color="gray.500">Ingredients: {drink.ingredients.join(", ")}</Text> */}
                         </Box>
                         <Box width="50px" paddingLeft="10px">
                           {drink.sizeOptions && (

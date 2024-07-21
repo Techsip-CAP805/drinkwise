@@ -37,7 +37,7 @@ const SideNav = ({ setCurrentView }) => {
         </Link>
         <Heading size="md">Menu</Heading>
         <Link href='/employee/editMenu'>
-          <Text pl={10}>Edit Menu</Text>
+          <Text pl={10}>Edit Branch Menu</Text>
         </Link>
         <Link href='/employee/ingredients'>
           <Text pl={10}>Ingredients</Text>

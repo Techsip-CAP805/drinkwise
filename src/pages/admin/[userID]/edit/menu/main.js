@@ -117,7 +117,7 @@ const MainMenu = () => {
         <AdminSideNav />
 
 
-        <Container w='calc(100vw - 260px)' minH='100vh' py={10} maxW='6xl'>
+        <Container w='calc(100vw - 260px)' minH='100vh' py={10} maxW='6xl' ml="250px">
           <VStack spacing={4} alignItems='center' mb={6}>
             <Input
               placeholder='Search drinks...'

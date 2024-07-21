@@ -31,7 +31,7 @@ const Home = () => {
           <VStack h='100vh' justify='center'>
             <Link href='/recommendation'>
               <Box
-                width="40vw"
+                width={['80vw', '70vw','40vw']}
                 height="35vh"
                 bg='gray.100'
                 display='flex'
@@ -45,7 +45,7 @@ const Home = () => {
                 </video>
               </Box>
             </Link>
-            <Text color='#374B43' fontSize='2xl' as='em' mt={8} mb={12}>&quot;It&#39;s not a choice, It&#39;s a Lifestyle.&quot;</Text>
+            <Text color='#374B43' fontSize={['19px','20px', '22px']} as='em' mt={6} mb={12} textAlign='center' _hover={{cursor: 'default'}}>&quot;It&#39;s not a choice, It&#39;s a Lifestyle.&quot;</Text>
             <ScrollLink 
               spy={true} 
               smooth={true} 

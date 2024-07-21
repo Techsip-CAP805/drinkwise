@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Box, Container, VStack, Select, Button, SimpleGrid, Card, CardBody, Image, Text, HStack, Input, Heading, Link,
-  Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, FormControl, FormLabel,
-  Input as ChakraInput, useDisclosure
+  Box, Container, VStack, Select, Button, SimpleGrid, Card, CardBody, Image, Text, HStack, Input, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, FormControl, FormLabel, ModalFooter
 } from '@chakra-ui/react';
 import { AddIcon, EditIcon } from '@chakra-ui/icons';
 import AdminSideNav from '@/components/AdminSideNav.js';
+import DualListbox from "@/components/DualListBox";
 
 const OrderMenu = () => {
   const [locations, setLocations] = useState([]);
   const [drinks, setDrinks] = useState([]);
+  const [ingredients, setIngredients] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
-  const [currentDrink, setCurrentDrink] = useState({ drinkName: '', description: '', basePrice: '', imagePath: '' });
+  const [currentDrink, setCurrentDrink] = useState({ drinkName: '', description: '', basePrice: '', imagePath: '', ingredients: [] });
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
@@ -31,11 +31,24 @@ const OrderMenu = () => {
       const data = await response.json();
       if (response.ok) {
         setDrinks(data.data);
+      } else {
+        console.error('Failed to fetch drinks:', data.error);
+      }
+    };
+
+    const fetchIngredients = async () => {
+      const response = await fetch('/api/ingredients');
+      const data = await response.json();
+      if (response.ok) {
+        setIngredients(data);
+      } else {
+        console.error('Failed to fetch ingredients:', data.error);
       }
     };
 
     fetchLocations();
     fetchDrinks();
+    fetchIngredients();
   }, []);
 
   const handleLocationChange = (event) => {
@@ -43,7 +56,7 @@ const OrderMenu = () => {
   };
 
   const handleAddDrink = () => {
-    setCurrentDrink({ drinkName: '', description: '', basePrice: '', imagePath: '' });
+    setCurrentDrink({ drinkName: '', description: '', basePrice: '', imagePath: '', ingredients: [] });
     onOpen();
   };
 
@@ -51,19 +64,16 @@ const OrderMenu = () => {
     setCurrentDrink(drink);
     onOpen();
   };
-  
+
   const handleSaveDrink = async () => {
     const updatedDrink = {
       ...currentDrink,
       basePrice: parseFloat(currentDrink.basePrice),
     };
-  
-    // console.log('Saving drink:', updatedDrink);
-  
+
     let response;
     try {
       if (currentDrink._id) {
-        // Update existing drink
         response = await fetch(`/api/editMenu/${currentDrink._id}`, {
           method: 'PUT',
           headers: {
@@ -72,11 +82,11 @@ const OrderMenu = () => {
           body: JSON.stringify(updatedDrink),
         });
       } else {
+        const maxDrinkID = drinks.reduce((maxID, drink) => Math.max(maxID, drink.drinkID), 0);
         const updatedDrink = {
           ...currentDrink,
-          drinkID: drinks.length +1,
+          drinkID: maxDrinkID + 1,
         };
-        // Add new drink
         response = await fetch('/api/editMenu', {
           method: 'POST',
           headers: {
@@ -85,7 +95,7 @@ const OrderMenu = () => {
           body: JSON.stringify(updatedDrink),
         });
       }
-  
+
       const data = await response.json();
       if (response.ok) {
         setDrinks((prevDrinks) =>
@@ -101,8 +111,6 @@ const OrderMenu = () => {
       console.error('Error saving drink:', error);
     }
   };
-  
-  
 
   const handleDeleteDrink = async (id) => {
     const response = await fetch(`/api/editMenu/${id}`, {
@@ -115,8 +123,7 @@ const OrderMenu = () => {
     }
   };
 
-  // const filteredDrinks = drinks.slice(0, 10).filter(drink =>
-    const filteredDrinks = drinks.filter(drink =>
+  const filteredDrinks = drinks.filter(drink =>
     drink.drinkName.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -127,19 +134,8 @@ const OrderMenu = () => {
 
   return (
     <Box bg='#bcc8c3' minH='100vh' display='flex'>
-      {/* <VStack align="start" spacing={4} width='12vw' p={4} bg='#8fa39b' borderRadius='5px' boxShadow='lg' ml={4} mt={4}>
-        <Heading size="md">Drinkwise</Heading>
-        <Link href='/admin/userid/dashboard'>dashboard</Link>
-        <Text>Sales</Text>
-        <Link href='/admin/userid/sales'>sales overview</Link>
-        <Text>Menu</Text>
-        <Link href='/admin/userid/edit/menu/main'>edit main menu</Link>
-        <Link href='/admin/userid/edit/menu/order'>edit order menu</Link>
-        <Text>Locations</Text>
-        <Link href='/admin/userid/edit/locations'>edit locations</Link>
-      </VStack> */}
       <AdminSideNav />
-      <Container w='100%' minH='100vh' py={10} maxW='7xl' ml ="250px">
+      <Container w='100%' minH='100vh' py={10} maxW='7xl' ml="250px">
         <VStack spacing={4} align='stretch'>
           <HStack spacing={4} justify='space-between' w='100%'>
             <Select placeholder='Select location' onChange={handleLocationChange} maxW='300px'>
@@ -183,20 +179,32 @@ const OrderMenu = () => {
           <ModalBody>
             <FormControl>
               <FormLabel>Drink Name</FormLabel>
-              <ChakraInput name='drinkName' value={currentDrink.drinkName} onChange={handleChange} />
+              <Input name='drinkName' value={currentDrink.drinkName} onChange={handleChange} />
             </FormControl>
             <FormControl mt={4}>
               <FormLabel>Description</FormLabel>
-              <ChakraInput name='description' value={currentDrink.description} onChange={handleChange} />
+              <Input name='description' value={currentDrink.description} onChange={handleChange} />
             </FormControl>
             <FormControl mt={4}>
               <FormLabel>Price</FormLabel>
-              <ChakraInput name='basePrice' type='number' value={currentDrink.basePrice} onChange={handleChange} />
+              <Input name='basePrice' type='number' value={currentDrink.basePrice} onChange={handleChange} />
             </FormControl>
             <FormControl mt={4}>
               <FormLabel>Image URL</FormLabel>
-              <ChakraInput name='imagePath' value={currentDrink.imagePath} onChange={handleChange} />
+              <Input name='imagePath' value={currentDrink.imagePath} onChange={handleChange} />
             </FormControl>
+            <DualListbox
+              ingredients={ingredients}
+              selectedIngredients={currentDrink.ingredients}
+              onAddIngredient={(ingredient) => setCurrentDrink((prev) => ({
+                ...prev,
+                ingredients: [...prev.ingredients, ingredient],
+              }))}
+              onRemoveIngredient={(ingredient) => setCurrentDrink((prev) => ({
+                ...prev,
+                ingredients: prev.ingredients.filter((i) => i.ingredientName !== ingredient.ingredientName),
+              }))}
+            />
           </ModalBody>
           <ModalFooter>
             <Button colorScheme='teal' mr={3} onClick={handleSaveDrink}>

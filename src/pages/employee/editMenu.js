@@ -31,6 +31,16 @@ const groupByCategory = (drinks) => {
   }, {});
 };
 
+// Function to check if an image exists
+const imageExists = async (url) => {
+  try {
+    const response = await fetch(url, { method: 'HEAD' });
+    return response.ok;
+  } catch {
+    return false;
+  }
+};
+
 const EditMenu = ({ drinks, currentBranch }) => {
   const cardBgColor = useColorModeValue("#a0b2ab", "#283E38");
   const cardHoverBgColor = useColorModeValue("#8f9f9a", "#1F2D2B");
@@ -38,13 +48,14 @@ const EditMenu = ({ drinks, currentBranch }) => {
   const groupedDrinks = groupByCategory(drinks);
 
   const { isOpen: isMenuOpen, onOpen: onOpenMenu, onClose: onCloseMenu } = useDisclosure();
-  const [modalDrink, setModalDrink] = useState([]);
+  const [modalDrink, setModalDrink] = useState(null);
 
   const [unavailableDrinks, setUnavailableDrinks] = useState(
     currentBranch[0].unavailableDrinks.map(drink => drink.drinkID)
   );
 
   const [switchStatus, setSwitchStatus] = useState({});
+  const [imageUrls, setImageUrls] = useState({});
 
   useEffect(() => {
     const initialStatus = {};
@@ -52,6 +63,18 @@ const EditMenu = ({ drinks, currentBranch }) => {
       initialStatus[drink.drinkID] = !unavailableDrinks.includes(drink.drinkID);
     });
     setSwitchStatus(initialStatus);
+
+    // Pre-fetch images to check their existence
+    const fetchImages = async () => {
+      const urls = {};
+      for (const drink of drinks) {
+        const exists = await imageExists(drink.imagePath);
+        urls[drink.drinkID] = exists ? drink.imagePath : "/boba.jpeg";
+      }
+      setImageUrls(urls);
+    };
+
+    fetchImages();
   }, [drinks, unavailableDrinks]);
 
   const handleToggle = async (drinkID) => {
@@ -82,7 +105,7 @@ const EditMenu = ({ drinks, currentBranch }) => {
 
       const updatedLocation = await response.json();
 
-      setUnavailableDrinks(updatedLocation.unavailableDrinks);
+      setUnavailableDrinks(updatedLocation.unavailableDrinks.map(drink => drink.drinkID));
     } catch (error) {
       console.error('Error updating location drinks:', error);
     }
@@ -100,8 +123,8 @@ const EditMenu = ({ drinks, currentBranch }) => {
                   {category}
                 </Heading>
                 <Grid templateColumns={{ base: "1fr", md: "repeat(4, 1fr)" }} gap={6} p={4}>
-                  {groupedDrinks[category].map((drink, index) => (
-                    <GridItem key={index}>
+                  {groupedDrinks[category].map((drink) => (
+                    <GridItem key={drink.drinkID}>
                       <Card
                         borderRadius="lg"
                         overflow="hidden"
@@ -110,16 +133,17 @@ const EditMenu = ({ drinks, currentBranch }) => {
                         _hover={{ bg: cardHoverBgColor, transform: "scale(1.05)", transition: "all 0.3s ease-in-out" }}
                         height="300px"
                       >
-                        {drink.imagePath && (
-                          <Image
-                            src={drink.imagePath}
-                            alt={`${drink.drinkName} drink`}
-                            objectFit="cover"
-                            height="150px"
-                            width="100%"
-                            onClick={() => { setModalDrink(drink); onOpenMenu(); }}
-                          />
-                        )}
+                        <Image
+                          src={imageUrls[drink.drinkID] || "/boba.jpeg"}
+                          alt={`${drink.drinkName} drink`}
+                          objectFit="cover"
+                          height="150px"
+                          width="100%"
+                          style={{
+                            filter: switchStatus[drink.drinkID] ? "none" : "grayscale(100%)"
+                          }}
+                          onClick={() => { setModalDrink(drink); onOpenMenu(); }}
+                        />
                         <CardBody p={4}>
                           <Stack spacing={3} height="100%">
                             <Box h="70px" onClick={() => { setModalDrink(drink); onOpenMenu(); }}>

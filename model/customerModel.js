@@ -19,6 +19,7 @@ const customerSchema = new mongoose.Schema({
     emailAddress: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     preferredBranch: String,
+    role: { type: String },
     accountCreationDate: Date,
     orders: [orderSchema],
 }, { collection: 'CUSTOMER' }); // Specify the collection name here

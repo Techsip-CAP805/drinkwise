@@ -1,14 +1,19 @@
-import {DrinkProvider} from '../../context/drinkContext';
-import "@/styles/globals.css";
+// pages/_app.js
 import { ChakraProvider } from '@chakra-ui/react';
-import React from 'react';
+import { SessionProvider } from 'next-auth/react';
+import '@/styles/globals.css';
+import {DrinkProvider} from '../../context/drinkContext';
 
-export default function App({ Component, pageProps }) {
+function MyApp({ Component, pageProps }) {
   return (
-    <DrinkProvider>
-    <ChakraProvider>
-    <Component {...pageProps} />
-    </ChakraProvider>
-    </DrinkProvider>
-  )
+    <SessionProvider session={pageProps.session}>
+      <DrinkProvider>
+      <ChakraProvider resetCSS>
+        <Component {...pageProps} />
+      </ChakraProvider>
+      </DrinkProvider>
+    </SessionProvider>
+  );
 }
+
+export default MyApp;

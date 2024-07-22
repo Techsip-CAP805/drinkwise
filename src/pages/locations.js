@@ -1,14 +1,12 @@
 // pages/locations.js
-import { useState } from 'react';
+import { getSession } from 'next-auth/react';
 import { Box, Container, Flex, Grid, GridItem, Image, Text, Heading, Stack, useColorModeValue, Card, CardBody } from '@chakra-ui/react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
-export default function LocationsPage({ locations }) {
+function LocationsPage({ locations }) {
   const cardBgColor = useColorModeValue("#a0b2ab", "#283E38");
   const cardHoverBgColor = useColorModeValue("#8f9f9a", "#1F2D2B");
-
-  // console.log(locations);
 
   return (
     <Box bg="#bcc8c3">
@@ -54,16 +52,28 @@ export default function LocationsPage({ locations }) {
           </Grid>
         </Flex>
       </Container>
-      <Footer/>
+      <Footer />
     </Box>
   );
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
+  // const session = await getSession(context);
+  // if (!session || session.user.role !== 'customer') {
+  //   // if (!session) {
+  //   return {
+  //     redirect: {
+  //       destination: '/login',
+  //       permanent: false,
+  //     },
+  //   };
+  // }
+
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/locations`);
   const locations = await res.json();
-  console.log(`${process.env.NEXT_PUBLIC_API_URL}/locations`)
   return {
     props: { locations },
   };
 }
+
+export default LocationsPage;

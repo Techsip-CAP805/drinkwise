@@ -25,6 +25,7 @@ export default async function handler(req, res) {
       emailAddress,
       password: hashedPassword,
       preferredBranch: '',
+      role: 'customer',
       accountCreationDate: new Date(),
       orders: []
     });

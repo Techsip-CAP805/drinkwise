@@ -1,8 +1,10 @@
 // pages/api/editLocations/[id].js
 import { connectToDatabase } from '../../../../lib/mongodb';
 import Location from '../../../../model/locationModel';
+import { withApiAuth } from '../../../../lib/apiAuth';
 
-export default async function handler(req, res) {
+// export default async function handler(req, res) {
+handler = async (req, res) => {
   const { method } = req;
   const { id } = req.query;
 
@@ -39,3 +41,7 @@ export default async function handler(req, res) {
       break;
   }
 }
+
+
+//auth
+export default withApiAuth(['admin'], handler);

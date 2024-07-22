@@ -47,6 +47,12 @@ const AdminSideNav = () => {
         <Link href='/admin/userid/edit/locations'>
           <Text pl={10}>Edit Locations</Text>
         </Link>
+        <Link href='/admin/userid/edit/adminRegister'>
+          <Heading size="md">Registration</Heading>
+        </Link>
+        <Link href='/admin/userid/edit/adminRegister'>
+          <Text pl={10}>Register Employee</Text>
+        </Link>
       </Stack>
     </Box>
   );

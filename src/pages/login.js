@@ -62,7 +62,13 @@ const Login = () => {
                   </FormControl>
                   <FormControl>
                     <InputGroup>
-                      <Input ref={passwordRef} type={showPassword ? "text" : "password"} placeholder="Password" backgroundColor="whiteAlpha.900" required />
+                      <Input
+                        ref={passwordRef}
+                        type={showPassword ? "text" : "password"}
+                        placeholder="password"
+                        backgroundColor="whiteAlpha.900"
+                        required
+                      />
                       <InputRightElement width="4.5rem">
                         <Button h="1.75rem" size="sm" onClick={handleShowClick}>{showPassword ? "Hide" : "Show"}</Button>
                       </InputRightElement>

@@ -2,9 +2,9 @@ import React, { useRef, useState } from 'react';
 import {
   Box, Container, Flex, Input, Button, InputGroup, Stack, Link, FormControl, InputRightElement, useToast
 } from '@chakra-ui/react';
-import { useDrinkContext } from '../../context/drinkContext';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
+import { useDrinkContext } from '../../../context/drinkContext';
+import Navbar from '../../components/Navbar';
+import Footer from '../../components/Footer';
 
 export const validatePasswordReq = (password) => {
   // Password validation regex (>=8 characters, >=1 letter, >=1 number, >=1 special character)

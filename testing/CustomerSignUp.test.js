@@ -1,4 +1,4 @@
-import { validatePasswordReq, validateConfirmPassword, validateExistingEmail } from '../src/pages/signUp';
+import { validatePasswordReq, validateConfirmPassword, validateExistingEmail } from '../src/pages/user/signUp';
 
 const mockCustomers = [
     {

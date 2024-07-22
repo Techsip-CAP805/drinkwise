@@ -85,7 +85,13 @@ const OrderSideNav = () => {
               </ListItem>
               <ListItem>
                 <ListIcon as={FaUser} color='teal.500' />
-                <Link href='/sign-out'>
+                <Link href='/user/sign-in'>
+                  <Text as='b' fontSize='lg'>Sign In</Text>
+                </Link>
+              </ListItem>
+              <ListItem>
+                <ListIcon as={FaUser} color='teal.500' />
+                <Link href='/user/sign-out'>
                   <Text as='b' fontSize='lg'>Sign Out</Text>
                 </Link>
               </ListItem>

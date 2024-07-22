@@ -6,7 +6,7 @@ const employeeSchema = new mongoose.Schema({
   lastName: { type: String, required: true },
   branchName: { type: String, required: true },
   emailAddress: { type: String, required: true, unique: true },
-  password: { type: String, required: true } // Ensure this field exists
+  password: { type: String, required: true }
 }, { collection: 'EMPLOYEE' });
 
 const Employee = mongoose.models.Employee || mongoose.model('Employee', employeeSchema);

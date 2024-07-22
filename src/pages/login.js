@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { useToast, Box, Container, Flex, Input, Button, InputGroup, Stack, Link, FormControl, FormHelperText, InputRightElement } from '@chakra-ui/react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import Router from 'next/router'; 
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -35,6 +36,7 @@ const Login = () => {
           duration: 3000,
           isClosable: true,
         });
+        Router.push('/');
       } else {
         toast({
           title: 'Login Failed',

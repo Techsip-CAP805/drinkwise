@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import { useRouter } from 'next/router';
 import { Box, Text, Image, Button, VStack, HStack, IconButton, Radio, RadioGroup, Stack, Checkbox, CheckboxGroup, Divider, Flex } from '@chakra-ui/react';
 import { CloseIcon, AddIcon, MinusIcon } from '@chakra-ui/icons';
@@ -7,22 +7,27 @@ import { useDrinkContext } from '../../../../../../context/drinkContext';
 const DrinkDetails = () => {
   const router = useRouter();
   const { storeID, drinkID } = router.query;
-  const { drinks, addToCart, toppings } = useDrinkContext();
+  const { drinks, addToCart, toppings, cart} = useDrinkContext();
   const [quantity, setQuantity] = useState(1);
   const [selectedSugar, setSelectedSugar] = useState(drinks[0].sugarLevelOptions[0].sugarLevel.toString());
   const [selectedIce, setSelectedIce] = useState(drinks[0].iceLevelOptions[0].iceLevel.toString());
   const [selectedToppings, setSelectedToppings] = useState([]);
+
+  useEffect(()=> {
+    console.log("CURRENT CART: ", cart);
+  }, [cart])
+
 
   const drink = drinks.find(d => d.drinkID == drinkID);
 
   if (!drink) {
     return <Text>Loading...</Text>;
   }
-
   const handleAddToCart = () => {
     addToCart({ ...drink, quantity, selectedSugar, selectedIce, selectedToppings });
     router.back();
   };
+
 
   return (
     <Box bg='white' p={8} borderRadius='md' boxShadow='lg' maxW='md' mx='auto' mt={20}>
@@ -33,8 +38,6 @@ const DrinkDetails = () => {
       <Image src={drink.imagePath} alt={drink.drinkName} boxSize='200px' borderRadius='full' mx='auto' my={4} />
       <Text>{drink.description}</Text>
       <Text>Price: ${drink.basePrice.toFixed(2)}</Text>
-      <Text>Category: {drink.category}</Text>
-
       <Divider my={4} />
 
       <Text fontWeight='bold'>Sugar Level Options:</Text>

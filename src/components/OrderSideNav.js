@@ -1,4 +1,3 @@
-
 import React from 'react';
 import {
   IconButton,
@@ -8,13 +7,17 @@ import {
   DrawerCloseButton,
   DrawerBody,
   Stack,
-  Box,
-  Heading,
   Link,
   Text,
+  List,
+  ListItem,
+  ListIcon,
+  HStack,
+  Box
 } from '@chakra-ui/react';
 import { useDisclosure } from '@chakra-ui/react';
 import { ArrowForwardIcon, ArrowBackIcon } from '@chakra-ui/icons';
+import { FaBook, FaClipboardList, FaCreditCard, FaMapMarkerAlt, FaGlobe, FaUser } from 'react-icons/fa';
 
 const OrderSideNav = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -43,23 +46,51 @@ const OrderSideNav = () => {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-
           <DrawerBody>
-            <Stack align="center" p={20} spacing={5}>
-              <Heading size="xl">Orders</Heading>
-              <Link href='/employee/incomingOrders' textDecoration='underline'><Text as='b' fontSize='m'>Incoming</Text></Link>
-              <Link href='/employee/inProgressOrders' textDecoration='underline'><Text as='b' fontSize='m'>In Progress</Text></Link>
-              <Link href='/employee/completedOrders' textDecoration='underline'><Text as='b' fontSize='m'>Completed</Text></Link>
-              <Heading size="xl">Menu</Heading>
-              <Link href='/employee/editMenu' textDecoration='underline'><Text as='b' fontSize='m'>Edit Menu</Text></Link>
-              <Link href='/employee/ingredients' textDecoration='underline'><Text as='b' fontSize='m'>Ingredients</Text></Link>
-              <Heading size="xl">Account</Heading>
-              <Link href='/employee/employeeAccount' textDecoration='underline'><Text as='b' fontSize='m'>Edit Info</Text></Link>
-
-
-            </Stack>
+            <List spacing={4} pt={10} pl={5}>
+              <ListItem>
+                <ListIcon as={FaBook} color='teal.500' />
+                <Link href='/catalogue'>
+                  <Text as='b' fontSize='lg'>Catalogue</Text>
+                </Link>
+              </ListItem>
+              <ListItem>
+                <ListIcon as={FaClipboardList} color='teal.500' />
+                <Link href='/orders'>
+                  <Text as='b' fontSize='lg'>My Orders</Text>
+                </Link>
+              </ListItem>
+              <ListItem>
+                <ListIcon as={FaCreditCard} color='teal.500' />
+                <Link href='/payment'>
+                  <Text as='b' fontSize='lg'>Payment</Text>
+                </Link>
+              </ListItem>
+              <ListItem>
+                <ListIcon as={FaMapMarkerAlt} color='teal.500' />
+                <Link href='/order/search-location'>
+                  <Text as='b' fontSize='lg'>Change Location</Text>
+                </Link>
+              </ListItem>
+              <ListItem >
+                <HStack  justfiy='flex-start'>
+                <ListIcon as={FaGlobe} color='teal.500' />
+                  <Text as='b' fontSize='lg'>Language</Text>
+                  <select>
+                    <option value='en'>English</option>
+                    <option value='fr'>French</option>
+                    <option value='es'>Spanish</option>
+                  </select>
+                </HStack>
+              </ListItem>
+              <ListItem>
+                <ListIcon as={FaUser} color='teal.500' />
+                <Link href='/sign-out'>
+                  <Text as='b' fontSize='lg'>Sign Out</Text>
+                </Link>
+              </ListItem>
+            </List>
           </DrawerBody>
-
         </DrawerContent>
       </Drawer>
     </>

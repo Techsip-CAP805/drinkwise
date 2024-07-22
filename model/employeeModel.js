@@ -1,4 +1,3 @@
-// model/employeeModel.js
 import mongoose from 'mongoose';
 
 const employeeSchema = new mongoose.Schema({
@@ -7,6 +6,7 @@ const employeeSchema = new mongoose.Schema({
   lastName: { type: String, required: true },
   branchName: { type: String, required: true },
   emailAddress: { type: String, required: true, unique: true },
+  password: { type: String, required: true } // Ensure this field exists
 }, { collection: 'EMPLOYEE' });
 
 const Employee = mongoose.models.Employee || mongoose.model('Employee', employeeSchema);

@@ -98,7 +98,7 @@ const Login = () => {
                       <Input
                         ref={passwordRef}
                         type={showPassword ? "text" : "password"}
-                        placeholder="Password"
+                        placeholder="password"
                         backgroundColor="whiteAlpha.900"
                         required
                       />

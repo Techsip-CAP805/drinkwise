@@ -18,6 +18,7 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
+  Select,
   Icon
 } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
@@ -51,6 +52,7 @@ const EditMenu = ({ ingredients, currentBranch }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredIngredients, setFilteredIngredients] = useState(sortedIngredients);
   const [imageUrls, setImageUrls] = useState({});
+  const [filter, setFilter] = useState("All");
 
   useEffect(() => {
     const initialStatus = {};
@@ -74,11 +76,15 @@ const EditMenu = ({ ingredients, currentBranch }) => {
 
   useEffect(() => {
     setFilteredIngredients(
-      sortedIngredients.filter(ingredient =>
-        ingredient.ingredientName.toLowerCase().includes(searchQuery.toLowerCase())
-      )
+      sortedIngredients.filter(ingredient => {
+        const matchesSearch = ingredient.ingredientName.toLowerCase().includes(searchQuery.toLowerCase());
+        const matchesFilter = filter === "All" ||
+          (filter === "In Stock" && !unavailableIngredients.includes(ingredient.ingredientName)) ||
+          (filter === "Unavailable" && unavailableIngredients.includes(ingredient.ingredientName));
+        return matchesSearch && matchesFilter;
+      })
     );
-  }, [searchQuery, sortedIngredients]);
+  }, [searchQuery, sortedIngredients, filter, unavailableIngredients]);
 
   const handleToggle = async (ingredientName) => {
     const newStatus = !switchStatus[ingredientName];
@@ -128,6 +134,11 @@ const EditMenu = ({ ingredients, currentBranch }) => {
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </InputGroup>
+            <Select mb={6} w="50%" value={filter} onChange={(e) => setFilter(e.target.value)}>
+              <option value="All">All</option>
+              <option value="In Stock">In Stock</option>
+              <option value="Unavailable">Unavailable</option>
+            </Select>
             <Box w="100%">
               <Grid templateColumns={{ base: "1fr", md: "repeat(4, 1fr)" }} gap={6} p={4}>
                 {filteredIngredients.map((ingredient, index) => (

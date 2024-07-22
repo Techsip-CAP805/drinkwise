@@ -10,6 +10,16 @@ const sizeOptionSchema = new mongoose.Schema({
   price: Number,
 });
 
+const iceLevelSchema = new mongoose.Schema({
+  iceLevel: Number,
+  price: Number,
+});
+
+const sugarLevelSchema = new mongoose.Schema({
+  sugarLevel: Number,
+  price: Number,
+});
+
 const drinkSchema = new mongoose.Schema({
   drinkID: { type: Number, required: true },
   drinkName: { type: String, required: true },
@@ -17,8 +27,8 @@ const drinkSchema = new mongoose.Schema({
   description: { type: String },
   category: { type: String },
   sizeOptions: [sizeOptionSchema],
-  iceLevelOptions: [String],
-  sugarLevelOptions: [String],
+  iceLevelOptions: [iceLevelSchema],
+  sugarLevelOptions: [sugarLevelSchema],
   onMenu: { type: Boolean, default: true },
   basePrice: { type: Number },
   imagePath: { type: String },

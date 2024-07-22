@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Box, Container, VStack, Select, Button, SimpleGrid, Card, CardBody, Image, Text, HStack, Input, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, FormControl, FormLabel, ModalFooter
+  Box, Container, VStack, Select, Button, SimpleGrid, Card, CardBody, Image, Text, HStack, Input, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, FormControl, FormLabel, ModalFooter, Spacer, CheckboxGroup, Checkbox
 } from '@chakra-ui/react';
 import { AddIcon, EditIcon } from '@chakra-ui/icons';
 import AdminSideNav from '@/components/AdminSideNav.js';
@@ -12,7 +12,7 @@ const OrderMenu = () => {
   const [ingredients, setIngredients] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
-  const [currentDrink, setCurrentDrink] = useState({ drinkName: '', description: '', basePrice: '', imagePath: '', ingredients: [] });
+  const [currentDrink, setCurrentDrink] = useState({ drinkName: '', description: '', basePrice: '', imagePath: '', ingredients: [], sizeOptions: [], iceLevelOptions: [] });
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
@@ -56,7 +56,7 @@ const OrderMenu = () => {
   };
 
   const handleAddDrink = () => {
-    setCurrentDrink({ drinkName: '', description: '', basePrice: '', imagePath: '', ingredients: [] });
+    setCurrentDrink({ drinkName: '', description: '', basePrice: '', imagePath: '', ingredients: [], sizeOptions: [], iceLevelOptions: [] });
     onOpen();
   };
 
@@ -83,7 +83,7 @@ const OrderMenu = () => {
         });
       } else {
         const maxDrinkID = drinks.reduce((maxID, drink) => Math.max(maxID, drink.drinkID), 0);
-        const updatedDrink = {
+        const newDrink = {
           ...currentDrink,
           drinkID: maxDrinkID + 1,
         };
@@ -92,7 +92,7 @@ const OrderMenu = () => {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(updatedDrink),
+          body: JSON.stringify(newDrink),
         });
       }
 
@@ -130,6 +130,20 @@ const OrderMenu = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setCurrentDrink((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSizeOptionChange = (values) => {
+    setCurrentDrink((prev) => ({
+      ...prev,
+      sizeOptions: values.map(size => ({ size }))
+    }));
+  };
+
+  const handleIceOptionChange = (values) => {
+    setCurrentDrink((prev) => ({
+      ...prev,
+      iceLevelOptions: values.map(ice => ({ iceLevel: parseInt(ice, 10) }))
+    }));
   };
 
   return (
@@ -174,7 +188,7 @@ const OrderMenu = () => {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>{currentDrink.drinkID ? 'Edit Drink' : 'Add Drink'}</ModalHeader>
+          <ModalHeader>{currentDrink._id ? 'Edit Drink' : 'Add Drink'}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <FormControl>
@@ -193,18 +207,50 @@ const OrderMenu = () => {
               <FormLabel>Image URL</FormLabel>
               <Input name='imagePath' value={currentDrink.imagePath} onChange={handleChange} />
             </FormControl>
-            <DualListbox
-              ingredients={ingredients}
-              selectedIngredients={currentDrink.ingredients}
-              onAddIngredient={(ingredient) => setCurrentDrink((prev) => ({
-                ...prev,
-                ingredients: [...prev.ingredients, ingredient],
-              }))}
-              onRemoveIngredient={(ingredient) => setCurrentDrink((prev) => ({
-                ...prev,
-                ingredients: prev.ingredients.filter((i) => i.ingredientName !== ingredient.ingredientName),
-              }))}
-            />
+            <FormControl mt={4}>
+              <FormLabel>Ingredients</FormLabel>
+              <DualListbox
+                ingredients={ingredients}
+                selectedIngredients={currentDrink.ingredients}
+                onAddIngredient={(ingredient) => setCurrentDrink((prev) => ({
+                  ...prev,
+                  ingredients: [...prev.ingredients, ingredient],
+                }))}
+                onRemoveIngredient={(ingredient) => setCurrentDrink((prev) => ({
+                  ...prev,
+                  ingredients: prev.ingredients.filter((i) => i.ingredientName !== ingredient.ingredientName),
+                }))}
+              />
+            </FormControl>
+            <FormControl mt={4}>
+              <FormLabel color="#372F2F">Size Options</FormLabel>
+              <CheckboxGroup
+                defaultValue={currentDrink.sizeOptions.map(option => option.size)}
+                onChange={handleSizeOptionChange}
+                width="320px"
+              >
+                <HStack spacing={4}>
+                  <Checkbox value="M" colorScheme="teal">M</Checkbox>
+                  <Checkbox value="L" colorScheme="teal">L</Checkbox>
+                </HStack>
+              </CheckboxGroup>
+            </FormControl>
+            {/* <FormControl mt={4}>
+              <FormLabel color="#372F2F">Ice Level Options</FormLabel>
+              <CheckboxGroup
+                defaultValue={currentDrink.iceLevelOptions.map(option => option.iceLevel.toString())}
+                onChange={handleIceOptionChange}
+                width="320px"
+              >
+                <HStack spacing={4}>
+                  <Checkbox value="0" colorScheme="teal">0%</Checkbox>
+                  <Checkbox value="25" colorScheme="teal">25%</Checkbox>
+                  <Checkbox value="50" colorScheme="teal">50%</Checkbox>
+                  <Checkbox value="75" colorScheme="teal">75%</Checkbox>
+                  <Checkbox value="100" colorScheme="teal">100%</Checkbox>
+                </HStack>
+              </CheckboxGroup>
+            </FormControl> */}
           </ModalBody>
           <ModalFooter>
             <Button colorScheme='teal' mr={3} onClick={handleSaveDrink}>

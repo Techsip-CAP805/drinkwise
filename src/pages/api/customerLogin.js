@@ -2,7 +2,7 @@
 import bcrypt from 'bcrypt';
 import Customer from '../../../model/customerModel';
 import { connectToDatabase } from '../../../lib/mongodb';
-import cookie from 'cookie';
+// import cookie from 'cookie';
 
 export default async function handler(req, res) {
   await connectToDatabase();
@@ -17,12 +17,12 @@ export default async function handler(req, res) {
         // Password Matching Successful
 
         // Set cookie with a simple token
-        res.setHeader('Set-Cookie', cookie.serialize('token', 'your-generated-token', {
-          httpOnly: true,
-          secure: process.env.NODE_ENV === 'production', // Set to true in production
-          maxAge: 60 * 60 * 24 * 7, // 7 days
-          path: '/',
-        }));
+        // res.setHeader('Set-Cookie', cookie.serialize('token', 'your-generated-token', {
+        //   httpOnly: true,
+        //   secure: process.env.NODE_ENV === 'production', // Set to true in production
+        //   maxAge: 60 * 60 * 24 * 7, // 7 days
+        //   path: '/',
+        // }));
 
         res.status(200).json({ message: 'Login successful' });
       } else {

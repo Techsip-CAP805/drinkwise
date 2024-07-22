@@ -1,0 +1,43 @@
+[
+    {
+    "name": "Gold Pearls",
+    "price": 0.90
+    },
+    {
+    "name": "Mini Taro Balls",
+    "price": 1.40
+    },
+    {
+    "name": "Kanten Jelly (Will Melt in Hot Drink)",
+    "price": 0.90
+    },
+    {
+    "name": "Half Kanten Jelly & Half Pearls",
+    "price": 1.20
+    },
+    {
+    "name": "Half Mini Taro Ball & Half Kanten",
+    "price": 1.40
+    },
+    {
+    "name": "Half Mini Taro Ball & Half Pearls",
+    "price": 1.40
+    },
+    {
+    "name": "Coconut Jelly",
+    "price": 0.90
+    },
+    {
+    "name": "Half Coconut Jelly & Half Pearl",
+    "price": 1.20
+    },
+    {
+    "name": "Half Mini Taro Balls & Half Coconut Jelly",
+    "price": 1.40
+    },
+    {
+    "name": "Half Coconut Jelly & Half Kanten Jelly",
+    "price": 1.20
+    }
+]
+  

@@ -5,6 +5,7 @@ import {
 import { InfoIcon } from '@chakra-ui/icons'; // Import InfoIcon from Chakra UI
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import { useDrinkContext } from '../../../context/drinkContext';
 
 export const validatePasswordReq = (password) => {
   // Password validation regex (>=8 characters, >=1 letter, >=1 number, >=1 special character)

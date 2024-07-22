@@ -1,18 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Box, Spacer, Flex, IconButton, VStack, useDisclosure, useColorModeValue, Text } from '@chakra-ui/react';
-import { Link } from '@chakra-ui/next-js'
+import { Link } from '@chakra-ui/next-js';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import Image from 'next/image';
-import { Mukta, Playfair_Display_SC} from 'next/font/google'
+import { Mukta } from 'next/font/google';
+import { useDrinkContext } from '../../context/drinkContext';
 
 const mukta = Mukta({
   subsets: ['latin'],
   display: 'swap',
   weight: '600'
-})
+});
 
-const Navbar = () => {
+const OrderNavbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { selectedLocation } = useDrinkContext // Assuming selectedLocation is available in context
 
   return (
     <Box
@@ -37,7 +39,20 @@ const Navbar = () => {
         px={{ base: 4, md: 20 }}
         wrap='wrap'
       >
-        <Link href='/'><Image src='/header-log.png' width={150} height={100} alt='logo'/></Link>
+        <Link href='/'><Image src='/header-log.png' width={150} height={100} alt='logo' /></Link>
+        <Spacer display={{ base: 'none', lg: 'block' }} />
+        {selectedLocation && (
+          <Flex
+            direction='column'
+            align='center'
+            color='black'
+            display={{ base: 'none', lg: 'flex' }}
+            textAlign='center'
+          >
+            <Text fontSize='xl' fontWeight='bold'>{selectedLocation.name}</Text>
+            <Text>{selectedLocation.postalCode}</Text>
+          </Flex>
+        )}
         <Spacer display={{ base: 'none', lg: 'block' }} />
         <Flex
           direction='row'
@@ -47,7 +62,7 @@ const Navbar = () => {
           w='40%'
           display={{ base: 'none', lg: 'flex' }}
           spacing={4}
-          color='#026670' 
+          color='#026670'
         >
           <Link href='/menu' mx={2} _hover={{}}><Text as='b' fontSize={['md', 'lg']} className={mukta.className}>MENU</Text></Link>
           <Link href='/locations' mx={2} _hover={{}}><Text as='b' fontSize={['md', 'lg']} className={mukta.className}>LOCATIONS</Text></Link>
@@ -77,7 +92,7 @@ const Navbar = () => {
           p={4}
         >
           <Link href='/menu' onClick={onClose} py={3}><Text as='b' fontSize='md'>Menu</Text></Link>
-          <Link href='/locations' onClick={onClose} py={3}><Text as='b' fontSize='md'>Location</Text></Link>
+          <Link href='/locations' onClick={onClose} py={3}><Text as='b' fontSize='md'>Locations</Text></Link>
           <Link href='/order' onClick={onClose} py={3}><Text as='b' fontSize='md'>Order Online</Text></Link>
           <Link href='/contact' onClick={onClose} py={3}><Text as='b' fontSize='md'>Contact Us</Text></Link>
         </VStack>
@@ -86,4 +101,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default OrderNavbar;

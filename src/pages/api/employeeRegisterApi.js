@@ -26,6 +26,7 @@ export default async function handler(req, res) {
       branchName,
       emailAddress,
       password: hashedPassword,
+      role: 'employee'
     });
 
     try {

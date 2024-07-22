@@ -1,110 +1,95 @@
-import React, { useRef } from 'react';
-import Image from 'next/image';
-import {
-  Box,
-  Button,
-  Container,
-  Flex,
-  Input,
-  Heading,
-  VStack,
-  useToast,
-  Link,
-  Center
-} from '@chakra-ui/react';
+// employee login
+import React, { useState, useRef } from 'react';
+import { useToast, Box, Container, Flex, Input, Button, InputGroup, Stack, Link, FormControl, FormHelperText, InputRightElement, Heading } from '@chakra-ui/react';
+import Router from 'next/router';
+import { signIn } from 'next-auth/react';
 
-const LoginPage = () => {
-  const emailRef = useRef();
-  const passwordRef = useRef();
+const empLogin = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
   const toast = useToast();
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
+  const handleShowClick = () => setShowPassword(!showPassword);
+
+  const handleLogin = async (event) => {
+    event.preventDefault();
 
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
 
-    console.log('Entered email:', email);
-    console.log('Entered password:', password);
+    const result = await signIn('credentials', {
+      redirect: false,
+      email,
+      password,
+      userType: 'employee' //for employee login
+    });
 
-    try {
-      const response = await fetch('/api/employeeLogin', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      });
-
-      const data = await response.json();
-      console.log('API response:', data);
-
-      if (response.ok) {
-        toast({
-          title: 'Login successful.',
-          description: data.message,
-          status: 'success',
-          duration: 5000,
-          isClosable: true,
-        });
-      } else {
-        toast({
-          title: 'Login failed.',
-          description: data.message,
-          status: 'error',
-          duration: 5000,
-          isClosable: true,
-        });
-      }
-    } catch (error) {
-      console.error('Error during login request:', error);
+    if (result.error) {
       toast({
-        title: 'Login failed.',
-        description: 'An error occurred. Please try again.',
+        title: 'Login Failed',
+        description: result.error,
         status: 'error',
-        duration: 5000,
+        duration: 3000,
         isClosable: true,
       });
+    } else {
+      toast({
+        title: 'Login Successful',
+        // description: 'Welcome back!',
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+      });
+      Router.push('/employee/employeeAccount');
     }
   };
 
   return (
-    <Box bg="#bcc8c3">
-      <Container w="100vw" minH="100vh" maxW="7xl" py={10}>
-        <Flex direction="column" justify="center" align="center" w="100%" h="100%" mt={20}>
-          <Link href="/employee/orders/incoming" my={3}>
-            <Center>
-              <Image src='/header-log.png' width={150} height={100} alt='logo'/>
-            </Center>
-          </Link>
-          <VStack spacing={6} p={4} w="100%" align="center">
-            <Heading color="white">Employee Login</Heading>
-            <Box as="form" onSubmit={handleLogin} w={{ base: "90%", md: "80%", lg: "40%" }}>
-              <VStack spacing={4}>
-                <Input
-                  ref={emailRef}
-                  placeholder="you@domain.com"
-                  type="email"
-                  bg="white"
-                  color="black"
-                />
-                <Input
-                  ref={passwordRef}
-                  placeholder="password"
-                  type="password"
-                  bg="white"
-                  color="black"
-                />
-                <Button type="submit" colorScheme="teal" w="full">
-                  Login
-                </Button>
-              </VStack>
+    <Box bg='#bcc8c3'>
+      <Container w='100vw' h='100vh' maxH='100vh' maxW='7xl'>
+        <Flex flexDirection="column" width="100wh" height="100vh" justifyContent="center" alignItems="center">
+          <Stack flexDir="column" mb="2" justifyContent="center" alignItems="center">
+            <Heading>Employee Login</Heading>
+            <Box minW={{ base: "90%", md: "468px" }}>
+              <form onSubmit={handleLogin}>
+                <Stack spacing={4} p="3rem" backgroundColor="#a0b2ab" boxShadow="md" borderRadius='2em'>
+                  <FormControl>
+                    <InputGroup>
+                      <Input ref={emailRef} type="email" placeholder="you@domain.com" backgroundColor="whiteAlpha.900" required />
+                    </InputGroup>
+                  </FormControl>
+                  <FormControl>
+                    <InputGroup>
+                      <Input
+                        ref={passwordRef}
+                        type={showPassword ? "text" : "password"}
+                        placeholder="password"
+                        backgroundColor="whiteAlpha.900"
+                        required
+                      />
+                      <InputRightElement width="4.5rem">
+                        <Button h="1.75rem" size="sm" onClick={handleShowClick}>{showPassword ? "Hide" : "Show"}</Button>
+                      </InputRightElement>
+                    </InputGroup>
+                    {/* <FormHelperText textAlign="right">
+                      <Link _hover={{ color: 'teal' }}>forgot password?</Link>
+                    </FormHelperText> */}
+                  </FormControl>
+                  <Button borderRadius={'2em'} type="submit" variant="solid" width="full" _hover={{ bg: 'teal' }}>
+                    Login
+                  </Button>
+                </Stack>
+              </form>
             </Box>
-          </VStack>
+          </Stack>
+          {/* <Box>
+            New to us? <Link href="/signUp" _hover={{ color: 'teal' }}> Sign Up </Link>
+          </Box> */}
         </Flex>
       </Container>
     </Box>
   );
 };
 
-export default LoginPage;
+export default empLogin;

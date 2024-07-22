@@ -17,6 +17,7 @@ import Link from 'next/link';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 import { useEffect, useState } from 'react';
 import AdminSideNav from '@/components/AdminSideNav.js';
+import { withRole } from '../../../../lib/auth';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
@@ -98,3 +99,7 @@ export default function Dashboard() {
     </Flex>
   );
 }
+
+
+//auth
+export const getServerSideProps = withRole(['admin'], '/admin');

@@ -4,6 +4,7 @@ import Navbar from "../../components/Navbar";
 import SideNav from "../../components/SideNav";
 import Footer from "../../components/Footer";
 import EditAccountInfo from './editAccountInfo';
+import { withRole } from '../../../lib/auth';
 
 const EmployeeAccount = () => {
   const [formData, setFormData] = useState(null);
@@ -140,5 +141,8 @@ const EmployeeAccount = () => {
     </Box>
   );
 };
+
+//auth
+export const getServerSideProps = withRole(['employee'], '/employee/login');
 
 export default EmployeeAccount;

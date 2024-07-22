@@ -1,47 +1,77 @@
 // pages/login.js
-import { Flex, Box, Heading, Input, Button, Stack, Text, useToast} from '@chakra-ui/react';
-import {useRef} from 'react';
+import { Flex, Box, Heading, Input, Button, Stack, Text, useToast } from '@chakra-ui/react';
+import { useRef } from 'react';
 import Link from 'next/link';
-import {useRouter, usePathname} from 'next/navigation';
-import { useDrinkContext} from '../../context/drinkContext';
+import { useRouter, usePathname } from 'next/navigation';
+import { useDrinkContext } from '../../context/drinkContext';
+import Router from 'next/router';
+import { signIn } from 'next-auth/react';
 
 export default function Login() {
 
-  const router = useRouter();
-  const pathname = usePathname();
-  const userNameRef = useRef("");
+  // const router = useRouter();
+  // const pathname = usePathname();
+  // const { employees, setEmployees } = useDrinkContext();
+  // const userNameRef = useRef("");
+  const emailRef = useRef("");
   const passwordRef = useRef("");
-  const {employees, setEmployees} = useDrinkContext();
   const toast = useToast()
 
   // console.log(usePathname());
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
+    const email = emailRef.current.value;
+    const password = passwordRef.current.value;
 
-    // console.log("username: ", userNameRef.current.value);
-    // console.log("password: ", passwordRef.current.value);
+    const result = await signIn('credentials', {
+      redirect: false,
+      email,
+      password,
+      userType: 'employee' //for employee login
+    });
 
-    //check if username and password is empty
-    if (userNameRef.current.value && passwordRef.current.value){
-      //get list of employees that are admins
-      const admins = employees.filter((employee)=> employee.isAdmin ==true);
-      //go to employeeData and check for info
-      const user = admins.filter((admin)=> admin.emailAddress == userNameRef.current.value && admin.password == passwordRef.current.value);
-
-      //if matches, redirect to /admin/userid/dashboard
-        if (user.length > 0){
-          router.push(pathname + `/${user[0].emailAddress.split('@')[0]}/dashboard`);
-        }else{
-          toast({
-            title: 'Did not find an acconut',
-            description: "please check username and password",
-            status: 'error',
-            duration: 8000,
-            isClosable: true,
-          })
-        }
+    if (result.error) {
+      toast({
+        title: 'Login Failed',
+        description: result.error,
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      });
+    } else {
+      toast({
+        title: 'Login Successful',
+        // description: 'Welcome back!',
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+      });
+      Router.push('/admin/userid/dashboard');
     }
+    // // console.log("username: ", userNameRef.current.value);
+    // // console.log("password: ", passwordRef.current.value);
+
+    // //check if username and password is empty
+    // if (userNameRef.current.value && passwordRef.current.value){
+    //   //get list of employees that are admins
+    //   const admins = employees.filter((employee)=> employee.isAdmin ==true);
+    //   //go to employeeData and check for info
+    //   const user = admins.filter((admin)=> admin.emailAddress == userNameRef.current.value && admin.password == passwordRef.current.value);
+
+    //   //if matches, redirect to /admin/userid/dashboard
+    //     if (user.length > 0){
+    //       router.push(pathname + `/${user[0].emailAddress.split('@')[0]}/dashboard`);
+    //     }else{
+    //       toast({
+    //         title: 'Did not find an acconut',
+    //         description: "please check username and password",
+    //         status: 'error',
+    //         duration: 8000,
+    //         isClosable: true,
+    //       })
+    //     }
+    // }
   }
 
   return (
@@ -49,7 +79,7 @@ export default function Login() {
       <Box
         p={10}
         maxWidth="600px"
-        w={[300,400]}
+        w={[300, 400]}
         borderWidth={1}
         borderRadius={12}
         boxShadow="lg"
@@ -64,8 +94,9 @@ export default function Login() {
               <Input
                 type="text"
                 isRequired={true}
-                ref={userNameRef}
-                placeholder="Username"
+                // ref={userNameRef}
+                ref={emailRef}
+                placeholder="Email"
                 bg="gray.100"
                 border={0}
                 color="gray.800"

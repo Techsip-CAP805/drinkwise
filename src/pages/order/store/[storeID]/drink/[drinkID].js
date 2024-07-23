@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Box, Text, Image, Button, VStack, HStack, IconButton, Radio, RadioGroup, Stack, Checkbox, CheckboxGroup, Divider, Flex } from '@chakra-ui/react';
 import { CloseIcon, AddIcon, MinusIcon } from '@chakra-ui/icons';
@@ -7,27 +7,49 @@ import { useDrinkContext } from '../../../../../../context/drinkContext';
 const DrinkDetails = () => {
   const router = useRouter();
   const { storeID, drinkID } = router.query;
-  const { drinks, addToCart, toppings, cart} = useDrinkContext();
+  const { drinks, addToCart, toppings, cart, total, setTotal } = useDrinkContext();
   const [quantity, setQuantity] = useState(1);
-  const [selectedSugar, setSelectedSugar] = useState(drinks[0].sugarLevelOptions[0].sugarLevel.toString());
-  const [selectedIce, setSelectedIce] = useState(drinks[0].iceLevelOptions[0].iceLevel.toString());
+  const [selectedSugar, setSelectedSugar] = useState('');
+  const [selectedIce, setSelectedIce] = useState('');
   const [selectedToppings, setSelectedToppings] = useState([]);
 
-  useEffect(()=> {
-    console.log("CURRENT CART: ", cart);
-  }, [cart])
+  useEffect(() => {
+    if (drinks.length > 0) {
+      setSelectedSugar(drinks[0].sugarLevelOptions[0].sugarLevel.toString());
+      setSelectedIce(drinks[0].iceLevelOptions[0].iceLevel.toString());
+    }
+  }, [drinks]);
 
+  useEffect(() => {
+    console.log("CURRENT CART: ", cart);
+  }, [cart]);
 
   const drink = drinks.find(d => d.drinkID == drinkID);
 
   if (!drink) {
     return <Text>Loading...</Text>;
   }
+
   const handleAddToCart = () => {
-    addToCart({ ...drink, quantity, selectedSugar, selectedIce, selectedToppings });
+    const toppingsTotal = selectedToppings.reduce((total, topping) => total + parseFloat(topping.split(':')[1]), 0);
+    const toppingsList = selectedToppings.map(topping => topping.split(':')[0]);
+    addToCart(prevItems => [...prevItems, { ...drink, quantity, selectedSugar, selectedIce, selectedToppings: toppingsList, toppingsTotal }]);
+    setTotal(prevTotal => prevTotal + (drink.basePrice + toppingsTotal) * quantity);
     router.back();
   };
 
+  const handleToppingChange = (topping) => {
+    setSelectedToppings(prevToppings => {
+      const toppingName = topping.name;
+      const toppingPrice = topping.price.toFixed(2);
+      const toppingValue = `${toppingName}:${toppingPrice}`;
+      if (prevToppings.includes(toppingValue)) {
+        return prevToppings.filter(t => t !== toppingValue);
+      } else {
+        return [...prevToppings, toppingValue];
+      }
+    });
+  };
 
   return (
     <Box bg='white' p={8} borderRadius='md' boxShadow='lg' maxW='md' mx='auto' mt={20}>
@@ -63,10 +85,12 @@ const DrinkDetails = () => {
       <Divider my={4} />
 
       <Text fontWeight='bold'>Toppings:</Text>
-      <CheckboxGroup value={selectedToppings} onChange={setSelectedToppings}>
+      <CheckboxGroup value={selectedToppings}>
         <Stack direction='column'>
           {toppings.map((topping, index) => (
-            <Checkbox key={index} value={topping.name}>{topping.name} +${topping.price.toFixed(2)}</Checkbox>
+            <Checkbox key={index} value={`${topping.name}:${topping.price.toFixed(2)}`} onChange={() => handleToppingChange(topping)}>
+              {topping.name} +${topping.price.toFixed(2)}
+            </Checkbox>
           ))}
         </Stack>
       </CheckboxGroup>

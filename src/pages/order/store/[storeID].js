@@ -138,7 +138,7 @@ const LocationDetails = ({ locations, drinks }) => {
           onClick={handleAddToCart}
         >
           <MdOutlineShoppingCart />
-          <Text as='abbr'>${total}</Text>
+          <Text as='abbr'>${total.toFixed(2)}</Text>
         </Button>
       </Link>
     </Box>

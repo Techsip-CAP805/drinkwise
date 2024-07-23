@@ -10,8 +10,13 @@ import {
 import { useDisclosure } from '@chakra-ui/react';
 import Image from 'next/image';
 
+import { signOut } from 'next-auth/react';
+
 const SideNav = ({ setCurrentView }) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  
+  const handleSignOut = () => {
+    signOut({ callbackUrl: '/employee/login' });
+  };
 
   return (
     <Box
@@ -45,6 +50,9 @@ const SideNav = ({ setCurrentView }) => {
         <Heading size="md">Account</Heading>
         <Link href='/employee/employeeAccount'>
           <Text pl={10}>Edit Info</Text>
+        </Link>
+        <Link href='#' onClick={handleSignOut}>
+          <Text as='b' fontSize='lg'>Sign Out</Text>
         </Link>
       </Stack>
     </Box>

@@ -1,14 +1,42 @@
 import React, { useContext, useRef } from 'react';
-import { Box, Button, Container, Heading, Input, VStack, Text, Image, HStack } from '@chakra-ui/react';
+import { useToast, Box, Button, Container, Heading, Input, VStack, Text, Image, HStack } from '@chakra-ui/react';
 import { Link } from '@chakra-ui/next-js';
+import Router from 'next/router';
+import { signIn } from 'next-auth/react';
 
 const SignIn = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
+  const toast = useToast();
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
+
+    const result = await signIn('credentials', {
+      redirect: false,
+      email,
+      password,
+      userType: 'customer' //for customer login
+    });
+    if (result.error) {
+      toast({
+        title: 'Login Failed',
+        description: result.error,
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      });
+    } else {
+      toast({
+        title: 'Login Successful',
+        description: 'Welcome back!',
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+      });
+      Router.push('/');
+    }
   };
 
   return (
@@ -16,12 +44,12 @@ const SignIn = () => {
       <Container maxW='md' bg='white' p={6} borderRadius='md' boxShadow='lg'>
         <VStack spacing={4} align='center'>
           <Heading as='h1' size='lg' mb={6} color='#026670'>Login to Account</Heading>
-          <Input 
+          <Input
             placeholder='Email'
             ref={emailRef}
             bg='gray.100'
           />
-          <Input 
+          <Input
             placeholder='Password'
             type='password'
             ref={passwordRef}

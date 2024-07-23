@@ -9,7 +9,12 @@ import {
 } from '@chakra-ui/react';
 import Image from 'next/image';
 
+import { signOut } from 'next-auth/react';
+
 const AdminSideNav = () => {
+  const handleSignOut = () => {
+    signOut({ callbackUrl: '/admin' });
+  };
 
   return (
     <Box
@@ -52,6 +57,9 @@ const AdminSideNav = () => {
         </Link>
         <Link href='/admin/userid/edit/adminRegister'>
           <Text pl={10}>Register Employee</Text>
+        </Link>
+        <Link href='#' onClick={handleSignOut}>
+          <Text as='b' fontSize='lg'>Sign Out</Text>
         </Link>
       </Stack>
     </Box>

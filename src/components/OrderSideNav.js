@@ -18,10 +18,13 @@ import {
 import { useDisclosure } from '@chakra-ui/react';
 import { ArrowForwardIcon, ArrowBackIcon } from '@chakra-ui/icons';
 import { FaBook, FaClipboardList, FaCreditCard, FaMapMarkerAlt, FaGlobe, FaUser } from 'react-icons/fa';
+import { signOut } from 'next-auth/react';
 
 const OrderSideNav = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-
+  const handleSignOut = () => {
+    signOut({ callbackUrl: '/' });
+  };
   return (
     <>
       <IconButton
@@ -73,8 +76,8 @@ const OrderSideNav = () => {
                 </Link>
               </ListItem>
               <ListItem >
-                <HStack  justfiy='flex-start'>
-                <ListIcon as={FaGlobe} color='teal.500' />
+                <HStack justfiy='flex-start'>
+                  <ListIcon as={FaGlobe} color='teal.500' />
                   <Text as='b' fontSize='lg'>Language</Text>
                   <select>
                     <option value='en'>English</option>
@@ -91,7 +94,7 @@ const OrderSideNav = () => {
               </ListItem>
               <ListItem>
                 <ListIcon as={FaUser} color='teal.500' />
-                <Link href='/user/sign-out'>
+                <Link href='#' onClick={handleSignOut}>
                   <Text as='b' fontSize='lg'>Sign Out</Text>
                 </Link>
               </ListItem>

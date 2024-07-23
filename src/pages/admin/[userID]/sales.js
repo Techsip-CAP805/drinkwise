@@ -2,6 +2,7 @@ import React from 'react'
 import { Box, VStack, Heading, Text } from '@chakra-ui/react'
 import Link from 'next/link';
 import AdminSideNav from '@/components/AdminSideNav';
+import { withRole } from '../../../../lib/auth';
 
 const sales = () => {
   return (
@@ -22,5 +23,9 @@ const sales = () => {
     </Box>
   )
 }
+
+
+//auth
+export const getServerSideProps = withRole(['admin'], '/admin');
 
 export default sales

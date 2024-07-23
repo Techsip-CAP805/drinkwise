@@ -6,6 +6,7 @@ import Employee from '../../../../model/employeeModel';
 import bcrypt from 'bcrypt';
 
 export default NextAuth({
+    secret: process.env.AUTH_SECRET,
     providers: [
         CredentialsProvider({
             credentials: {

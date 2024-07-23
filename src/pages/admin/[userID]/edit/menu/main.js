@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Box, VStack, Heading, Link, Input, Button, Image, HStack, SimpleGrid, Text, Container, Card, CardBody, Flex } from '@chakra-ui/react';
 import { AddIcon, EditIcon, DeleteIcon } from '@chakra-ui/icons';
 import AdminSideNav from '@/components/AdminSideNav.js';
+import { withRole } from '../../../../../../lib/auth';
 
 const MainMenu = () => {
   const [drinks, setDrinks] = useState([]);
@@ -208,5 +209,8 @@ const MainMenu = () => {
     </Box>
   );
 };
+
+//auth
+export const getServerSideProps = withRole(['admin'], '/admin');
 
 export default MainMenu;

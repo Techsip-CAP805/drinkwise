@@ -6,6 +6,9 @@ import { InfoIcon } from '@chakra-ui/icons'; // Import InfoIcon from Chakra UI
 import Navbar from '../../../../components/Navbar';
 import Footer from '../../../../components/Footer';
 import AdminSideNav from '@/components/AdminSideNav';
+import { withRole } from '../../../../../lib/auth';
+
+
 export const validatePasswordReq = (password) => {
   const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
   return passwordRegex.test(password);
@@ -213,5 +216,9 @@ const AdminRegisterEmployee = () => {
     </Box>
   );
 };
+
+
+//auth
+export const getServerSideProps = withRole(['admin'], '/admin');
 
 export default AdminRegisterEmployee;

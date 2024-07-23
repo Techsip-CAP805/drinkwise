@@ -8,6 +8,7 @@ import {
 import { AddIcon, EditIcon, DeleteIcon } from '@chakra-ui/icons';
 import Link from 'next/link';
 import AdminSideNav from '@/components/AdminSideNav.js';
+import { withRole } from '../../../../../lib/auth';
 
 const EditLocations = () => {
   const [locations, setLocations] = useState([]);
@@ -272,5 +273,9 @@ const EditLocations = () => {
     </Box>
   );
 };
+
+
+//auth
+export const getServerSideProps = withRole(['admin'], '/admin');
 
 export default EditLocations;

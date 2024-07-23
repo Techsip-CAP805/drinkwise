@@ -5,6 +5,7 @@ import {
 import { AddIcon, EditIcon } from '@chakra-ui/icons';
 import AdminSideNav from '@/components/AdminSideNav.js';
 import DualListbox from "@/components/DualListBox";
+import { withRole } from '../../../../../../lib/auth';
 
 const OrderMenu = () => {
   const [locations, setLocations] = useState([]);
@@ -263,5 +264,9 @@ const OrderMenu = () => {
     </Box>
   );
 };
+
+
+//auth
+export const getServerSideProps = withRole(['admin'], '/admin');
 
 export default OrderMenu;

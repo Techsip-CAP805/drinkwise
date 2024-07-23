@@ -6,6 +6,7 @@ import IncomingOrders from '@/components/incomingOrders';
 import InProgressOrders from '@/components/inProgressOrders';
 import CompletedOrders from '@/components/completedOrders';
 import { Box, Flex, Spacer } from '@chakra-ui/react';
+import { withRole } from '../../../../lib/auth';
 
 const Orders = () => {
     const router = useRouter();
@@ -42,5 +43,9 @@ const Orders = () => {
         </Box>
     );
 };
+
+
+//auth
+export const getServerSideProps = withRole(['employee'], '/employee/login');
 
 export default Orders;

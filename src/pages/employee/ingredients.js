@@ -22,6 +22,7 @@ import {
   Icon
 } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
+import { withRole } from "../../../lib/auth";
 
 // Function to sort ingredients by name
 const sortIngredients = (ingredients) => {
@@ -196,7 +197,12 @@ const EditMenu = ({ ingredients, currentBranch }) => {
   );
 }
 
-export async function getServerSideProps() {
+export const getServerSideProps = async (context) => {
+  const roleCheck = await withRole(['employee'], '/employee/login')(context);
+
+  if (roleCheck.redirect) {
+    return roleCheck;
+  }
   const resIng = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/ingredients`);
   const ingredients = await resIng.json();
   const resLoc = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/currentBranch`);
@@ -205,5 +211,7 @@ export async function getServerSideProps() {
     props: { ingredients, currentBranch },
   };
 }
+
+
 
 export default EditMenu;

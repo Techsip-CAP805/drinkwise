@@ -19,6 +19,7 @@ import {
   useDisclosure
 } from "@chakra-ui/react";
 import EditMenuModal from "./editMenuModal";
+import { withRole } from "../../../lib/auth";
 
 // Function to group drinks by category
 const groupByCategory = (drinks) => {
@@ -183,14 +184,34 @@ const EditMenu = ({ drinks, currentBranch }) => {
   );
 };
 
-export async function getServerSideProps() {
+// export async function getServerSideProps() {
+//   const resDrinks = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/drinkMenu`);
+//   const drinks = await resDrinks.json();
+//   const resLoc = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/currentBranch`);
+//   const currentBranch = await resLoc.json();
+//   return {
+//     props: { drinks, currentBranch },
+//   };
+// }
+
+export const getServerSideProps = async (context) => {
+  const roleCheck = await withRole(['employee'], '/employee/login')(context);
+
+  if (roleCheck.redirect) {
+    return roleCheck;
+  }
+
   const resDrinks = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/drinkMenu`);
   const drinks = await resDrinks.json();
   const resLoc = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/currentBranch`);
   const currentBranch = await resLoc.json();
+
   return {
-    props: { drinks, currentBranch },
+    props: {
+      drinks,
+      currentBranch,
+    },
   };
-}
+};
 
 export default EditMenu;

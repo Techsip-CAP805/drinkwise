@@ -127,7 +127,9 @@ const EditMenu = ({ ingredients, currentBranch }) => {
         <Container w='100vw' minH='100vh' maxW='7xl' py={10}>
           <Flex direction="column" justify="center" align="center" w="100%" h='100%' mt={20}>
             <InputGroup mb={6} w="50%">
-              <InputLeftElement pointerEvents="none" children={<SearchIcon color="gray.300" />} />
+              <InputLeftElement pointerEvents="none">
+                <SearchIcon color="gray.300" />
+              </InputLeftElement>
               <Input
                 type="text"
                 placeholder="Search ingredients..."

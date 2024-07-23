@@ -4,7 +4,7 @@ import { useToast, Box, Container, Flex, Input, Button, InputGroup, Stack, Link,
 import Router from 'next/router';
 import { signIn } from 'next-auth/react';
 
-const empLogin = () => {
+const EmpLogin = () => {
   const [showPassword, setShowPassword] = useState(false);
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
@@ -92,4 +92,4 @@ const empLogin = () => {
   );
 };
 
-export default empLogin;
+export default EmpLogin;

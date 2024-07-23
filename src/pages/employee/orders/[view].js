@@ -2,9 +2,9 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import SideNav from '@/components/SideNav';
-import IncomingOrders from '@/pages/employee/incomingOrders';
-import InProgressOrders from '@/pages/employee/inProgressOrders';
-import CompletedOrders from '@/pages/employee/completedOrders';
+import IncomingOrders from '@/components/incomingOrders';
+import InProgressOrders from '@/components/inProgressOrders';
+import CompletedOrders from '@/components/completedOrders';
 import { Box, Flex, Spacer } from '@chakra-ui/react';
 
 const Orders = () => {

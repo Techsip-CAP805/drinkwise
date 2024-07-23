@@ -1,8 +1,8 @@
 
 import React from "react";
-import { useDrinkContext } from "../../../context/drinkContext";
+import { useDrinkContext } from "../../context/drinkContext";
 import { Box, Heading, SimpleGrid } from "@chakra-ui/react";
-import OrdersColumn from "../../components/OrdersColumn";
+import OrdersColumn from "./OrdersColumn";
 
 const CompletedOrders = () => {
     const { customers } = useDrinkContext();

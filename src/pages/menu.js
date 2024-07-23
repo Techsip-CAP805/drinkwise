@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { useDrinkContext } from "../../context/drinkContext";
-import { Box, Container, Text, Heading, VStack, Grid, GridItem, Flex, Stack, Spacer} from "@chakra-ui/react";
+import { Box, Container, Text, Heading, VStack, Grid, GridItem, Flex, Stack, Spacer } from "@chakra-ui/react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
@@ -17,7 +17,7 @@ const Menu = () => {
     <Box bg="#bcc8c3">
       <Navbar />
       <Container maxW="container.xl" py={10} pt={32} >
-      <Heading mb={7} fontSize="2xl" color="gray.700" textDecoration="underline">
+        <Heading mb={7} fontSize="2xl" color="gray.700" textDecoration="underline">
           Our Menu
         </Heading>
         <Grid templateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }} gap={6}>
@@ -28,19 +28,19 @@ const Menu = () => {
                 <Box mt={4}>
                   {drinks.filter(drink => drink.category === category).map((drink, index) => (
                     <VStack key={index} align="start" mb={4}>
-                      <Stack direction="row" align="center" spacing={4}>
-                        <Box>
+                      <Flex direction="row" align="center" justify="space-between" w="full" spacing={4}>
+                        <Box width = "320px">
                           <Text fontSize="md" color="gray.700">{drink.drinkName}</Text>
                           <Text fontSize="sm" color="gray.500">{drink.description}</Text>
                         </Box>
-                        <Box>
+                        <Box width="50px" paddingLeft="10px">
                           {drink.sizeOptions && (
                             <Text fontSize="sm" color="gray.500">
                                {drink.sizeOptions.map(size => size.size).join(", ")}
                             </Text>
                           )}
                         </Box>
-                      </Stack>
+                      </Flex>
                     </VStack>
                   ))}
                 </Box>
@@ -54,4 +54,4 @@ const Menu = () => {
   );
 };
 
-export default Menu
+export default Menu;

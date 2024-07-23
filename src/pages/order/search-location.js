@@ -60,7 +60,7 @@ const SearchLocation = () => {
 
           <SimpleGrid columns={{ base: 1 }} spacing={5}>
             {filteredLocations.map((location, index) => (
-              <Link href={`/order/${location.id}`} key={index} passHref>
+              <Link href={`/order/store/${location.id}`} key={index} passHref>
                   <Card borderRadius="md" boxShadow="md">
                     <CardBody>
                       <HStack justify="space-between">

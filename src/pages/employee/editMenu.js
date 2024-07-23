@@ -195,7 +195,7 @@ const EditMenu = ({ drinks, currentBranch }) => {
 // }
 
 export const getServerSideProps = async (context) => {
-  const roleCheck = await withRole(['employee'], '/employee/login')(context);
+  const roleCheck = await withRole(['employee', 'admin'], '/employee/login')(context);
 
   if (roleCheck.redirect) {
     return roleCheck;

@@ -143,6 +143,6 @@ const EmployeeAccount = () => {
 };
 
 //auth
-export const getServerSideProps = withRole(['employee'], '/employee/login');
+export const getServerSideProps = withRole(['employee', 'admin'], '/employee/login');
 
 export default EmployeeAccount;

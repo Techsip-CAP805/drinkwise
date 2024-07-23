@@ -3,8 +3,8 @@ import {
   Box, Container, Flex, Input, Button, InputGroup, Stack, Link, FormControl, InputRightElement, useToast, Tooltip
 } from '@chakra-ui/react';
 import { InfoIcon } from '@chakra-ui/icons'; // Import InfoIcon from Chakra UI
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 import { useDrinkContext } from '../../../context/drinkContext';
 
 export const validatePasswordReq = (password) => {

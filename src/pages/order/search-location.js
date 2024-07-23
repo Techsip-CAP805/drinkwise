@@ -96,7 +96,7 @@ const SearchLocation = ({ session }) => {
   );
 };
 
-//auth
-export const getServerSideProps = withRole(['customer'], '/login');
+// //auth
+// export const getServerSideProps = withRole(['customer'], '/login');
 
 export default SearchLocation;

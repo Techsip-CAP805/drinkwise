@@ -31,7 +31,7 @@ const SignIn = () => {
             Sign In
           </Button>
           <Text>
-            Don&#39;t have an account? <Link href='/signup' color='teal.500'>Sign Up</Link>
+            Don&#39;t have an account? <Link href='/user/signUp' color='teal.500'>Sign Up</Link>
           </Text>
         </VStack>
       </Container>

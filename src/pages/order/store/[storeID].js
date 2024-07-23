@@ -25,18 +25,17 @@ import { Link } from '@chakra-ui/next-js';
 import OrderSideNav from '@/components/OrderSideNav';
 import { MdOutlineShoppingCart } from 'react-icons/md';
 
-const LocationDetails = () => {
+const LocationDetails = ({ locations, drinks }) => {
   const router = useRouter();
   const { storeID } = router.query;
-  const { locations, drinks, total } = useDrinkContext();
+  const { total } = useDrinkContext();
   const [location, setLocation] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [cartCount, setCartCount] = useState(0);
 
   useEffect(() => {
     if (storeID && locations.length) {
-      const numericId = parseInt(storeID, 10);
-      const foundLocation = locations.find((location) => location.id === numericId);
+      const foundLocation = locations.find((location) => location._id === storeID);
       setLocation(foundLocation);
     }
   }, [storeID, locations]);
@@ -62,9 +61,9 @@ const LocationDetails = () => {
         <Container maxW='container.xl' py={10} pt={20}>
           <Flex direction='column' align='center' mb={6}>
             <Text fontSize='3xl' fontWeight='bold'>
-              {location.name}
+              {location.branchName}
             </Text>
-            <Text>{location.postalCode}</Text>
+            <Text>{location.branchLocation.postalCode}</Text>
           </Flex>
           <Input
             placeholder='Search drinks...'
@@ -145,5 +144,16 @@ const LocationDetails = () => {
     </Box>
   );
 };
+
+export async function getServerSideProps(context) {
+
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/locations`);
+  const locations = await res.json();
+  const drinkRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/orderMenu`);
+  const drinks = await drinkRes.json();
+  return {
+    props: { locations, drinks },
+  };
+}
 
 export default LocationDetails;

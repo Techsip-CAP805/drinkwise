@@ -12,6 +12,7 @@ import {
   FormLabel,
   Input,
   Select,
+  useToast
 } from '@chakra-ui/react';
 import { useDrinkContext } from '../../context/drinkContext';
 
@@ -23,6 +24,8 @@ const Checkout = ({ isOpen, onClose }) => {
   const [timeChoice, setTimeChoice] = useState('1:00 PM');
   const [paymentMethod, setPaymentMethod] = useState('Credit Card');
   const {cart, setCart} = useDrinkContext();
+  const toast = useToast();
+
 
   const handlePlaceOrder = () => {
     const orderDetails = {
@@ -34,11 +37,21 @@ const Checkout = ({ isOpen, onClose }) => {
       paymentMethod,
       items: cart
     };
+    
 
     console.log('Order Details:', orderDetails);
 
     //upload to db
 
+
+    toast({
+      title: 'Order placed!',
+      description: "您的order送出去了",
+      status: 'success',
+      duration: 5000,
+      isClosable: true,
+    })
+    
     onClose(); // Close the modal after placing the order
   };
 

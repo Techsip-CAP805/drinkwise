@@ -1,35 +1,37 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Box, VStack, HStack, Text, Image, Divider, Button, Flex, useDisclosure } from '@chakra-ui/react';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
 import { useDrinkContext } from '../../../../../../context/drinkContext';
-import Checkout from '@/components/Checkout'; // Import the new Checkout component
+import Checkout from '@/components/Checkout';
+import { useRouter } from 'next/router';
 
 const OrderSummary = () => {
   const { cart, total } = useDrinkContext();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const router = useRouter();
 
   return (
-    <Box bg='#bcc8c3' minH='100vh'>
-      <Navbar />
-      <Box maxW='container.lg' mx='auto' py={10} pt={32}>
+    <Box bg='#f0f4f8' minH='100vh' py={10} px={4}>
+      <Box maxW='container.md' mx='auto' bg='white' borderRadius='lg' boxShadow='xl' p={8}>
+        <Button colorScheme='teal' variant='link' mb={6} onClick={() => router.back()}>
+          &larr; Back
+        </Button>
+        <Text fontSize='xl' fontWeight='bold' mb={6} textAlign='center'>Order Summary</Text>
         <VStack spacing={6} align='stretch'>
-          <Text fontSize='2xl' fontWeight='bold' mb={4}>Order Summary</Text>
           {cart.map((item, index) => (
-            <Box key={index} bg='white' p={6} borderRadius='md' boxShadow='lg'>
+            <Box key={index} bg='#f9fafb' p={4} borderRadius='md' boxShadow='md'>
               <Flex direction={{ base: 'column', md: 'row' }} align='center'>
-                <Image src={item.imagePath} alt={item.drinkName} boxSize='150px' borderRadius='md' />
-                <VStack align='start' spacing={1} ml={{ base: 0, md: 6 }} mt={{ base: 4, md: 0 }}>
+                <Image src={item.imagePath} alt={item.drinkName} boxSize='100px' borderRadius='md' />
+                <VStack align='start' spacing={1} ml={{ base: 0, md: 4 }} mt={{ base: 4, md: 0 }} w='full'>
                   <Text fontSize='lg' fontWeight='bold'>{item.drinkName}</Text>
-                  <HStack>
+                  <HStack justify='space-between' w='full'>
                     <Text>Quantity:</Text>
                     <Text fontWeight='bold'>{item.quantity}</Text>
                   </HStack>
-                  <HStack>
+                  <HStack justify='space-between' w='full'>
                     <Text>Price:</Text>
                     <Text fontWeight='bold'>${item.basePrice.toFixed(2)} each</Text>
                   </HStack>
-                  <HStack>
+                  <HStack justify='space-between' w='full'>
                     <Text>Total:</Text>
                     <Text fontWeight='bold'>${(item.basePrice * item.quantity).toFixed(2)}</Text>
                   </HStack>
@@ -42,14 +44,13 @@ const OrderSummary = () => {
           ))}
           <Divider />
           <HStack justify='space-between' w='full'>
-            <Text fontSize='xl' fontWeight='bold'>Total:</Text>
-            <Text fontSize='xl' fontWeight='bold'>${total.toFixed(2)}</Text>
+            <Text fontSize='lg' fontWeight='bold'>Total:</Text>
+            <Text fontSize='lg' fontWeight='bold'>${total.toFixed(2)}</Text>
           </HStack>
-          <Button colorScheme='teal' size='lg' alignSelf='center' onClick={onOpen}>Proceed to Checkout</Button>
+          <Button colorScheme='teal' size='lg' w='full' onClick={onOpen}>Proceed to Checkout</Button>
         </VStack>
       </Box>
-      <Footer />
-      <Checkout isOpen={isOpen} onClose={onClose} /> {/* Add Checkout modal */}
+      <Checkout isOpen={isOpen} onClose={onClose} />
     </Box>
   );
 };

@@ -29,14 +29,14 @@ const OrderSideNav = () => {
   const [signedIn, setSignedIn] = useState(false);
 
   const {data: session} = useSession();
-
-
+  console.log("something");
 
   // const validateSession = async() => {
   //   session ? setSignedIn(prevValue => !prevValue) : setSignedIn(prevValue => !prevValue) 
   // }
 
   useEffect(()=> {
+    console.log('something else');
     session ? setSignedIn(true) : setSignedIn(false);
   },[signedIn])
 

@@ -20,48 +20,69 @@ import {
 } from "@chakra-ui/react";
 import EditMenuModal from "./editMenuModal";
 import { withRole } from "../../../lib/auth";
-import { getSession } from "next-auth/react"; // Import getSession
-
-// Function to group drinks by category
-const groupByCategory = (drinks) => {
-  return drinks.reduce((acc, drink) => {
-    if (!acc[drink.category]) {
-      acc[drink.category] = [];
-    }
-    acc[drink.category].push(drink);
-    return acc;
-  }, {});
-};
-
-// Function to check if an image exists
-const imageExists = async (url) => {
-  try {
-    const response = await fetch(url, { method: 'HEAD' });
-    return response.ok;
-  } catch {
-    return false;
-  }
-};
+import { useSession } from 'next-auth/react';
 
 const EditMenu = ({ drinks, currentBranch }) => {
   const cardBgColor = useColorModeValue("#a0b2ab", "#283E38");
   const cardHoverBgColor = useColorModeValue("#8f9f9a", "#1F2D2B");
-
-  const groupedDrinks = groupByCategory(drinks);
-
-  const { isOpen: isMenuOpen, onOpen: onOpenMenu, onClose: onCloseMenu } = useDisclosure();
+  const {
+    isOpen: isMenuOpen,
+    onOpen: onOpenMenu,
+    onClose: onCloseMenu,
+  } = useDisclosure();
   const [modalDrink, setModalDrink] = useState(null);
-
-  const [unavailableDrinks, setUnavailableDrinks] = useState(
-    currentBranch[0].unavailableDrinks.map(drink => drink.drinkID)
-  );
-
+  const [unavailableDrinks, setUnavailableDrinks] = useState([]);
+  const [groupDrinks, setGroupDrinks] = useState([]);
   const [switchStatus, setSwitchStatus] = useState({});
   const [imageUrls, setImageUrls] = useState({});
 
-  useEffect(() => {
+  // Function to group drinks by category
+  const groupByCategory = (drinks) => {
+    return drinks.reduce((acc, drink) => {
+      if (!acc[drink.category]) {
+        acc[drink.category] = [];
+      }
+      acc[drink.category].push(drink);
+      return acc;
+    }, {});
+  };
+
+  // Function to check if an image exists
+  const imageExists = async (url) => {
+    try {
+      const response = await fetch(url, { method: "HEAD" });
+      return response.ok;
+    } catch {
+      return false;
+    }
+  };
+
+  // const initialize = async() => {
+
+  // }
+
+  //check session
+  const { data: session } = useSession();
+
+  useEffect(async() => {
+    //initialize drinks and currentBranch
+    const email = session.user.email;
+    console.log("EMAIL: ", email);
+    const encodedEmail = encodeURIComponent(email);
+  
+    const resDrinks = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/drinkMenu`);
+    const drinks = await resDrinks.json();
+  
+    const resLoc = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/currentBranch?email=${encodedEmail}`);
+    const currentBranch = await resLoc.json();
+
+    setGroupDrinks([...groupDrinks, groupByCategory(drinks)]);
+    setUnavailableDrinks([
+      ...drinks,
+      currentBranch[0].unavailableDrinks.map((drink) => drink.drinkID),
+    ]);
     const initialStatus = {};
-    drinks.forEach(drink => {
+    drinks.forEach((drink) => {
       initialStatus[drink.drinkID] = !unavailableDrinks.includes(drink.drinkID);
     });
     setSwitchStatus(initialStatus);
@@ -81,18 +102,18 @@ const EditMenu = ({ drinks, currentBranch }) => {
 
   const handleToggle = async (drinkID) => {
     const newStatus = !switchStatus[drinkID];
-    setSwitchStatus(prevStatus => ({
+    setSwitchStatus((prevStatus) => ({
       ...prevStatus,
-      [drinkID]: newStatus
+      [drinkID]: newStatus,
     }));
 
-    const method = newStatus ? 'REMOVE' : 'ADD';
+    const method = newStatus ? "REMOVE" : "ADD";
 
     try {
-      const response = await fetch('/api/updateLocationDrinks', {
-        method: 'POST',
+      const response = await fetch("/api/updateLocationDrinks", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           drinkID,
@@ -102,14 +123,16 @@ const EditMenu = ({ drinks, currentBranch }) => {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to update drinks');
+        throw new Error("Failed to update drinks");
       }
 
       const updatedLocation = await response.json();
 
-      setUnavailableDrinks(updatedLocation.unavailableDrinks.map(drink => drink.drinkID));
+      setUnavailableDrinks(
+        updatedLocation.unavailableDrinks.map((drink) => drink.drinkID)
+      );
     } catch (error) {
-      console.error('Error updating location drinks:', error);
+      console.error("Error updating location drinks:", error);
     }
   };
 
@@ -117,14 +140,25 @@ const EditMenu = ({ drinks, currentBranch }) => {
     <Box bg="#bcc8c3">
       <SideNav />
       <Box ml="250px">
-        <Container w='100vw' minH='100vh' maxW='7xl' py={10}>
-          <Flex direction="column" justify="center" align="center" w="100%" h='100%' mt={20}>
+        <Container w="100vw" minH="100vh" maxW="7xl" py={10}>
+          <Flex
+            direction="column"
+            justify="center"
+            align="center"
+            w="100%"
+            h="100%"
+            mt={20}
+          >
             {Object.keys(groupedDrinks).map((category) => (
               <Box key={category} w="100%">
                 <Heading size="lg" color="white" textAlign="left" mb={4}>
                   {category}
                 </Heading>
-                <Grid templateColumns={{ base: "1fr", md: "repeat(4, 1fr)" }} gap={6} p={4}>
+                <Grid
+                  templateColumns={{ base: "1fr", md: "repeat(4, 1fr)" }}
+                  gap={6}
+                  p={4}
+                >
                   {groupedDrinks[category].map((drink) => (
                     <GridItem key={drink.drinkID}>
                       <Card
@@ -132,7 +166,11 @@ const EditMenu = ({ drinks, currentBranch }) => {
                         overflow="hidden"
                         boxShadow="md"
                         bg={cardBgColor}
-                        _hover={{ bg: cardHoverBgColor, transform: "scale(1.05)", transition: "all 0.3s ease-in-out" }}
+                        _hover={{
+                          bg: cardHoverBgColor,
+                          transform: "scale(1.05)",
+                          transition: "all 0.3s ease-in-out",
+                        }}
                         height="300px"
                       >
                         <Image
@@ -142,17 +180,37 @@ const EditMenu = ({ drinks, currentBranch }) => {
                           height="150px"
                           width="100%"
                           style={{
-                            filter: switchStatus[drink.drinkID] ? "none" : "grayscale(100%)"
+                            filter: switchStatus[drink.drinkID]
+                              ? "none"
+                              : "grayscale(100%)",
                           }}
-                          onClick={() => { setModalDrink(drink); onOpenMenu(); }}
+                          onClick={() => {
+                            setModalDrink(drink);
+                            onOpenMenu();
+                          }}
                         />
                         <CardBody p={4}>
                           <Stack spacing={3} height="100%">
-                            <Box h="70px" onClick={() => { setModalDrink(drink); onOpenMenu(); }}>
-                              <Heading size="md" textAlign="center" color="white" mb="10px">
+                            <Box
+                              h="70px"
+                              onClick={() => {
+                                setModalDrink(drink);
+                                onOpenMenu();
+                              }}
+                            >
+                              <Heading
+                                size="md"
+                                textAlign="center"
+                                color="white"
+                                mb="10px"
+                              >
                                 {drink.drinkName}
                               </Heading>
-                              <Text color="white" fontSize="sm" textAlign="left">
+                              <Text
+                                color="white"
+                                fontSize="sm"
+                                textAlign="left"
+                              >
                                 {drink.description}
                               </Text>
                             </Box>
@@ -163,7 +221,9 @@ const EditMenu = ({ drinks, currentBranch }) => {
                                 onChange={() => handleToggle(drink.drinkID)}
                                 sx={{
                                   "& .chakra-switch__track": {
-                                    bg: switchStatus[drink.drinkID] ? "teal.500" : "red.500",
+                                    bg: switchStatus[drink.drinkID]
+                                      ? "teal.500"
+                                      : "red.500",
                                   },
                                 }}
                               />
@@ -180,44 +240,16 @@ const EditMenu = ({ drinks, currentBranch }) => {
           </Flex>
         </Container>
       </Box>
-      <EditMenuModal isOpen={isMenuOpen} onClose={onCloseMenu} drink={modalDrink} />
+      <EditMenuModal
+        isOpen={isMenuOpen}
+        onClose={onCloseMenu}
+        drink={modalDrink}
+      />
     </Box>
   );
 };
 
-export const getServerSideProps = async (context) => {
-  const roleCheck = await withRole(['employee', 'admin'], '/employee/login')(context);
-
-  if (roleCheck.redirect) {
-    return roleCheck;
-  }
-
-  const session = await getSession(context);
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: '/employee/login',
-        permanent: false,
-      },
-    };
-  }
-
-  const email = session.user.email;
-  const encodedEmail = encodeURIComponent(email);
-
-  const resDrinks = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/drinkMenu`);
-  const drinks = await resDrinks.json();
-
-  const resLoc = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/currentBranch?email=${encodedEmail}`);
-  const currentBranch = await resLoc.json();
-
-  return {
-    props: {
-      drinks,
-      currentBranch
-    },
-  };
-};
+//auth
+export const getServerSideProps = withRole(['employee', 'admin'], '/employee/login');
 
 export default EditMenu;

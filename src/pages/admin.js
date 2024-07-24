@@ -5,7 +5,8 @@ import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
 import { useDrinkContext } from '../../context/drinkContext';
 import Router from 'next/router';
-import { signIn } from 'next-auth/react';
+import { signIn, getSession } from 'next-auth/react';
+// import { useSession } from "next-auth/react"
 
 export default function Login() {
 
@@ -28,10 +29,19 @@ export default function Login() {
       redirect: false,
       email,
       password,
-      userType: 'employee' //for employee login
+      userType: 'employee' //use EMPLOYEE collection for admin login
     });
+    const session = await getSession();
 
-    if (result.error) {
+    if (session && session.user.role === 'admin') {
+      toast({
+        title: 'Login Successful',
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+      });
+      Router.push('/admin/userid/dashboard');
+    } else {
       toast({
         title: 'Login Failed',
         description: result.error,
@@ -39,39 +49,7 @@ export default function Login() {
         duration: 3000,
         isClosable: true,
       });
-    } else {
-      toast({
-        title: 'Login Successful',
-        // description: 'Welcome back!',
-        status: 'success',
-        duration: 3000,
-        isClosable: true,
-      });
-      Router.push('/admin/userid/dashboard');
     }
-    // // console.log("username: ", userNameRef.current.value);
-    // // console.log("password: ", passwordRef.current.value);
-
-    // //check if username and password is empty
-    // if (userNameRef.current.value && passwordRef.current.value){
-    //   //get list of employees that are admins
-    //   const admins = employees.filter((employee)=> employee.isAdmin ==true);
-    //   //go to employeeData and check for info
-    //   const user = admins.filter((admin)=> admin.emailAddress == userNameRef.current.value && admin.password == passwordRef.current.value);
-
-    //   //if matches, redirect to /admin/userid/dashboard
-    //     if (user.length > 0){
-    //       router.push(pathname + `/${user[0].emailAddress.split('@')[0]}/dashboard`);
-    //     }else{
-    //       toast({
-    //         title: 'Did not find an acconut',
-    //         description: "please check username and password",
-    //         status: 'error',
-    //         duration: 8000,
-    //         isClosable: true,
-    //       })
-    //     }
-    // }
   }
 
   return (

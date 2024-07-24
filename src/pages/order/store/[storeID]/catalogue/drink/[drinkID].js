@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Box, Text, Image, Button, VStack, HStack, IconButton, Radio, RadioGroup, Stack, Checkbox, CheckboxGroup, Divider, Flex } from '@chakra-ui/react';
 import { CloseIcon, AddIcon, MinusIcon } from '@chakra-ui/icons';
-import { useDrinkContext } from '../../../../../../context/drinkContext';
+import { useDrinkContext } from '../../../../../../../context/drinkContext';
 
 const DrinkDetails = ({drinks}) => {
   const router = useRouter();

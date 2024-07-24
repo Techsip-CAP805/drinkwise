@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Box, VStack, HStack, Text, Image, Divider, Button, Flex, useDisclosure } from '@chakra-ui/react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import { useDrinkContext } from '../../../../context/drinkContext';
+import { useDrinkContext } from '../../../../../../context/drinkContext';
 import Checkout from '@/components/Checkout'; // Import the new Checkout component
 
 const OrderSummary = () => {

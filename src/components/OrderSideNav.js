@@ -22,14 +22,13 @@ import { signOut } from 'next-auth/react';
 import { useSession } from 'next-auth/react';
 
 
-
-
 const OrderSideNav = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [signedIn, setSignedIn] = useState(false);
 
   const {data: session} = useSession();
 
+  console.log("mount session: ", session);
 
 
   // const validateSession = async() => {
@@ -37,6 +36,7 @@ const OrderSideNav = () => {
   // }
 
   useEffect(()=> {
+    console.log("USE EFFECT SESSION: ", session);
     session ? setSignedIn(true) : setSignedIn(false);
   },[signedIn])
 
@@ -75,7 +75,7 @@ const OrderSideNav = () => {
             <List spacing={4} pt={10} pl={5}>
               <ListItem>
                 <ListIcon as={FaBook} color='teal.500' />
-                <Link href='/catalogue'>
+                <Link href=''>
                   <Text as='b' fontSize='lg'>Catalogue</Text>
                 </Link>
               </ListItem>

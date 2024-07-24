@@ -103,18 +103,18 @@ const EditMenu = () => {
 
   const handleToggle = async (drinkID) => {
     const newStatus = !switchStatus[drinkID];
-    setSwitchStatus(prevStatus => ({
+    setSwitchStatus((prevStatus) => ({
       ...prevStatus,
-      [drinkID]: newStatus
+      [drinkID]: newStatus,
     }));
 
-    const method = newStatus ? 'REMOVE' : 'ADD';
+    const method = newStatus ? "REMOVE" : "ADD";
 
     try {
-      const response = await fetch('/api/updateLocationDrinks', {
-        method: 'POST',
+      const response = await fetch("/api/updateLocationDrinks", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           drinkID,
@@ -124,14 +124,16 @@ const EditMenu = () => {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to update drinks');
+        throw new Error("Failed to update drinks");
       }
 
       const updatedLocation = await response.json();
 
-      setUnavailableDrinks(updatedLocation.unavailableDrinks.map(drink => drink.drinkID));
+      setUnavailableDrinks(
+        updatedLocation.unavailableDrinks.map((drink) => drink.drinkID)
+      );
     } catch (error) {
-      console.error('Error updating location drinks:', error);
+      console.error("Error updating location drinks:", error);
     }
   };
 
@@ -139,14 +141,25 @@ const EditMenu = () => {
     <Box bg="#bcc8c3">
       <SideNav />
       <Box ml="250px">
-        <Container w='100vw' minH='100vh' maxW='7xl' py={10}>
-          <Flex direction="column" justify="center" align="center" w="100%" h='100%' mt={20}>
+        <Container w="100vw" minH="100vh" maxW="7xl" py={10}>
+          <Flex
+            direction="column"
+            justify="center"
+            align="center"
+            w="100%"
+            h="100%"
+            mt={20}
+          >
             {Object.keys(groupedDrinks).map((category) => (
               <Box key={category} w="100%">
                 <Heading size="lg" color="white" textAlign="left" mb={4}>
                   {category}
                 </Heading>
-                <Grid templateColumns={{ base: "1fr", md: "repeat(4, 1fr)" }} gap={6} p={4}>
+                <Grid
+                  templateColumns={{ base: "1fr", md: "repeat(4, 1fr)" }}
+                  gap={6}
+                  p={4}
+                >
                   {groupedDrinks[category].map((drink) => (
                     <GridItem key={drink.drinkID}>
                       <Card
@@ -154,7 +167,11 @@ const EditMenu = () => {
                         overflow="hidden"
                         boxShadow="md"
                         bg={cardBgColor}
-                        _hover={{ bg: cardHoverBgColor, transform: "scale(1.05)", transition: "all 0.3s ease-in-out" }}
+                        _hover={{
+                          bg: cardHoverBgColor,
+                          transform: "scale(1.05)",
+                          transition: "all 0.3s ease-in-out",
+                        }}
                         height="300px"
                       >
                         <Image
@@ -164,17 +181,37 @@ const EditMenu = () => {
                           height="150px"
                           width="100%"
                           style={{
-                            filter: switchStatus[drink.drinkID] ? "none" : "grayscale(100%)"
+                            filter: switchStatus[drink.drinkID]
+                              ? "none"
+                              : "grayscale(100%)",
                           }}
-                          onClick={() => { setModalDrink(drink); onOpenMenu(); }}
+                          onClick={() => {
+                            setModalDrink(drink);
+                            onOpenMenu();
+                          }}
                         />
                         <CardBody p={4}>
                           <Stack spacing={3} height="100%">
-                            <Box h="70px" onClick={() => { setModalDrink(drink); onOpenMenu(); }}>
-                              <Heading size="md" textAlign="center" color="white" mb="10px">
+                            <Box
+                              h="70px"
+                              onClick={() => {
+                                setModalDrink(drink);
+                                onOpenMenu();
+                              }}
+                            >
+                              <Heading
+                                size="md"
+                                textAlign="center"
+                                color="white"
+                                mb="10px"
+                              >
                                 {drink.drinkName}
                               </Heading>
-                              <Text color="white" fontSize="sm" textAlign="left">
+                              <Text
+                                color="white"
+                                fontSize="sm"
+                                textAlign="left"
+                              >
                                 {drink.description}
                               </Text>
                             </Box>
@@ -185,7 +222,9 @@ const EditMenu = () => {
                                 onChange={() => handleToggle(drink.drinkID)}
                                 sx={{
                                   "& .chakra-switch__track": {
-                                    bg: switchStatus[drink.drinkID] ? "teal.500" : "red.500",
+                                    bg: switchStatus[drink.drinkID]
+                                      ? "teal.500"
+                                      : "red.500",
                                   },
                                 }}
                               />
@@ -202,13 +241,17 @@ const EditMenu = () => {
           </Flex>
         </Container>
       </Box>
-      <EditMenuModal isOpen={isMenuOpen} onClose={onCloseMenu} drink={modalDrink} />
+      <EditMenuModal
+        isOpen={isMenuOpen}
+        onClose={onCloseMenu}
+        drink={modalDrink}
+      />
     </Box>
   );
 };
 
 
 //auth
-export const getServerSideProps = withRole(['employee'], '/employee/login');
+export const getServerSideProps = withRole(['employee', 'admin'], '/employee/login');
 
 export default EditMenu;

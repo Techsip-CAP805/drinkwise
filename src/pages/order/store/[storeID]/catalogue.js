@@ -20,7 +20,7 @@ import {
   TabPanels,
   TabPanel,
 } from '@chakra-ui/react';
-import { useDrinkContext } from '../../../../context/drinkContext';
+import { useDrinkContext } from '../../../../../context/drinkContext';
 import { Link } from '@chakra-ui/next-js';
 import OrderSideNav from '@/components/OrderSideNav';
 import { MdOutlineShoppingCart } from 'react-icons/md';
@@ -83,7 +83,7 @@ const LocationDetails = ({ locations, drinks }) => {
               <TabPanel>
                 <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={5}>
                   {filteredDrinks.map((drink) => (
-                    <Link href={`/order/store/${storeID}/drink/${drink.drinkID}`} key={drink.drinkID}>
+                    <Link href={`/order/store/${storeID}/catalogue/drink/${drink.drinkID}`} key={drink.drinkID}>
                       <Card bg='white' h='150px' borderRadius='md' boxShadow='sm'>
                         <CardBody display='flex' flexDirection='row' alignItems='center'>
                           <Image src={drink.imagePath} alt={drink.drinkName} boxSize='60px' borderRadius='full' mr={4} />
@@ -105,7 +105,7 @@ const LocationDetails = ({ locations, drinks }) => {
                     {filteredDrinks
                       .filter((drink) => drink.category === category)
                       .map((drink) => (
-                        <Link href={`/order/store/${storeID}/drink/${drink.drinkID}`} key={drink.drinkID}>
+                        <Link href={`/order/store/${storeID}/catalogue/drink/${drink.drinkID}`} key={drink.drinkID}>
                           <Card bg='white' h='150px' borderRadius='md' boxShadow='sm'>
                             <CardBody display='flex' flexDirection='row' alignItems='center'>
                               <Image src={drink.imagePath} alt={drink.drinkName} boxSize='60px' borderRadius='full' mr={4} />
@@ -126,7 +126,7 @@ const LocationDetails = ({ locations, drinks }) => {
           </Tabs>
         </Container>
       </Flex>
-      <Link href='/order/guest/summary'>
+      <Link href={`/order/store/${storeID}/guest/summary`}>
         <Button
           position='fixed'
           bottom={14}

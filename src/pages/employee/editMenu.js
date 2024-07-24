@@ -250,7 +250,6 @@ const EditMenu = () => {
   );
 };
 
-
 //auth
 export const getServerSideProps = withRole(['employee', 'admin'], '/employee/login');
 

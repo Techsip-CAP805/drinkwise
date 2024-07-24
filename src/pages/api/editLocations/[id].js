@@ -1,7 +1,7 @@
 // pages/api/editLocations/[id].js
 import { connectToDatabase } from '../../../../lib/mongodb';
 import Location from '../../../../model/locationModel';
-import { withApiAuth } from '../../../../lib/apiAuth';
+import { apiWithRole } from '../../../../lib/auth';
 
 // export default async function handler(req, res) {
 const handler = async (req, res) => {
@@ -44,4 +44,4 @@ const handler = async (req, res) => {
 
 
 //auth
-export default withApiAuth(['admin'], handler);
+export default apiWithRole(['admin'], handler);

@@ -4,7 +4,8 @@ import Location from '../../../model/locationModel';
 import Employee from '../../../model/employeeModel';
 // import { getServerSession } from 'next-auth';
 // import { authOptions } from '../../../lib/authOptions';
-import { withApiAuth } from '../../../lib/apiAuth';
+import { apiWithRole } from '../../../lib/auth';
+
 
 // export default async function handler(req, res) {
 const handler = async (req, res) => {
@@ -52,4 +53,4 @@ const handler = async (req, res) => {
 }
 
 //auth
-export default withApiAuth(['employee', 'admin'], handler);
+export default apiWithRole(['employee', 'admin'], handler);

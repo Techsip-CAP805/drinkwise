@@ -1,35 +1,51 @@
-// import mongoose from 'mongoose';
+// models/orderModel.js
+import mongoose from 'mongoose';
 
-// const orderSchema = new mongoose.Schema({
-//     orderID: String,
-//     orderDate: Date,
-//     items: [
-//         {
-//             itemName: String,
-//             quantity: Number,
-//         },
-//     ],
-//     totalAmount: Number,
-// });
+const ingredientSchema = new mongoose.Schema({
+  ingredientName: { type: String, required: true },
+});
 
+const sizeOptionSchema = new mongoose.Schema({
+  size: { type: String, required: true },
+});
 
-// const guestOrederSchema = new mongoose.Schema({
-//     username: { type: String, require: true },
-//     customerName: { type: String },
-//     emailAddress: { type: String, required: true, unique: true },
-//     password: { type: String, required: true },
-//     preferredBranch: String,
-//     role: { type: String },
-//     accountCreationDate: Date,
-//     orders: [orderSchema],
-//     contact: "Dylan"
-//     email: "testing@gmail.com"
-//     orderingMethod: "Pickup"
-//     paymentMethod: "Cash"
-//     phone: "1234567899"
-//     timeChoice:"5:00 PM"
-// }, { collection: 'CUSTOMER' }); // Specify the collection name here
+const iceLevelSchema = new mongoose.Schema({
+  iceLevel: { type: Number, required: true },
+});
 
-// const Customer = mongoose.models.Customer || mongoose.model('Customer', customerSchema);
+const sugarLevelSchema = new mongoose.Schema({
+  sugarLevel: { type: Number, required: true },
+});
 
-// export default Customer;
+const drinkSchema = new mongoose.Schema({
+  drinkID: { type: Number, required: true },
+  drinkName: { type: String, required: true },
+  ingredients: [ingredientSchema],
+  description: { type: String },
+  category: { type: String },
+  sizeOptions: [sizeOptionSchema],
+  iceLevelOptions: [iceLevelSchema],
+  sugarLevelOptions: [sugarLevelSchema],
+  onMenu: { type: Boolean, default: true },
+  basePrice: { type: Number },
+  imagePath: { type: String },
+  quantity: { type: Number, required: true },
+  selectedSugar: { type: String, required: true },
+  selectedIce: { type: String, required: true },
+  selectedToppings: [{ type: String }],
+  toppingsTotal: { type: Number },
+});
+
+const orderSchema = new mongoose.Schema({
+  contact: { type: String, required: true },
+  email: { type: String, required: true },
+  phone: { type: String, required: true },
+  orderingMethod: { type: String, required: true },
+  timeChoice: { type: String, required: true },
+  paymentMethod: { type: String, required: true },
+  items: [drinkSchema],
+}, { collection: 'ORDERS' });
+
+const GuestOrder = mongoose.models.Order || mongoose.model('Order', orderSchema);
+
+export default GuestOrder;

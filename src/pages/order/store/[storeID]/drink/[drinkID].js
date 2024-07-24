@@ -26,6 +26,7 @@ const DrinkDetails = () => {
 
   const drink = drinks.find(d => d.drinkID == drinkID);
 
+  // console.log(drink);
   if (!drink) {
     return <Text>Loading...</Text>;
   }

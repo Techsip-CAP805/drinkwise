@@ -59,7 +59,7 @@ const AdminSideNav = () => {
           <Text pl={10}>Register Employee</Text>
         </Link>
         <Link href='#' onClick={handleSignOut}>
-          <Text as='b' fontSize='lg'>Sign Out</Text>
+        <Heading size="md">Sign Out</Heading>
         </Link>
       </Stack>
     </Box>

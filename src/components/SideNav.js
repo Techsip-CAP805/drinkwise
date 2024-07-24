@@ -13,7 +13,7 @@ import Image from 'next/image';
 import { signOut } from 'next-auth/react';
 
 const SideNav = ({ setCurrentView }) => {
-  
+
   const handleSignOut = () => {
     signOut({ callbackUrl: '/employee/login' });
   };
@@ -27,8 +27,8 @@ const SideNav = ({ setCurrentView }) => {
       p={5}
     >
       <Stack spacing={5}>
-        <Link href="/employee/orders/incoming"  my={3}>
-          <Center><Image src='/header-log.png' width={150} height={100} alt='logo'/></Center>
+        <Link href="/employee/orders/incoming" my={3}>
+          <Center><Image src='/header-log.png' width={150} height={100} alt='logo' /></Center>
         </Link>
         <Heading size="md">Orders</Heading>
         <Link href="/employee/orders/incoming">
@@ -52,7 +52,7 @@ const SideNav = ({ setCurrentView }) => {
           <Text pl={10}>Edit Info</Text>
         </Link>
         <Link href='#' onClick={handleSignOut}>
-          <Text as='b' fontSize='lg'>Sign Out</Text>
+        <Heading size="md">Sign Out</Heading>
         </Link>
       </Stack>
     </Box>

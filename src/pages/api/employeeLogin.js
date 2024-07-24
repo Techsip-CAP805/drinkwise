@@ -14,9 +14,9 @@ export default async function handler(req, res) {
         const enteredPassword = password;
         const storedPassword = employee.password;
 
-        console.log('Entered password:', enteredPassword);
-        console.log('Stored password:', storedPassword);
-        console.log('Employee object:', JSON.stringify(employee, null, 2));
+        // console.log('Entered password:', enteredPassword);
+        // console.log('Stored password:', storedPassword);
+        // console.log('Employee object:', JSON.stringify(employee, null, 2));
 
         if (enteredPassword === storedPassword) {
           return res.status(200).json({ message: 'Login successful' });

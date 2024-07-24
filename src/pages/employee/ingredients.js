@@ -23,6 +23,7 @@ import {
 } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 import { withRole } from "../../../lib/auth";
+import { getSession } from "next-auth/react";
 
 // Function to sort ingredients by name
 const sortIngredients = (ingredients) => {
@@ -106,6 +107,7 @@ const EditMenu = ({ ingredients, currentBranch }) => {
           ingredientName,
           branchId: currentBranch[0]._id,
           method,
+          currentBranch
         }),
       });
 
@@ -205,14 +207,34 @@ export const getServerSideProps = async (context) => {
   if (roleCheck.redirect) {
     return roleCheck;
   }
+
+  const session = await getSession(context);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/employee/login',
+        permanent: false,
+      },
+    };
+  }
+
+  const email = session.user.email;
+  const encodedEmail = encodeURIComponent(email);
+
   const resIng = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/ingredients`);
   const ingredients = await resIng.json();
-  const resLoc = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/currentBranch`);
+
+  const resLoc = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/currentBranch?email=${encodedEmail}`);
   const currentBranch = await resLoc.json();
+
   return {
-    props: { ingredients, currentBranch },
+    props: {
+      ingredients,
+      currentBranch
+    },
   };
-}
+};
 
 
 

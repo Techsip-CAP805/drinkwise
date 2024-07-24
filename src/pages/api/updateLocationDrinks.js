@@ -15,9 +15,14 @@ export default async function handler(req, res) {
 
     try {
       // Define the update operation based on the method
-      const update = method === 'ADD'
-        ? { $addToSet: { unavailableDrinks: { drinkID } } }
-        : { $pull: { unavailableDrinks: { drinkID } } };
+      let update;
+      if (method === 'ADD') {
+        // Add the drinkID to unavailableDrinks if it is not already present
+        update = { $addToSet: { unavailableDrinks: { drinkID } } };
+      } else if (method === 'REMOVE') {
+        // Remove the drinkID from unavailableDrinks
+        update = { $pull: { unavailableDrinks: { drinkID } } };
+      }
 
       // Update the location document
       const updatedLocation = await Location.findByIdAndUpdate(

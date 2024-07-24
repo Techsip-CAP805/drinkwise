@@ -20,6 +20,7 @@ import {
 } from "@chakra-ui/react";
 import EditMenuModal from "./editMenuModal";
 import { withRole } from "../../../lib/auth";
+import { getSession } from "next-auth/react"; // Import getSession
 
 // Function to group drinks by category
 const groupByCategory = (drinks) => {
@@ -184,16 +185,6 @@ const EditMenu = ({ drinks, currentBranch }) => {
   );
 };
 
-// export async function getServerSideProps() {
-//   const resDrinks = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/drinkMenu`);
-//   const drinks = await resDrinks.json();
-//   const resLoc = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/currentBranch`);
-//   const currentBranch = await resLoc.json();
-//   return {
-//     props: { drinks, currentBranch },
-//   };
-// }
-
 export const getServerSideProps = async (context) => {
   const roleCheck = await withRole(['employee', 'admin'], '/employee/login')(context);
 
@@ -201,15 +192,30 @@ export const getServerSideProps = async (context) => {
     return roleCheck;
   }
 
+  const session = await getSession(context);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/employee/login',
+        permanent: false,
+      },
+    };
+  }
+
+  const email = session.user.email;
+  const encodedEmail = encodeURIComponent(email);
+
   const resDrinks = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/drinkMenu`);
   const drinks = await resDrinks.json();
-  const resLoc = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/currentBranch`);
+
+  const resLoc = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/currentBranch?email=${encodedEmail}`);
   const currentBranch = await resLoc.json();
 
   return {
     props: {
       drinks,
-      currentBranch,
+      currentBranch
     },
   };
 };

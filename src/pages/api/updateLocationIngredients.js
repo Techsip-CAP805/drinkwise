@@ -14,40 +14,69 @@ export default async function handler(req, res) {
         ? { $addToSet: { unavailableIngredients: { ingredientName } } }
         : { $pull: { unavailableIngredients: { ingredientName } } };
 
+      // Update the location document for unavailableIngredients
       const updatedLocation = await Location.findByIdAndUpdate(
         branchId,
         update,
         { new: true }
       );
 
-      // Find drinks containing the ingredient
+      if (!updatedLocation) {
+        return res.status(404).json({ error: 'Location not found' });
+      }
+
+      // Get all drinks that contain the ingredient
       const drinks = await Drink.find({ 'ingredients.ingredientName': ingredientName });
-      const resLoc = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/currentBranch`);
-      const currentBranch = await resLoc.json();
 
-      // Update each drink's availability status
-      const drinkUpdatePromises = drinks.map(async (drink) => {
-        const unavailableIngredients = currentBranch[0].unavailableIngredients.map(ingredient => ingredient.ingredientName);
-
-        const allIngredientsAvailable = drink.ingredients.every(ingredient => !unavailableIngredients.includes(ingredient.ingredientName));
-
-        const drinkMethod = allIngredientsAvailable ? 'REMOVE' : 'ADD';
-
-        return fetch(`${process.env.NEXT_PUBLIC_API_URL}/updateLocationDrinks`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            drinkID: drink.drinkID,
-            branchId: currentBranch[0]._id,
-            method: drinkMethod,
-          }),
+      if (method === 'ADD') {
+        // When making an ingredient unavailable, update unavailableDrinks
+        const drinkUpdatePromises = drinks.map(drink => {
+          return fetch(`${process.env.NEXT_PUBLIC_API_URL}/updateLocationDrinks`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              drinkID: drink.drinkID,
+              branchId: branchId,
+              method: 'ADD', // Add drink to unavailableDrinks
+            }),
+          });
         });
-      });
 
-      // Wait for all updates to complete
-      await Promise.all(drinkUpdatePromises);
+        await Promise.all(drinkUpdatePromises);
+      } else {
+        // When making an ingredient available, update unavailableDrinks
+        const unavailableIngredients = updatedLocation.unavailableIngredients.map(ingredient => ingredient.ingredientName);
+
+        const drinkUpdatePromises = drinks.map(async (drink) => {
+          const drinkID = drink.drinkID;
+
+          // Check if the drink is already in unavailableDrinks
+          const isInUnavailableDrinks = updatedLocation.unavailableDrinks.some(d => d.drinkID === drinkID);
+
+          // Check if the drink still has other unavailable ingredients
+          const drinkIngredients = drink.ingredients.map(ingredient => ingredient.ingredientName);
+          const hasOtherUnavailableIngredients = drinkIngredients.some(ingredient => unavailableIngredients.includes(ingredient) && ingredient !== ingredientName);
+
+          if (isInUnavailableDrinks && !hasOtherUnavailableIngredients) {
+            return fetch(`${process.env.NEXT_PUBLIC_API_URL}/updateLocationDrinks`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                drinkID: drinkID,
+                branchId: branchId,
+                method: 'REMOVE', // Remove drink from unavailableDrinks
+              }),
+            });
+          }
+        });
+
+        // Filter out undefined promises (when `isInUnavailableDrinks` is false or `hasOtherUnavailableIngredients` is true)
+        await Promise.all(drinkUpdatePromises.filter(promise => promise !== undefined));
+      }
 
       res.status(200).json(updatedLocation);
     } catch (error) {

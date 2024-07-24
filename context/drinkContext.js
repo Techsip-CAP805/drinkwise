@@ -25,7 +25,7 @@ const DrinkProvider = ({ children }) => {
   const [employees, setEmployees] = useState(employeeData);
   const [toppings, setToppings] = useState(toppingData);
   const [total, setTotal] = useState(0);
-  const [cart, addToCart] = useState([]);
+  const [cart, setCart] = useState([]);
   const [prevVisitedStore, setPrevVisitedStore] = useState("");
 
   const drinkContextObject = {
@@ -42,7 +42,7 @@ const DrinkProvider = ({ children }) => {
     toppings,
     setToppings,
     cart,
-    addToCart,
+    setCart,
     total,
     setTotal
   }

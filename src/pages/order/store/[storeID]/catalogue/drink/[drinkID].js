@@ -7,7 +7,7 @@ import { useDrinkContext } from '../../../../../../../context/drinkContext';
 const DrinkDetails = ({drinks}) => {
   const router = useRouter();
   const { storeID, drinkID } = router.query;
-  const { addToCart, toppings, cart, total, setTotal } = useDrinkContext();
+  const { setCart, toppings, cart, total, setTotal } = useDrinkContext();
   const [quantity, setQuantity] = useState(1);
   const [selectedSugar, setSelectedSugar] = useState('');
   const [selectedIce, setSelectedIce] = useState('');
@@ -24,7 +24,7 @@ const DrinkDetails = ({drinks}) => {
   const handleAddToCart = () => {
     const toppingsTotal = selectedToppings.reduce((total, topping) => total + parseFloat(topping.split(':')[1]), 0);
     const toppingsList = selectedToppings.map(topping => topping.split(':')[0]);
-    addToCart(prevItems => [...prevItems, { ...drink, quantity, selectedSugar, selectedIce, selectedToppings: toppingsList, toppingsTotal }]);
+    setCart(prevItems => [...prevItems, { ...drink, quantity, selectedSugar, selectedIce, selectedToppings: toppingsList, toppingsTotal }]);
     setTotal(prevTotal => prevTotal + (drink.basePrice + toppingsTotal) * quantity);
     router.back();
   };

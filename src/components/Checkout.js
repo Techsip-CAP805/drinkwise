@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef } from 'react';
 import {
   Modal,
   ModalOverlay,
@@ -17,17 +17,34 @@ import {
 import { useDrinkContext } from '../../context/drinkContext';
 
 const Checkout = ({ isOpen, onClose }) => {
-  const [contact, setContact] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [orderingMethod, setOrderingMethod] = useState('Pickup');
-  const [timeChoice, setTimeChoice] = useState('1:00 PM');
-  const [paymentMethod, setPaymentMethod] = useState('Credit Card');
-  const {cart, setCart} = useDrinkContext();
+  const contactRef = useRef();
+  const emailRef = useRef();
+  const phoneRef = useRef();
+  const orderingMethodRef = useRef();
+  const timeChoiceRef = useRef();
+  const paymentMethodRef = useRef();
+  const { cart, setCart, setTotal} = useDrinkContext();
   const toast = useToast();
 
-
   const handlePlaceOrder = () => {
+    const contact = contactRef.current.value;
+    const email = emailRef.current.value;
+    const phone = phoneRef.current.value;
+    const orderingMethod = orderingMethodRef.current.value;
+    const timeChoice = timeChoiceRef.current.value;
+    const paymentMethod = paymentMethodRef.current.value;
+
+    if (!contact || !email || !phone || !orderingMethod || !timeChoice || !paymentMethod) {
+      toast({
+        title: 'Error',
+        description: 'All fields are required.',
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      });
+      return;
+    }
+
     const orderDetails = {
       contact,
       email,
@@ -35,23 +52,24 @@ const Checkout = ({ isOpen, onClose }) => {
       orderingMethod,
       timeChoice,
       paymentMethod,
-      items: cart
+      items: cart,
     };
-    
 
     console.log('Order Details:', orderDetails);
 
-    //upload to db
-
+    // Upload to db
 
     toast({
       title: 'Order placed!',
-      description: "您的order送出去了",
+      description: '您的order送出去了',
       status: 'success',
       duration: 5000,
       isClosable: true,
-    })
-    
+    });
+
+    //empty cart & clear total
+    setCart([]);
+    setTotal(0);
     onClose(); // Close the modal after placing the order
   };
 
@@ -64,20 +82,20 @@ const Checkout = ({ isOpen, onClose }) => {
         <ModalBody>
           <FormControl mb={4}>
             <FormLabel>Contact</FormLabel>
-            <Input placeholder="Name" value={contact} onChange={(e) => setContact(e.target.value)} />
-            <Input placeholder="Email" mt={2} value={email} onChange={(e) => setEmail(e.target.value)} />
-            <Input placeholder="Phone" mt={2} value={phone} onChange={(e) => setPhone(e.target.value)} />
+            <Input placeholder="Name" ref={contactRef} />
+            <Input placeholder="Email" mt={2} ref={emailRef} />
+            <Input placeholder="Phone" mt={2} ref={phoneRef} />
           </FormControl>
           <FormControl mb={4}>
             <FormLabel>Ordering Method</FormLabel>
-            <Select value={orderingMethod} onChange={(e) => setOrderingMethod(e.target.value)}>
+            <Select ref={orderingMethodRef} defaultValue="Pickup">
               <option value="Pickup">Pickup</option>
               <option value="Delivery">Delivery</option>
             </Select>
           </FormControl>
           <FormControl mb={4}>
             <FormLabel>Available Time Choice</FormLabel>
-            <Select value={timeChoice} onChange={(e) => setTimeChoice(e.target.value)}>
+            <Select ref={timeChoiceRef} defaultValue="1:00 PM">
               {Array.from({ length: 24 }, (_, i) => {
                 const hour = (i + 11) % 12 + 1;
                 const period = i < 12 ? 'AM' : 'PM';
@@ -88,7 +106,7 @@ const Checkout = ({ isOpen, onClose }) => {
           </FormControl>
           <FormControl mb={4}>
             <FormLabel>Payment Method</FormLabel>
-            <Select value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)}>
+            <Select ref={paymentMethodRef} defaultValue="Credit Card">
               <option value="Credit Card">Credit Card</option>
               <option value="Cash">Cash</option>
               <option value="PayPal">PayPal</option>

@@ -21,14 +21,19 @@ export default NextAuth({
                 let user;
                 if (credentials.userType === 'customer') {
                     user = await Customer.findOne({ emailAddress: credentials.email }).exec();
-                } else if (credentials.userType === 'employee') {
+                } else if (credentials.userType === 'employee' || credentials.userType === 'admin') {
                     user = await Employee.findOne({ emailAddress: credentials.email }).exec();
                 } else {
                     return null;
                 }
 
                 if (user && await bcrypt.compare(credentials.password, user.password)) {
-                    return { id: user._id, email: user.emailAddress, role: user.role };
+                    // Return user object with branchName only for employee or admin
+                    if (credentials.userType === 'employee' || credentials.userType === 'admin') {
+                        return { id: user._id, email: user.emailAddress, role: user.role, branchName: user.branchName };
+                    } else {
+                        return { id: user._id, email: user.emailAddress, role: user.role };
+                    }
                 }
 
                 return null;
@@ -44,9 +49,12 @@ export default NextAuth({
     callbacks: {
         async jwt({ token, user }) {
             if (user) {
-                token.id = user._id;
-                token.email = user.emailAddress;
+                token.id = user.id;
+                token.email = user.email;
                 token.role = user.role;
+                if (user.branchName) {
+                    token.branchName = user.branchName; // Add branchName to the token if it exists
+                }
             }
             return token;
         },

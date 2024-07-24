@@ -7,8 +7,6 @@ const ingredientsData = require('../data/ingredientsData.json');
 const employeeData = require('../data/employeeData.json');
 const toppingData = require('../data/toppingData.json');
 
-
-
 const DrinkContext = createContext();
 
 export const useDrinkContext = () => {

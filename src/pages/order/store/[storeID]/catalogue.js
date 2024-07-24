@@ -38,7 +38,7 @@ const LocationDetails = ({ locations, drinks }) => {
       const foundLocation = locations.find((location) => location._id === storeID);
       setLocation(foundLocation);
     }
-  }, [storeID, locations]);
+  }, [storeID, locations, total]);
 
   if (!location) {
     return <Text>Loading...</Text>;

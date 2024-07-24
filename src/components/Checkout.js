@@ -23,10 +23,10 @@ const Checkout = ({ isOpen, onClose }) => {
   const orderingMethodRef = useRef();
   const timeChoiceRef = useRef();
   const paymentMethodRef = useRef();
-  const { cart, setCart, setTotal} = useDrinkContext();
+  const { cart, setCart, setTotal } = useDrinkContext();
   const toast = useToast();
 
-  const handlePlaceOrder = () => {
+  const handlePlaceOrder = async () => {
     const contact = contactRef.current.value;
     const email = emailRef.current.value;
     const phone = phoneRef.current.value;
@@ -57,20 +57,44 @@ const Checkout = ({ isOpen, onClose }) => {
 
     console.log('Order Details:', orderDetails);
 
-    // Upload to db
+    try {
+      const response = await fetch('/api/guestOrder', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(orderDetails),
+      });
 
-    toast({
-      title: 'Order placed!',
-      description: '您的order送出去了',
-      status: 'success',
-      duration: 5000,
-      isClosable: true,
-    });
+      if (!response.ok) {
+        throw new Error('Failed to place order');
+      }
 
-    //empty cart & clear total
-    setCart([]);
-    setTotal(0);
-    onClose(); // Close the modal after placing the order
+      const result = await response.json();
+      console.log('Order placed successfully:', result);
+
+      toast({
+        title: 'Order placed!',
+        description: '您的order送出去了',
+        status: 'success',
+        duration: 5000,
+        isClosable: true,
+      });
+
+      // Empty cart & clear total
+      setCart([]);
+      setTotal(0);
+      onClose(); // Close the modal after placing the order
+    } catch (error) {
+      console.error('Error placing order:', error);
+      toast({
+        title: 'Error',
+        description: 'Failed to place order. Please try again.',
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      });
+    }
   };
 
   return (

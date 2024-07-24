@@ -29,7 +29,7 @@ export default function Login() {
       redirect: false,
       email,
       password,
-      userType: 'employee' //use EMPLOYEE collection for admin login
+      userType: 'admin' // for admin login
     });
     const session = await getSession();
 

@@ -1,25 +1,13 @@
 import React, { useState } from 'react';
-import { Box, VStack, HStack, Text, Image, Divider, Button, Flex, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalFooter, Input, Select } from '@chakra-ui/react';
+import { Box, VStack, HStack, Text, Image, Divider, Button, Flex, useDisclosure } from '@chakra-ui/react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { useDrinkContext } from '../../../../context/drinkContext';
+import Checkout from '@/components/Checkout'; // Import the new Checkout component
 
 const OrderSummary = () => {
   const { cart, total } = useDrinkContext();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [contactDetails, setContactDetails] = useState({ name: '', email: '', phone: '' });
-  const [orderMethod, setOrderMethod] = useState('Pickup');
-  const [timeChoice, setTimeChoice] = useState('');
-  const [paymentMethod, setPaymentMethod] = useState('');
-
-  const handleCheckout = () => {
-    onOpen();
-  };
-
-  const handlePlaceOrder = () => {
-    // Logic to handle order placement
-    onClose();
-  };
 
   return (
     <Box bg='#bcc8c3' minH='100vh'>
@@ -57,53 +45,11 @@ const OrderSummary = () => {
             <Text fontSize='xl' fontWeight='bold'>Total:</Text>
             <Text fontSize='xl' fontWeight='bold'>${total.toFixed(2)}</Text>
           </HStack>
-          <Button colorScheme='teal' size='lg' alignSelf='center' onClick={handleCheckout}>Proceed to Checkout</Button>
+          <Button colorScheme='teal' size='lg' alignSelf='center' onClick={onOpen}>Proceed to Checkout</Button>
         </VStack>
       </Box>
       <Footer />
-
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Checkout</ModalHeader>
-          <ModalBody>
-            <VStack spacing={4}>
-              <Box>
-                <Text fontSize='lg' fontWeight='bold'>Contact</Text>
-                <Input placeholder='First Name' value={contactDetails.name} onChange={(e) => setContactDetails({ ...contactDetails, name: e.target.value })} />
-                <Input placeholder='Email' value={contactDetails.email} onChange={(e) => setContactDetails({ ...contactDetails, email: e.target.value })} mt={2} />
-                <Input placeholder='Telephone' value={contactDetails.phone} onChange={(e) => setContactDetails({ ...contactDetails, phone: e.target.value })} mt={2} />
-              </Box>
-              <Box>
-                <Text fontSize='lg' fontWeight='bold'>Ordering Method</Text>
-                <Select value={orderMethod} onChange={(e) => setOrderMethod(e.target.value)}>
-                  <option value='Pickup'>Pickup</option>
-                  <option value='Delivery'>Delivery</option>
-                </Select>
-              </Box>
-              <Box>
-                <Text fontSize='lg' fontWeight='bold'>Available Time Choice</Text>
-                <Select value={timeChoice} onChange={(e) => setTimeChoice(e.target.value)}>
-                  {Array.from({ length: 24 }, (_, i) => (
-                    <option key={i} value={`${i + 1}:00 PM`}>{`${i + 1}:00 PM`}</option>
-                  ))}
-                </Select>
-              </Box>
-              <Box>
-                <Text fontSize='lg' fontWeight='bold'>Payment Method</Text>
-                <Select value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)}>
-                  <option value='Credit Card'>Credit Card</option>
-                  <option value='Cash'>Cash</option>
-                </Select>
-              </Box>
-            </VStack>
-          </ModalBody>
-          <ModalFooter>
-            <Button colorScheme='gray' mr={3} onClick={onClose}>Cancel</Button>
-            <Button colorScheme='teal' onClick={handlePlaceOrder}>Place Order</Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+      <Checkout isOpen={isOpen} onClose={onClose} /> {/* Add Checkout modal */}
     </Box>
   );
 };

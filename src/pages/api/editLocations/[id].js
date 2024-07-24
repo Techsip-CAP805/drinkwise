@@ -4,7 +4,7 @@ import Location from '../../../../model/locationModel';
 import { withApiAuth } from '../../../../lib/apiAuth';
 
 // export default async function handler(req, res) {
-handler = async (req, res) => {
+const handler = async (req, res) => {
   const { method } = req;
   const { id } = req.query;
 

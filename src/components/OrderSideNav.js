@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   IconButton,
   Drawer,
@@ -19,12 +19,34 @@ import { useDisclosure } from '@chakra-ui/react';
 import { ArrowForwardIcon, ArrowBackIcon } from '@chakra-ui/icons';
 import { FaBook, FaClipboardList, FaCreditCard, FaMapMarkerAlt, FaGlobe, FaUser } from 'react-icons/fa';
 import { signOut } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
+
+
+
 
 const OrderSideNav = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [signedIn, setSignedIn] = useState(false);
+
+  const {data: session} = useSession();
+
+
+
+  // const validateSession = async() => {
+  //   session ? setSignedIn(prevValue => !prevValue) : setSignedIn(prevValue => !prevValue) 
+  // }
+
+  useEffect(()=> {
+    session ? setSignedIn(true) : setSignedIn(false);
+  },[signedIn])
+
+  
+  // user sign out
   const handleSignOut = () => {
-    signOut({ callbackUrl: '/' });
+    signOut({ callbackUrl: '/user/sign-in' });
   };
+
+
   return (
     <>
       <IconButton
@@ -86,18 +108,22 @@ const OrderSideNav = () => {
                   </select>
                 </HStack>
               </ListItem>
-              <ListItem>
-                <ListIcon as={FaUser} color='teal.500' />
-                <Link href='/user/sign-in'>
-                  <Text as='b' fontSize='lg'>Sign In</Text>
-                </Link>
-              </ListItem>
-              <ListItem>
-                <ListIcon as={FaUser} color='teal.500' />
-                <Link href='#' onClick={handleSignOut}>
-                  <Text as='b' fontSize='lg'>Sign Out</Text>
-                </Link>
-              </ListItem>
+                  {!signedIn && (
+                    <ListItem>
+                    <ListIcon as={FaUser} color='teal.500' />
+                    <Link href='/user/sign-in'>
+                      <Text as='b' fontSize='lg'>Sign In</Text>
+                    </Link>
+                  </ListItem>
+                  )}
+                  {signedIn && (
+                    <ListItem>
+                    <ListIcon as={FaUser} color='teal.500' />
+                    <Link href='#' onClick={handleSignOut}>
+                      <Text as='b' fontSize='lg'>Sign Out</Text>
+                    </Link>
+                  </ListItem>
+                  )}
             </List>
           </DrawerBody>
         </DrawerContent>

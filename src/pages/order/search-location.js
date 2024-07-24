@@ -16,7 +16,7 @@ import {
 import Navbar from '@/components/Navbar';
 import Link from 'next/link';
 import Footer from '@/components/Footer';
-import { withRole } from '../../../lib/auth';
+// import { withRole } from '../../../lib/auth';
 
 const SearchLocation = ({ session }) => {
   const [searchTerm, setSearchTerm] = useState('');

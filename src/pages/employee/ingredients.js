@@ -22,8 +22,8 @@ import {
   Icon
 } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
+import { getSession, signIn } from "next-auth/react";
 import { withRole } from "../../../lib/auth";
-import { getSession } from "next-auth/react";
 
 // Function to sort ingredients by name
 const sortIngredients = (ingredients) => {
@@ -40,45 +40,64 @@ const imageExists = async (url) => {
   }
 };
 
-const EditMenu = ({ ingredients, currentBranch }) => {
+const EditMenu = () => {
   const cardBgColor = useColorModeValue("#a0b2ab", "#283E38");
   const cardHoverBgColor = useColorModeValue("#8f9f9a", "#1F2D2B");
 
-  const sortedIngredients = sortIngredients(ingredients);
-
-  const [unavailableIngredients, setUnavailableIngredients] = useState(
-    currentBranch[0].unavailableIngredients.map(ingredient => ingredient.ingredientName)
-  );
-
+  const [ingredients, setIngredients] = useState([]);
+  const [currentBranch, setCurrentBranch] = useState(null);
+  const [unavailableIngredients, setUnavailableIngredients] = useState([]);
   const [switchStatus, setSwitchStatus] = useState({});
   const [searchQuery, setSearchQuery] = useState("");
-  const [filteredIngredients, setFilteredIngredients] = useState(sortedIngredients);
+  const [filteredIngredients, setFilteredIngredients] = useState([]);
   const [imageUrls, setImageUrls] = useState({});
   const [filter, setFilter] = useState("All");
 
   useEffect(() => {
-    const initialStatus = {};
-    sortedIngredients.forEach(ingredient => {
-      initialStatus[ingredient.ingredientName] = !unavailableIngredients.includes(ingredient.ingredientName);
-    });
-    setSwitchStatus(initialStatus);
-
-    // Pre-fetch images to check their existence
-    const fetchImages = async () => {
-      const urls = {};
-      for (const ingredient of sortedIngredients) {
-        const exists = await imageExists(ingredient.imagePath);
-        urls[ingredient.ingredientName] = exists ? ingredient.imagePath : "/boba.jpeg";
+    const fetchData = async () => {
+      const session = await getSession();
+      if (!session) {
+        signIn(); // Redirect to login if not authenticated
+        return;
       }
-      setImageUrls(urls);
+
+      const email = session.user.email;
+      const encodedEmail = encodeURIComponent(email);
+
+      const resIng = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/ingredients`);
+      const ingredientsData = await resIng.json();
+      setIngredients(ingredientsData);
+
+      const resLoc = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/currentBranch?email=${encodedEmail}`);
+      const branchData = await resLoc.json();
+      setCurrentBranch(branchData[0]);
+      setUnavailableIngredients(branchData[0].unavailableIngredients.map(ingredient => ingredient.ingredientName));
+
+      const initialStatus = {};
+      ingredientsData.forEach(ingredient => {
+        initialStatus[ingredient.ingredientName] = !branchData[0].unavailableIngredients.map(ingredient => ingredient.ingredientName).includes(ingredient.ingredientName);
+      });
+      setSwitchStatus(initialStatus);
+
+      // Pre-fetch images to check their existence
+      const fetchImages = async () => {
+        const urls = {};
+        for (const ingredient of ingredientsData) {
+          const exists = await imageExists(ingredient.imagePath);
+          urls[ingredient.ingredientName] = exists ? ingredient.imagePath : "/boba.jpeg";
+        }
+        setImageUrls(urls);
+      };
+
+      fetchImages();
     };
 
-    fetchImages();
-  }, [sortedIngredients, unavailableIngredients]);
+    fetchData();
+  }, []);
 
   useEffect(() => {
     setFilteredIngredients(
-      sortedIngredients.filter(ingredient => {
+      ingredients.filter(ingredient => {
         const matchesSearch = ingredient.ingredientName.toLowerCase().includes(searchQuery.toLowerCase());
         const matchesFilter = filter === "All" ||
           (filter === "In Stock" && !unavailableIngredients.includes(ingredient.ingredientName)) ||
@@ -86,7 +105,7 @@ const EditMenu = ({ ingredients, currentBranch }) => {
         return matchesSearch && matchesFilter;
       })
     );
-  }, [searchQuery, sortedIngredients, filter, unavailableIngredients]);
+  }, [searchQuery, ingredients, filter, unavailableIngredients]);
 
   const handleToggle = async (ingredientName) => {
     const newStatus = !switchStatus[ingredientName];
@@ -105,7 +124,7 @@ const EditMenu = ({ ingredients, currentBranch }) => {
         },
         body: JSON.stringify({
           ingredientName,
-          branchId: currentBranch[0]._id,
+          branchId: currentBranch._id,
           method,
           currentBranch
         }),
@@ -121,6 +140,10 @@ const EditMenu = ({ ingredients, currentBranch }) => {
       console.error('Error updating location ingredients:', error);
     }
   };
+
+  if (!currentBranch) {
+    return <Box>Loading...</Box>;
+  }
 
   return (
     <Box bg="#bcc8c3">
@@ -201,41 +224,8 @@ const EditMenu = ({ ingredients, currentBranch }) => {
   );
 }
 
-export const getServerSideProps = async (context) => {
-  const roleCheck = await withRole(['employee', 'admin'], '/employee/login')(context);
 
-  if (roleCheck.redirect) {
-    return roleCheck;
-  }
-
-  const session = await getSession(context);
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: '/employee/login',
-        permanent: false,
-      },
-    };
-  }
-
-  const email = session.user.email;
-  const encodedEmail = encodeURIComponent(email);
-
-  const resIng = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/ingredients`);
-  const ingredients = await resIng.json();
-
-  const resLoc = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/currentBranch?email=${encodedEmail}`);
-  const currentBranch = await resLoc.json();
-
-  return {
-    props: {
-      ingredients,
-      currentBranch
-    },
-  };
-};
-
-
+//auth
+export const getServerSideProps = withRole(['employee'], '/employee/login');
 
 export default EditMenu;

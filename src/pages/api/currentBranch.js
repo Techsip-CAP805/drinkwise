@@ -4,8 +4,10 @@ import Location from '../../../model/locationModel';
 import Employee from '../../../model/employeeModel';
 // import { getServerSession } from 'next-auth';
 // import { authOptions } from '../../../lib/authOptions';
+import { withApiAuth } from '../../../lib/apiAuth';
 
-export default async function handler(req, res) {
+// export default async function handler(req, res) {
+const handler = async (req, res) => {
   await connectToDatabase();
 
   try {
@@ -29,11 +31,11 @@ export default async function handler(req, res) {
         return res.status(400).json({ error: 'Branch name is required' });
       }
 
-      const employee = await Employee.find({emailAddress: email}).exec();
+      const employee = await Employee.find({ emailAddress: email }).exec();
       const userBranch = employee[0].branchName;
 
       // Use the parameter in the database query
-      const currentBranch = await Location.find({ branchName:  userBranch}).exec();
+      const currentBranch = await Location.find({ branchName: userBranch }).exec();
       // console.log(currentBranch);
       // console.log("BRAAAAAAAAAAAAAAAAAAANCH");
       // console.log(currentBranch);
@@ -48,3 +50,6 @@ export default async function handler(req, res) {
     res.status(500).json({ error: 'Failed to fetch current branch' });
   }
 }
+
+//auth
+export default withApiAuth(['employee', 'admin'], handler);

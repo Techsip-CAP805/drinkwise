@@ -19,8 +19,8 @@ import {
   useDisclosure
 } from "@chakra-ui/react";
 import EditMenuModal from "./editMenuModal";
+import { getSession } from "next-auth/react";
 import { withRole } from "../../../lib/auth";
-import { getSession } from "next-auth/react"; // Import getSession
 
 // Function to group drinks by category
 const groupByCategory = (drinks) => {
@@ -43,41 +43,63 @@ const imageExists = async (url) => {
   }
 };
 
-const EditMenu = ({ drinks, currentBranch }) => {
+const EditMenu = () => {
   const cardBgColor = useColorModeValue("#a0b2ab", "#283E38");
   const cardHoverBgColor = useColorModeValue("#8f9f9a", "#1F2D2B");
 
-  const groupedDrinks = groupByCategory(drinks);
-
+  const [drinks, setDrinks] = useState([]);
+  const [currentBranch, setCurrentBranch] = useState([]);
+  const [unavailableDrinks, setUnavailableDrinks] = useState([]);
+  const [switchStatus, setSwitchStatus] = useState({});
+  const [imageUrls, setImageUrls] = useState({});
   const { isOpen: isMenuOpen, onOpen: onOpenMenu, onClose: onCloseMenu } = useDisclosure();
   const [modalDrink, setModalDrink] = useState(null);
 
-  const [unavailableDrinks, setUnavailableDrinks] = useState(
-    currentBranch[0].unavailableDrinks.map(drink => drink.drinkID)
-  );
-
-  const [switchStatus, setSwitchStatus] = useState({});
-  const [imageUrls, setImageUrls] = useState({});
-
   useEffect(() => {
-    const initialStatus = {};
-    drinks.forEach(drink => {
-      initialStatus[drink.drinkID] = !unavailableDrinks.includes(drink.drinkID);
-    });
-    setSwitchStatus(initialStatus);
+    const fetchData = async () => {
+      try {
+        const session = await getSession();
 
-    // Pre-fetch images to check their existence
-    const fetchImages = async () => {
-      const urls = {};
-      for (const drink of drinks) {
-        const exists = await imageExists(drink.imagePath);
-        urls[drink.drinkID] = exists ? drink.imagePath : "/boba.jpeg";
+        const email = session.user.email;
+        const encodedEmail = encodeURIComponent(email);
+
+        const resDrinks = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/drinkMenu`);
+        const drinksData = await resDrinks.json();
+        setDrinks(drinksData);
+
+        const resLoc = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/currentBranch?email=${encodedEmail}`);
+        const currentBranchData = await resLoc.json();
+        setCurrentBranch(currentBranchData);
+
+        const unavailableDrinkIds = currentBranchData[0].unavailableDrinks.map(drink => drink.drinkID);
+        setUnavailableDrinks(unavailableDrinkIds);
+
+        const initialStatus = {};
+        drinksData.forEach(drink => {
+          initialStatus[drink.drinkID] = !unavailableDrinkIds.includes(drink.drinkID);
+        });
+        setSwitchStatus(initialStatus);
+
+        // Pre-fetch images to check their existence
+        const fetchImages = async () => {
+          const urls = {};
+          for (const drink of drinksData) {
+            const exists = await imageExists(drink.imagePath);
+            urls[drink.drinkID] = exists ? drink.imagePath : "/boba.jpeg";
+          }
+          setImageUrls(urls);
+        };
+
+        fetchImages();
+      } catch (error) {
+        console.error("Error fetching data:", error);
       }
-      setImageUrls(urls);
     };
 
-    fetchImages();
-  }, [drinks, unavailableDrinks]);
+    fetchData();
+  }, []);
+
+  const groupedDrinks = groupByCategory(drinks);
 
   const handleToggle = async (drinkID) => {
     const newStatus = !switchStatus[drinkID];
@@ -185,39 +207,8 @@ const EditMenu = ({ drinks, currentBranch }) => {
   );
 };
 
-export const getServerSideProps = async (context) => {
-  const roleCheck = await withRole(['employee', 'admin'], '/employee/login')(context);
 
-  if (roleCheck.redirect) {
-    return roleCheck;
-  }
-
-  const session = await getSession(context);
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: '/employee/login',
-        permanent: false,
-      },
-    };
-  }
-
-  const email = session.user.email;
-  const encodedEmail = encodeURIComponent(email);
-
-  const resDrinks = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/drinkMenu`);
-  const drinks = await resDrinks.json();
-
-  const resLoc = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/currentBranch?email=${encodedEmail}`);
-  const currentBranch = await resLoc.json();
-
-  return {
-    props: {
-      drinks,
-      currentBranch
-    },
-  };
-};
+//auth
+export const getServerSideProps = withRole(['employee'], '/employee/login');
 
 export default EditMenu;

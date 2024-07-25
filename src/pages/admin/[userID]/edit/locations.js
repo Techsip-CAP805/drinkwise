@@ -144,7 +144,7 @@ const EditLocations = () => {
   };
 
   return (
-    <Box bg='#bcc8c3' minH='100vh'>
+    <Box bg='#e2e8f0' minH='100vh'>
       {/* <VStack align="start" spacing={4} width='12vw' p={4} mt={4} ml={4} h='90vh' bg='#8fa39b' borderRadius='5px' boxShadow='lg' position='fixed'>
         <Heading size="md">Drinkwise</Heading>
         <Link href='/admin/userid/dashboard'>dashboard</Link>
@@ -157,7 +157,8 @@ const EditLocations = () => {
         <Link href='/admin/userid/edit/locations'>edit locations</Link>
       </VStack> */}
       <AdminSideNav />
-      <Container w='calc(100vw - 240px)' minH='100vh' py={10} maxW='6xl' centerContent>
+      <Container w='calc(100vw - 240px)' minH='100vh' py={10} maxW='7xl' ml="250px" centerContent>
+        <VStack w='100%' >
         <VStack spacing={4} alignItems='center' mb={6}>
           <Input
             placeholder='Search locations...'
@@ -269,6 +270,7 @@ const EditLocations = () => {
             </ModalFooter>
           </ModalContent>
         </Modal>
+        </VStack>
       </Container>
     </Box>
   );

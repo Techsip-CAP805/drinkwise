@@ -94,7 +94,7 @@ const AdminRegisterEmployee = () => {
 
   return (
     
-    <Box bg='#bcc8c3'>
+    <Box bg='#e2e8f0'>
        
       <AdminSideNav />
       
@@ -114,12 +114,12 @@ const AdminRegisterEmployee = () => {
             alignItems="center"
           >
             <Box minW={{ base: "90%", md: "468px" }}>
-            <Heading align='center' fontSize='2xl'>Register a new employee below!</Heading>
+            <Heading align='center' fontSize='2xl' mb={4}>Register a new employee</Heading>
               <form onSubmit={handleRegister}>
                 <Stack
                   spacing={4}
                   p="3rem"
-                  backgroundColor="#a0b2ab"
+                  backgroundColor="gray.300"
                   boxShadow="md"
                   borderRadius='2em'
                 >

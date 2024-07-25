@@ -148,7 +148,7 @@ const OrderMenu = () => {
   };
 
   return (
-    <Box bg='#bcc8c3' minH='100vh' display='flex'>
+    <Box bg='#e2e8f0' minH='100vh' display='flex'>
       <AdminSideNav />
       <Container w='100%' minH='100vh' py={10} maxW='7xl' ml="250px">
         <VStack spacing={4} align='stretch'>

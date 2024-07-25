@@ -3,12 +3,12 @@ import { Flex, Box, Heading, Input, Button, Stack, Text, useToast } from '@chakr
 import { useRef } from 'react';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
-import { useDrinkContext } from '../../context/drinkContext';
+import { useDrinkContext } from '../../../context/drinkContext';
 import Router from 'next/router';
 import { signIn, getSession } from 'next-auth/react';
 // import { useSession } from "next-auth/react"
 
-export default function Login() {
+export default function AdminLogin() {
 
   // const router = useRouter();
   // const pathname = usePathname();

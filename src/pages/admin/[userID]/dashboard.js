@@ -1,4 +1,3 @@
-// pages/dashboard.js
 import {
   Flex,
   Box,
@@ -11,13 +10,14 @@ import {
   StatArrow,
   Grid,
   VStack,
+  Divider,
 } from '@chakra-ui/react';
 import { Line } from 'react-chartjs-2';
 import Link from 'next/link';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
-import { useEffect, useState } from 'react';
-import AdminSideNav from '@/components/AdminSideNav.js';
+import { useDrinkContext } from '../../../../context/drinkContext';
 import { withRole } from '../../../../lib/auth';
+import AdminSideNav from '@/components/AdminSideNav';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
@@ -29,77 +29,56 @@ const data = {
       data: [300, 400, 200, 300, 500, 700],
       fill: false,
       borderColor: 'rgba(75,192,192,1)',
+      tension: 0.1,
     },
   ],
 };
 
 export default function Dashboard() {
-  const [locations, setLocations] = useState([]);
-
-  useEffect(() => {
-    async function fetchLocations() {
-      try {
-        const response = await fetch('/api/locations');
-        const data = await response.json();
-        setLocations(data);
-      } catch (error) {
-        console.error('Error fetching locations:', error);
-      }
-    }
-
-    fetchLocations();
-  }, []);
+  
+  const { locations } = useDrinkContext();
 
   return (
-    <Flex direction="column" minHeight="100vh" bg="#a8b8b1">
-      <Box>
-        {/* <VStack align="start" spacing={4} width='12vw' p={4} bg='#8fa39b' borderRadius='5px' boxShadow='lg'>
-          <Heading size="md">Drinkwise</Heading>
-          <Link href='/admin/userid/dashboard'>dashboard</Link>
-          <Text>Sales</Text>
-          <Link href='/admin/userid/sales' ml={4}>sales overview</Link>
-          <Text>Menu</Text>
-          <Link href='/admin/userid/edit/menu/main' ml={4}>edit main menu</Link>
-          <Link href='/admin/userid/edit/menu/order' ml={4}>edit order menu</Link>
-          <Text>Locations</Text>
-          <Link href='/admin/userid/edit/locations'>edit locations</Link>
-        </VStack> */}
+    <Flex direction="row" minHeight="100vh" bg="#e2e8f0">
+      <Box width="250px" position="fixed" height="100vh">
         <AdminSideNav />
-        <Box flex="1" p={4} ml="250px">
-          <Heading>Dashboard</Heading>
-          <Grid templateColumns="repeat(2, 1fr)" gap={6} mt={4}>
-            <Stat p={4} bg="white" borderRadius="md" shadow="md">
-              <StatLabel>total sales</StatLabel>
-              <StatNumber>$1,250,000</StatNumber>
-              <StatHelpText>
-                <StatArrow type="increase" />
-                27.7%
-              </StatHelpText>
-            </Stat>
-            <Stat p={4} bg="white" borderRadius="md" shadow="md">
-              <StatLabel>total order</StatLabel>
-              <StatNumber>1,267</StatNumber>
-              <StatHelpText>this month</StatHelpText>
-            </Stat>
-          </Grid>
-          <Box p={4} bg="white" borderRadius="md" shadow="md" mt={6}>
-            <Heading size="md" mb={4}>
-              Revenue Trend
-            </Heading>
-            <Line data={data} />
+      </Box>
+      <Box flex="1" p={6} ml="250px">
+      <Heading mb={6}>Dashboard</Heading>
+        <Grid templateColumns="repeat(3, 1fr)" gap={6}>
+          <Stat p={4} bg="white" borderRadius="md" shadow="md">
+            <StatLabel>Total Sales</StatLabel>
+            <StatNumber>$1,250,000</StatNumber>
+            <StatHelpText>
+              <StatArrow type="increase" />
+              27.7%
+            </StatHelpText>
+          </Stat>
+          <Stat p={4} bg="white" borderRadius="md" shadow="md">
+            <StatLabel>Total Orders</StatLabel>
+            <StatNumber>1,267</StatNumber>
+            <StatHelpText>This Month</StatHelpText>
+          </Stat>
+          <Box p={4} bg="white" borderRadius="md" shadow="md">
+            <Heading size="md" mb={4}>Location Earnings</Heading>
+            <Divider mb={4} />
+            <VStack spacing={4} align="start">
+              {locations.map((location) => (
+                <Text key={location.id}>{location.name}</Text>
+              ))}
+            </VStack>
           </Box>
-        </Box>
-        <Box p={4} bg="white" borderRadius="md" shadow="md" width="200px">
-          <Heading size="md" mb={1}>Location earning</Heading>
-          {locations.map((location) => (
-            <Text mt={2} key={location._id}>{location.branchName}</Text>
-          ))}
+        </Grid>
+        <Box p={4} bg="white" borderRadius="md" shadow="md" mt={6}>
+          <Heading size="md" mb={4}>
+            Revenue Trend
+          </Heading>
+          <Line data={data} />
         </Box>
       </Box>
     </Flex>
   );
 }
-
 
 //auth
 export const getServerSideProps = withRole(['admin'], '/admin');

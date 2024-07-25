@@ -102,23 +102,11 @@ const MainMenu = () => {
   );
 
   return (
-    <Box bg='#bcc8c3' minH='100vh' p={0}>
+    <Box bg='#e2e8f0' minH='100vh' p={0}>
       <Flex direction='row' spacing={0} alignItems='start'>
-        {/* <VStack align="start" spacing={4} w='12vw' h='90vh' p={4} bg='#8fa39b' borderRadius='5px' boxShadow='lg' position='fixed'>
-          <Heading size="md">Drinkwise</Heading>
-          <Link href='/admin/userid/dashboard'>dashboard</Link>
-          <Text>Sales</Text>
-          <Link href='/admin/userid/sales'>sales overview</Link>
-          <Text>Menu</Text>
-          <Link href='/admin/userid/edit/menu/main'>edit main menu</Link>
-          <Link href='/admin/userid/edit/menu/order'>edit order menu</Link>
-          <Text>Locations</Text>
-          <Link href='/admin/userid/edit/locations'>edit locations</Link>
-        </VStack> */}
         <AdminSideNav />
-
-
-        <Container w='calc(100vw - 260px)' minH='100vh' py={10} maxW='6xl' ml="250px">
+        <Container w='calc(100vw - 260px)' minH='100vh' py={10} maxW='7xl' ml="250px">
+          <VStack>
           <VStack spacing={4} alignItems='center' mb={6}>
             <Input
               placeholder='Search drinks...'
@@ -186,7 +174,7 @@ const MainMenu = () => {
               </Box>
             )}
           </VStack>
-          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={10} mt={10}>
+          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={16} mt={10} w='85%'>
             {filteredDrinks.map((drink) => (
               <Card key={drink._id} boxShadow='md'>
                 <CardBody>
@@ -204,6 +192,7 @@ const MainMenu = () => {
               </Card>
             ))}
           </SimpleGrid>
+          </VStack>
         </Container>
       </Flex>
     </Box>

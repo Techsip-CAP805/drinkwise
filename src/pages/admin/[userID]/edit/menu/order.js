@@ -267,6 +267,6 @@ const OrderMenu = () => {
 
 
 //auth
-export const getServerSideProps = withRole(['admin'], '/admin');
+export const getServerSideProps = withRole(['admin'], '/admin/login');
 
 export default OrderMenu;

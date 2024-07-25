@@ -6,7 +6,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import { useDrinkContext } from '../../../context/drinkContext';
 import Router from 'next/router';
 import { signIn, getSession } from 'next-auth/react';
-// import { useSession } from "next-auth/react"
+import { useSession } from "next-auth/react"
 
 export default function AdminLogin() {
 

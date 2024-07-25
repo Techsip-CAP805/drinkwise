@@ -219,6 +219,6 @@ const AdminRegisterEmployee = () => {
 
 
 //auth
-export const getServerSideProps = withRole(['admin'], '/admin');
+export const getServerSideProps = withRole(['admin'], '/admin/login');
 
 export default AdminRegisterEmployee;

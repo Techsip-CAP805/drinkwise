@@ -81,4 +81,4 @@ export default function Dashboard() {
 }
 
 //auth
-export const getServerSideProps = withRole(['admin'], '/admin');
+export const getServerSideProps = withRole(['admin'], '/admin/login');

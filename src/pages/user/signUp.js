@@ -119,7 +119,7 @@ const SignUp = () => {
             <Stack align='center'>
               <Heading fontSize='3xl'>Create an account</Heading>
               <Text fontSize='md' color='gray.600'>
-                to enjoy all our cool features ✌️
+                to enjoy all our cool features
               </Text>
             </Stack>
             <Box
@@ -181,7 +181,7 @@ const SignUp = () => {
                 </form>
                 <Stack pt={4}>
                   <Text align='center'>
-                    Already a user? <Link color='teal.400' href='/login'>Login</Link>
+                    Already a user? <Link color='teal.400' href='/user/sign-in'>Login</Link>
                   </Text>
                 </Stack>
               </Stack>

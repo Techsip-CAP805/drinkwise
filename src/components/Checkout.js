@@ -58,7 +58,7 @@ const Checkout = ({ isOpen, onClose }) => {
     console.log('Order Details:', orderDetails);
 
     try {
-      const response = await fetch('/api/guestOrder', {
+      const response = await fetch('/api/guestCheckout', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

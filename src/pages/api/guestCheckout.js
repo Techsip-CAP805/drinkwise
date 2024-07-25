@@ -1,6 +1,6 @@
 // pages/api/guestOrder.js
 import { connectToDatabase } from '../../../lib/mongodb';
-import GuestOrder from '../../../models/guestOrderModel';
+import GuestOrder from '../../../model/guestOrderModel';
 
 export default async function handler(req, res) {
   await connectToDatabase();

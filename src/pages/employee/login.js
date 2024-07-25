@@ -41,7 +41,7 @@ const EmpLogin = () => {
         duration: 3000,
         isClosable: true,
       });
-      Router.push('/employee/employeeAccount');
+      Router.push('/employee/orders/incoming');
     }
   };
 

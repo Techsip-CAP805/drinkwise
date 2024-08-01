@@ -28,16 +28,16 @@ pipeline {
             }
         }
 
-        // stage('Test') {
-        //     steps {
-        //         sh 'npm test'
-        //     }
-        // }
+        stage('Test') {
+            steps {
+                sh 'npm test'
+            }
+        }
 
         stage('Deploy') {
             steps {
                 sh 'npm install -g vercel'
-                sh 'vercel --token $VERCEL_TOKEN --prod'
+                sh 'vercel --token $VERCEL_TOKEN --prod --confirm'
             }
         }
     }
@@ -45,7 +45,7 @@ pipeline {
     post {
         always {
             archiveArtifacts artifacts: '**/out/**', allowEmptyArchive: true
-            junit 'reports/**/*.xml'
+            junit 'test-reports/results.xml'
         }
 
         success {

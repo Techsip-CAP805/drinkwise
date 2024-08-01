@@ -2,8 +2,11 @@ pipeline {
     agent any
 
     environment {
-        NODE_VERSION = 'nodejs-lts' // nodeJs install name
-        VERCEL_TOKEN = credentials('vercel-token') //jenkin credential ID
+        VERCEL_TOKEN = credentials('vercel-token') // Jenkins credential ID for Vercel token
+    }
+
+    tools {
+        nodejs "nodejs-lts" // The name of the Node.js installation
     }
 
     stages {
@@ -15,10 +18,6 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                script {
-                    def nodeHome = tool name: "${NODE_VERSION}", type: 'NodeJSInstallation'
-                    env.PATH = "${nodeHome}/bin:${env.PATH}"
-                }
                 sh 'npm install'
             }
         }
@@ -37,10 +36,6 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                script {
-                    def nodeHome = tool name: "${NODE_VERSION}", type: 'NodeJSInstallation'
-                    env.PATH = "${nodeHome}/bin:${env.PATH}"
-                }
                 sh 'npm install -g vercel'
                 sh 'vercel --token $VERCEL_TOKEN --prod'
             }

@@ -2,7 +2,11 @@ pipeline {
     agent any
 
     environment {
-        NODE_VERSION = 'nodejs-lts' //nodeJS install
+        VERCEL_TOKEN = credentials('vercel-token') // Jenkins credential ID for Vercel token
+    }
+
+    tools {
+        nodejs "nodejs-lts" // The name of the Node.js installation
     }
 
     stages {
@@ -14,10 +18,6 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                script {
-                    def nodeHome = tool name: "${NODE_VERSION}", type: 'NodeJSInstallation'
-                    env.PATH = "${nodeHome}/bin:${env.PATH}"
-                }
                 sh 'npm install'
             }
         }
@@ -30,14 +30,14 @@ pipeline {
 
         stage('Test') {
             steps {
-                sh 'npm test'
+                sh 'npm test -- -u'
             }
         }
 
         stage('Deploy') {
             steps {
-                // Add your deployment steps here
-                // For example, you might rsync files to a server
+                sh 'npm install -g vercel'
+                sh 'vercel --token $VERCEL_TOKEN --prod --confirm'
             }
         }
     }
@@ -45,15 +45,14 @@ pipeline {
     post {
         always {
             archiveArtifacts artifacts: '**/out/**', allowEmptyArchive: true
-            junit 'reports/**/*.xml'
         }
 
         success {
-            echo 'Build succeeded!'
+            echo 'Build and deployment succeeded!'
         }
 
         failure {
-            echo 'Build failed!'
+            echo 'Build or deployment failed!'
         }
     }
 }

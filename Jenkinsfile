@@ -2,7 +2,8 @@ pipeline {
     agent any
 
     environment {
-        NODE_VERSION = 'nodejs-lts'
+        NODE_VERSION = 'nodejs-lts' // nodeJs install name
+        VERCEL_TOKEN = credentials('vercel-token') //jenkin credential ID
     }
 
     stages {
@@ -36,8 +37,12 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                // Add your deployment steps here
-                // For example, you might rsync files to a server
+                script {
+                    def nodeHome = tool name: "${NODE_VERSION}", type: 'NodeJSInstallation'
+                    env.PATH = "${nodeHome}/bin:${env.PATH}"
+                }
+                sh 'npm install -g vercel'
+                sh 'vercel --token $VERCEL_TOKEN --prod'
             }
         }
     }
@@ -49,11 +54,11 @@ pipeline {
         }
 
         success {
-            echo 'Build succeeded!'
+            echo 'Build and deployment succeeded!'
         }
 
         failure {
-            echo 'Build failed!'
+            echo 'Build or deployment failed!'
         }
     }
 }

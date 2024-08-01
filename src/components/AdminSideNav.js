@@ -13,7 +13,7 @@ import { signOut } from 'next-auth/react';
 
 const AdminSideNav = () => {
   const handleSignOut = () => {
-    signOut({ callbackUrl: '/admin' });
+    signOut({ callbackUrl: '/admin/login' });
   };
 
   return (

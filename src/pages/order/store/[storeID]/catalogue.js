@@ -135,7 +135,7 @@ const LocationDetails = ({ locations, drinks }) => {
           colorScheme='teal'
           borderRadius='full'
           boxShadow='lg'
-          onClick={handleAddToCart}
+          onClick={()=>handleAddToCart}
         >
           <MdOutlineShoppingCart />
           <Text as='abbr'>${total.toFixed(2)}</Text>

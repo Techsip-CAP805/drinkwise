@@ -30,7 +30,6 @@ const OrderSideNav = () => {
 
   console.log("mount session: ", session);
 
-
   // const validateSession = async() => {
   //   session ? setSignedIn(prevValue => !prevValue) : setSignedIn(prevValue => !prevValue) 
   // }
@@ -38,14 +37,12 @@ const OrderSideNav = () => {
   useEffect(()=> {
     console.log("USE EFFECT SESSION: ", session);
     session ? setSignedIn(true) : setSignedIn(false);
-  },[signedIn])
+  },[session, signedIn])
 
-  
   // user sign out
   const handleSignOut = () => {
     signOut({ callbackUrl: '/user/sign-in' });
   };
-
 
   return (
     <>
@@ -79,9 +76,9 @@ const OrderSideNav = () => {
                   <Text as='b' fontSize='lg'>Catalogue</Text>
                 </Link>
               </ListItem>
-              <ListItem>
+                <ListItem>
                 <ListIcon as={FaClipboardList} color='teal.500' />
-                <Link href='/orders'>
+                <Link href={signedIn ? `/account/${session.user.sub}/orders` : `/user/sign-in`}>
                   <Text as='b' fontSize='lg'>My Orders</Text>
                 </Link>
               </ListItem>

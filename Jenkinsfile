@@ -2,6 +2,7 @@ pipeline {
     agent any
 
     environment {
+        //NODE_VERSION = 'nodejs-lts'
         VERCEL_TOKEN = credentials('vercel-token') // Jenkins credential ID for Vercel token
     }
 

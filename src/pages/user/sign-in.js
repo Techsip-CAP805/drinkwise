@@ -37,7 +37,7 @@ const SignIn = () => {
         duration: 3000,
         isClosable: true,
       });
-      Router.push('/');
+      Router.back();
     }
   };
 

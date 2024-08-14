@@ -5,6 +5,7 @@ import SideNav from "../../components/SideNav";
 import Footer from "../../components/Footer";
 import EditAccountInfo from './editAccountInfo';
 import { withRole } from '../../../lib/auth';
+import { signIn, getSession } from 'next-auth/react';
 
 const EmployeeAccount = () => {
   const [formData, setFormData] = useState(null);
@@ -14,7 +15,19 @@ const EmployeeAccount = () => {
   const cardBgColor = useColorModeValue("#a0b2ab", "#283E38");
 
   useEffect(() => {
-    fetchEmployeeData('1');
+
+    const fetchSession = async () => {
+      try {
+        const sessionData = await getSession();
+        console.log(sessionData.user.employeeID);
+        fetchEmployeeData(sessionData.user.employeeID);
+      } catch (error) {
+        console.error('Error fetching session:', error);
+      }
+    };
+
+    fetchSession();
+
   }, []);
 
   const fetchEmployeeData = async (id) => {
@@ -91,7 +104,7 @@ const EmployeeAccount = () => {
         <Container w="100vw" minH="100vh" maxW="7xl" py={10}>
           <Flex direction="column" justify="center" align="center" w="100%" h="100%" mt={20}>
             <VStack spacing={6} p={4} w="100%" align="center">
-              <Heading color="white">Employee Account Information</Heading>
+              {/* <Heading color="white">Employee Account Information</Heading>
               <HStack justifyContent="center" w="100%">
                 <Button onClick={decrementID} colorScheme="teal">
                   -
@@ -109,7 +122,7 @@ const EmployeeAccount = () => {
               </HStack>
               <Button onClick={handleFetchData} colorScheme="teal" isLoading={isLoading} mt={4}>
                 Fetch Data
-              </Button>
+              </Button> */}
               <Card
                 borderRadius="lg"
                 width={{ base: "90%", md: "80%", lg: "60%" }}
@@ -118,7 +131,7 @@ const EmployeeAccount = () => {
                 bg={cardBgColor}
                 mt={4}
               >
-                <CardBody p={4}>
+                {/* <CardBody p={4}>
                   <Stack spacing={3}>
                     {formData ? (
                       <>
@@ -131,7 +144,7 @@ const EmployeeAccount = () => {
                       <Text textAlign="center" color="white">No data found</Text>
                     )}
                   </Stack>
-                </CardBody>
+                </CardBody> */}
               </Card>
               {formData && <EditAccountInfo initialData={formData} setFormData={handleUpdateData} />}
             </VStack>

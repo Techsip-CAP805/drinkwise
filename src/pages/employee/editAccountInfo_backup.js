@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Button, FormControl, FormLabel, Input, VStack, useToast, Card, CardBody, useColorModeValue } from '@chakra-ui/react';
-import { signIn, getSession } from 'next-auth/react';
+import { Box, Button, FormControl, FormLabel, Input, VStack, useToast, Card, CardBody, useColorModeValue, }from '@chakra-ui/react';
 
 const EditAccountInfo = ({ initialData, setFormData }) => {
   const [formData, setLocalFormData] = useState(null);
-  const [session, setSession] = useState(null);
   const toast = useToast();
   const cardBgColor = useColorModeValue("#a0b2ab", "#283E38");
 
@@ -25,7 +23,7 @@ const EditAccountInfo = ({ initialData, setFormData }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     try {
-      setFormData(formData);
+      setFormData(formData); 
       toast({
         title: 'Account updated.',
         description: 'Your account information has been updated successfully.',
@@ -46,7 +44,7 @@ const EditAccountInfo = ({ initialData, setFormData }) => {
   };
 
   if (!formData) {
-    return <Box>FormData is loading or not found.</Box>;
+    return <Box>FormData is loading or not found.</Box>; 
   }
 
   return (
@@ -68,7 +66,6 @@ const EditAccountInfo = ({ initialData, setFormData }) => {
                 name="firstName"
                 value={formData.firstName || ''}
                 onChange={handleChange}
-                backgroundColor={'white'}
               />
             </FormControl>
             <FormControl id="lastName">
@@ -78,7 +75,6 @@ const EditAccountInfo = ({ initialData, setFormData }) => {
                 name="lastName"
                 value={formData.lastName || ''}
                 onChange={handleChange}
-                backgroundColor={'white'}
               />
             </FormControl>
             <FormControl id="branchName">
@@ -88,11 +84,9 @@ const EditAccountInfo = ({ initialData, setFormData }) => {
                 name="branchName"
                 value={formData.branchName || ''}
                 onChange={handleChange}
-                backgroundColor="#D3D3D3"
-                readOnly
               />
             </FormControl>
-            {/* <FormControl id="SIN">
+            <FormControl id="SIN">
               <FormLabel>SIN</FormLabel>
               <Input
                 type="number"
@@ -109,7 +103,7 @@ const EditAccountInfo = ({ initialData, setFormData }) => {
                 checked={formData.isAdmin || false}
                 onChange={(e) => setLocalFormData({ ...formData, isAdmin: e.target.checked })}
               />
-            </FormControl> */}
+            </FormControl>
             <FormControl id="emailAddress">
               <FormLabel>Email Address</FormLabel>
               <Input
@@ -117,8 +111,6 @@ const EditAccountInfo = ({ initialData, setFormData }) => {
                 name="emailAddress"
                 value={formData.emailAddress || ''}
                 onChange={handleChange}
-                backgroundColor="#D3D3D3"
-                readOnly
               />
             </FormControl>
             <FormControl id="password">
@@ -128,8 +120,6 @@ const EditAccountInfo = ({ initialData, setFormData }) => {
                 name="password"
                 value={formData.password || ''}
                 onChange={handleChange}
-                backgroundColor="#D3D3D3"
-                readOnly
               />
             </FormControl>
             <Button type="submit" colorScheme="teal" w="100%">

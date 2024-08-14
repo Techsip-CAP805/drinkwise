@@ -30,9 +30,9 @@ export const authOptions = {
 
                 if (user && await bcrypt.compare(credentials.password, user.password)) {
                     if (credentials.userType === 'employee' || credentials.userType === 'admin') {
-                        return { id: user._id, email: user.emailAddress, role: user.role, branchName: user.branchName };
+                        return { id: user._id, email: user.emailAddress, role: user.role, branchName: user.branchName, employeeID: user.employeeID};
                     } else {
-                        return { id: user._id, email: user.emailAddress, role: user.role };
+                        return { id: user._id, email: user.emailAddress, role: user.role, employeeID: user.employeeID };
                     }
                 }
 
@@ -56,6 +56,7 @@ export const authOptions = {
         async jwt({ token, user }) {
             if (user) {
                 token.id = user._id;
+                token.employeeID = user.employeeID;
                 token.email = user.email;
                 token.role = user.role;
                 if (user.branchName) {

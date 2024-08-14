@@ -17,7 +17,7 @@ const customerSchema = new mongoose.Schema({
     username: { type: String, require: true },
     customerName: { type: String },
     emailAddress: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
+    password: { type: String },
     preferredBranch: String,
     role: { type: String },
     accountCreationDate: Date,

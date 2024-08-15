@@ -7,17 +7,14 @@ export default async function handler(req, res) {
 
     if (req.method === 'POST') {
         try {
-            const { customerId, order } = req.body;
+            const { email, items } = req.body;
 
-            const customer = await Customer.findOne({ _id: customerId }).exec();
-
-            if (!customer) {
-                return res.status(404).json({ error: 'Customer not found' });
-            }
-
-            customer.orders.push(order);
-
-            await customer.save();
+            // Find the customer by email or create a new one if not found
+            const customer = await Customer.findOneAndUpdate(
+                { emailAddress: email },
+                { $push: { orders: items } }, // Push the order into the orders array
+                { new: true, upsert: true } // Return the updated document, create if it doesn't exist
+            ).exec();
 
             res.status(201).json({ message: 'Order added successfully', order });
         } catch (error) {

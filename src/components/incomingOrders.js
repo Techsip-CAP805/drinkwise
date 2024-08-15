@@ -19,13 +19,11 @@ const IncomingOrders = () => {
       const res = await fetch(`/api/guestOrderApi`);
       const data = await res.json();
       if (res.ok) {
-        const combinedOrders = [
-          ...data.guestOrders.map(order => ({ ...order, orderType: 'guest' })),
-        ];
 
         // Filter orders to only include those with a "pending" status
-        const pendingOrders = combinedOrders.filter(order => order.orderStatus === 'pending');
+        const pendingOrders = data.customerOrders.res.filter(order => order.orderStatus === 'pending');
         setOrders(pendingOrders);
+        console.log(pendingOrders);
       } else {
         console.error('Failed to fetch orders');
       }
@@ -86,17 +84,17 @@ const IncomingOrders = () => {
                       boxShadow="md"
                       bg={cardBgColor}
                       maxW="500px"
-                      w="100%" // Ensure full width
+                      w="100%"
                     >
                       <CardBody p={4}>
                         <Stack spacing={3}>
-                          {order.orderType === 'guest' && (
+                          {/* {order.orderType === 'guest' && ( */}
                             <>
-                              <Text textAlign="center" color="white">Contact: {order.contact}</Text>
-                              <Text textAlign="center" color="white">Email: {order.email}</Text>
-                              <Text textAlign="center" color="white">Phone: {order.phone}</Text>
+                              <Text textAlign="center" color="white">Contact: {order.username}</Text>
+                              <Text textAlign="center" color="white">Email: {order.emailAddress}</Text>
+                              {/* <Text textAlign="center" color="white">Phone: {order.phone}</Text> */}
                             </>
-                          )}
+                          {/* )} */}
                           <Box>
                             <Heading size="md" textAlign="center" color="white" mt={4}>
                               Orders
@@ -113,7 +111,6 @@ const IncomingOrders = () => {
                               </Box>
                             ))}
                           </Box>
-                          {/* Move the Accept/Reject buttons outside of the map function */}
                           <HStack spacing={4} mt={6} justify="center">
                             <Button colorScheme="blue" textColor="white" size="sm" w="30%" onClick={() => handleStatusChange(order._id, 'inProgress', order.orderType)}>Accept</Button>
                             <Button colorScheme="blue" textColor="white" size="sm" w="30%" onClick={() => handleStatusChange(order._id, 'rejected', order.orderType)}>Reject</Button>
@@ -131,7 +128,7 @@ const IncomingOrders = () => {
         </Container>
       </Box>
     </Box>
-  );
+  );  
 };
 
 export default IncomingOrders;

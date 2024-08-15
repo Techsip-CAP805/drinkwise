@@ -20,10 +20,11 @@ export default async function handler(req, res) {
     }
   } else if (req.method === 'GET') {
     try {
-      const guestOrders = await GuestOrder.find({}).exec();
-      const customerOrders = await Customer.find({ "orders.0": { $exists: true } }).exec();
-
-      res.status(200).json({ guestOrders, customerOrders });
+      // const guestOrders = await GuestOrder.find({}).exec();
+      // const customerOrders = await Customer.find({ "orders.0": { $exists: true } }).exec();
+      const customerOrders = await Customer.find({ "orders": { "$ne": [] } }).exec();
+      // console.log(customerOrders);
+      res.status(200).json({ customerOrders });
     } catch (error) {
       console.error('Error fetching orders:', error);
       res.status(500).json({ error: 'Failed to fetch orders' });

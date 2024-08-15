@@ -32,7 +32,7 @@ export const authOptions = {
                     if (credentials.userType === 'employee' || credentials.userType === 'admin') {
                         return { id: user._id, email: user.emailAddress, role: user.role, branchName: user.branchName, employeeID: user.employeeID};
                     } else {
-                        return { id: user._id, email: user.emailAddress, role: user.role, employeeID: user.employeeID };
+                        return { id: user._id, email: user.emailAddress, role: user.role, employeeID: user.employeeID, name: user.username};
                     }
                 }
 

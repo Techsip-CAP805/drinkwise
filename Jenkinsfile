@@ -13,7 +13,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'backend', url: 'https://github.com/Techsip-CAP805/drinkwise'
+                git branch: 'main', url: 'https://github.com/Techsip-CAP805/drinkwise'
             }
         }
 

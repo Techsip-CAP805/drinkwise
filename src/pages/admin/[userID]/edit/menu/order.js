@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Box, Container, VStack, Select, Button, SimpleGrid, Card, CardBody, Image, Text, HStack, Input, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, FormControl, FormLabel, ModalFooter, Spacer, CheckboxGroup, Checkbox
+  Box, Container, VStack, Select, Button, SimpleGrid, Card, CardBody, Image, Text, HStack, Input, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, FormControl, FormLabel, ModalFooter, CheckboxGroup, Checkbox, Heading, Spacer
 } from '@chakra-ui/react';
-import { AddIcon, EditIcon } from '@chakra-ui/icons';
+import { AddIcon, EditIcon, DeleteIcon } from '@chakra-ui/icons';
 import AdminSideNav from '@/components/AdminSideNav.js';
 import DualListbox from "@/components/DualListBox";
 import { withRole } from '../../../../../../lib/auth';
@@ -148,12 +148,12 @@ const OrderMenu = () => {
   };
 
   return (
-    <Box bg='#e2e8f0' minH='100vh' display='flex'>
+    <Box bg='#f7f7f7' minH='100vh' display='flex'>
       <AdminSideNav />
       <Container w='100%' minH='100vh' py={10} maxW='7xl' ml="250px">
-        <VStack spacing={4} align='stretch'>
+        <VStack spacing={8} align='stretch'>
           <HStack spacing={4} justify='space-between' w='100%'>
-            <Select placeholder='Select location' onChange={handleLocationChange} maxW='300px'>
+            <Select placeholder='Select location' onChange={handleLocationChange} maxW='300px' bg='white' borderRadius='md' boxShadow='sm'>
               {locations.map(location => (
                 <option key={location._id} value={location.branchName}>{location.branchName}</option>
               ))}
@@ -166,18 +166,28 @@ const OrderMenu = () => {
             onChange={e => setSearchTerm(e.target.value)}
             maxW='300px'
             mt={4}
+            bg='white'
+            borderRadius='md'
+            boxShadow='sm'
           />
           <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={10} mt={10}>
             {filteredDrinks.map((drink) => (
-              <Card key={drink.drinkID}>
+              <Card key={drink.drinkID} borderRadius="md" boxShadow='sm'>
                 <CardBody>
-                  <Image src={drink.imagePath} alt={drink.drinkName} boxSize='100px' borderRadius='full' bg='tomato' />
-                  <Text fontSize='lg' fontWeight='bold'>{drink.drinkName}</Text>
+                  <Image 
+                    src={drink.imagePath} 
+                    alt={drink.drinkName} 
+                    boxSize='100px' 
+                    borderRadius='full' 
+                    mb={4}
+                    onError={(e) => e.target.src = '/images/drinks/drinks_placeholder.jpg'}
+                  />
+                  <Text fontSize='lg' fontWeight='bold' mb={2}>{drink.drinkName}</Text>
                   <Text>{drink.description}</Text>
-                  <Text>${Number(drink.basePrice).toFixed(2)}</Text>
-                  <HStack mt={2} spacing={4}>
-                    <Button leftIcon={<EditIcon />} colorScheme='teal' onClick={() => handleEditDrink(drink)}>Edit</Button>
-                    <Button leftIcon={<EditIcon />} colorScheme='red' onClick={() => handleDeleteDrink(drink._id)}>Delete</Button>
+                  <Text fontSize='sm' color='gray.500'>${Number(drink.basePrice).toFixed(2)}</Text>
+                  <HStack mt={4} spacing={4}>
+                    <Button variant="outline" leftIcon={<EditIcon />} colorScheme='teal' onClick={() => handleEditDrink(drink)}>Edit</Button>
+                    <Button variant="outline" leftIcon={<DeleteIcon />} colorScheme='red' onClick={() => handleDeleteDrink(drink._id)}>Delete</Button>
                   </HStack>
                 </CardBody>
               </Card>
@@ -224,7 +234,7 @@ const OrderMenu = () => {
               />
             </FormControl>
             <FormControl mt={4}>
-              <FormLabel color="#372F2F">Size Options</FormLabel>
+              <FormLabel>Size Options</FormLabel>
               <CheckboxGroup
                 defaultValue={currentDrink.sizeOptions.map(option => option.size)}
                 onChange={handleSizeOptionChange}
@@ -236,22 +246,6 @@ const OrderMenu = () => {
                 </HStack>
               </CheckboxGroup>
             </FormControl>
-            {/* <FormControl mt={4}>
-              <FormLabel color="#372F2F">Ice Level Options</FormLabel>
-              <CheckboxGroup
-                defaultValue={currentDrink.iceLevelOptions.map(option => option.iceLevel.toString())}
-                onChange={handleIceOptionChange}
-                width="320px"
-              >
-                <HStack spacing={4}>
-                  <Checkbox value="0" colorScheme="teal">0%</Checkbox>
-                  <Checkbox value="25" colorScheme="teal">25%</Checkbox>
-                  <Checkbox value="50" colorScheme="teal">50%</Checkbox>
-                  <Checkbox value="75" colorScheme="teal">75%</Checkbox>
-                  <Checkbox value="100" colorScheme="teal">100%</Checkbox>
-                </HStack>
-              </CheckboxGroup>
-            </FormControl> */}
           </ModalBody>
           <ModalFooter>
             <Button colorScheme='teal' mr={3} onClick={handleSaveDrink}>
@@ -264,7 +258,6 @@ const OrderMenu = () => {
     </Box>
   );
 };
-
 
 //auth
 export const getServerSideProps = withRole(['admin'], '/admin/login');

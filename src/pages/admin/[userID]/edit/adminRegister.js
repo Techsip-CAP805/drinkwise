@@ -2,12 +2,9 @@ import React, { useRef, useState } from 'react';
 import {
   Box, Container, Flex, Text, Heading, Input, Button, InputGroup, Stack, FormControl, InputRightElement, useToast, Tooltip
 } from '@chakra-ui/react';
-import { InfoIcon } from '@chakra-ui/icons'; // Import InfoIcon from Chakra UI
-import Navbar from '../../../../components/Navbar';
-import Footer from '../../../../components/Footer';
+import { InfoIcon } from '@chakra-ui/icons';
 import AdminSideNav from '@/components/AdminSideNav';
 import { withRole } from '../../../../../lib/auth';
-
 
 export const validatePasswordReq = (password) => {
   const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
@@ -93,130 +90,111 @@ const AdminRegisterEmployee = () => {
   };
 
   return (
-    
-    <Box bg='#e2e8f0'>
-       
+    <Box bg='#f7f7f7' minH='100vh'>
       <AdminSideNav />
-      
-      <Container w='100vw' h='100vh' maxH='100vh' maxW='7xl'>
+      <Container w='100%' maxW='7xl' minH='100vh' centerContent>
         <Flex
           flexDirection="column"
-          width="100wh"
-          height="100vh"
+          width="100%"
           justifyContent="center"
           alignItems="center"
+          h="100vh"
         >
-          
-          <Stack
-            flexDir="column"
-            mb="2"
-            justifyContent="center"
-            alignItems="center"
-          >
-            <Box minW={{ base: "90%", md: "468px" }}>
-            <Heading align='center' fontSize='2xl' mb={4}>Register a new employee</Heading>
-              <form onSubmit={handleRegister}>
-                <Stack
-                  spacing={4}
-                  p="3rem"
-                  backgroundColor="gray.300"
-                  boxShadow="md"
-                  borderRadius='2em'
+          <Box minW={{ base: "90%", md: "468px" }} bg="white" p="3rem" borderRadius="lg" boxShadow="xl">
+            <Heading align='center' fontSize='2xl' mb={6}>Register a new employee</Heading>
+            <form onSubmit={handleRegister}>
+              <Stack spacing={4}>
+                <FormControl>
+                  <InputGroup>
+                    <Input
+                      ref={employeeIDRef}
+                      type="number"
+                      placeholder="Employee ID"
+                      bg="gray.50"
+                      required
+                    />
+                  </InputGroup>
+                </FormControl>
+                <FormControl>
+                  <InputGroup>
+                    <Input
+                      ref={firstNameRef}
+                      type="text"
+                      placeholder="First Name"
+                      bg="gray.50"
+                      required
+                    />
+                  </InputGroup>
+                </FormControl>
+                <FormControl>
+                  <InputGroup>
+                    <Input
+                      ref={lastNameRef}
+                      type="text"
+                      placeholder="Last Name"
+                      bg="gray.50"
+                      required
+                    />
+                  </InputGroup>
+                </FormControl>
+                <FormControl>
+                  <InputGroup>
+                    <Input
+                      ref={branchNameRef}
+                      type="text"
+                      placeholder="Branch Name"
+                      bg="gray.50"
+                      required
+                    />
+                  </InputGroup>
+                </FormControl>
+                <FormControl>
+                  <InputGroup>
+                    <Input
+                      ref={emailRef}
+                      type="email"
+                      placeholder="Email"
+                      bg="gray.50"
+                      required
+                    />
+                  </InputGroup>
+                </FormControl>
+                <FormControl>
+                  <InputGroup>
+                    <Input
+                      ref={passwordRef}
+                      type={showPassword ? "text" : "password"}
+                      placeholder="Password"
+                      bg="gray.50"
+                      required
+                    />
+                    <InputRightElement width="4.5rem">
+                      <Button h="1.75rem" size="sm" onClick={handleShowClick} variant='outline'>
+                        {showPassword ? "Hide" : "Show"}
+                      </Button>
+                    </InputRightElement>
+                  </InputGroup>
+                </FormControl>
+                <Button
+                  borderRadius={'full'}
+                  type="submit"
+                  variant="outline"
+                  colorScheme="teal"
+                  width="full"
                 >
-                  <FormControl>
-                    <InputGroup>
-                      <Input
-                        ref={employeeIDRef}
-                        type="number"
-                        placeholder="Employee ID"
-                        backgroundColor="whiteAlpha.900"
-                        required
-                      />
-                    </InputGroup>
-                  </FormControl>
-                  <FormControl>
-                    <InputGroup>
-                      <Input
-                        ref={firstNameRef}
-                        type="text"
-                        placeholder="First Name"
-                        backgroundColor="whiteAlpha.900"
-                        required
-                      />
-                    </InputGroup>
-                  </FormControl>
-                  <FormControl>
-                    <InputGroup>
-                      <Input
-                        ref={lastNameRef}
-                        type="text"
-                        placeholder="Last Name"
-                        backgroundColor="whiteAlpha.900"
-                        required
-                      />
-                    </InputGroup>
-                  </FormControl>
-                  <FormControl>
-                    <InputGroup>
-                      <Input
-                        ref={branchNameRef}
-                        type="text"
-                        placeholder="Branch Name"
-                        backgroundColor="whiteAlpha.900"
-                        required
-                      />
-                    </InputGroup>
-                  </FormControl>
-                  <FormControl>
-                    <InputGroup>
-                      <Input
-                        ref={emailRef}
-                        type="email"
-                        placeholder="Email"
-                        backgroundColor="whiteAlpha.900"
-                        required
-                      />
-                    </InputGroup>
-                  </FormControl>
-                  <FormControl>
-                    <InputGroup>
-                      <Input
-                        ref={passwordRef}
-                        type={showPassword ? "text" : "password"}
-                        placeholder="Password"
-                        backgroundColor="whiteAlpha.900"
-                        required
-                      />
-                      <InputRightElement width="4.5rem">
-                        <Button h="1.75rem" size="sm" onClick={handleShowClick}>
-                          {showPassword ? "Hide" : "Show"}
-                        </Button>
-                      </InputRightElement>
-                    </InputGroup>
-                  </FormControl>
-                  <Button
-                    borderRadius={'2em'}
-                    type="submit"
-                    variant="solid"
-                    width="full"
-                    _hover={{ bg: 'teal' }}
-                  >
-                    Register Employee
-                  </Button>
-                  <Tooltip label="Password must be at least 8 characters long and contain at least one letter, one number, and one special character." aria-label="Password requirements">
-                    <InfoIcon ml={4} color="white" />
-                  </Tooltip>
-                </Stack>
-              </form>
-            </Box>
-          </Stack>
+                  Register Employee
+                </Button>
+                <Tooltip label="Password must be at least 8 characters long and contain at least one letter, one number, and one special character." aria-label="Password requirements">
+                  <InfoIcon ml={2} color="gray.500" />
+                </Tooltip>
+              </Stack>
+            </form>
+          </Box>
         </Flex>
-        
       </Container>
     </Box>
   );
 };
-
 
 //auth
 export const getServerSideProps = withRole(['admin'], '/admin/login');

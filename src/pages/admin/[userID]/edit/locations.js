@@ -144,8 +144,8 @@ const EditLocations = () => {
   };
 
   return (
-    <Box bg='#e2e8f0' minH='100vh'>
-      {/* <VStack align="start" spacing={4} width='12vw' p={4} mt={4} ml={4} h='90vh' bg='#8fa39b' borderRadius='5px' boxShadow='lg' position='fixed'>
+    <Box bg="#f7f7f7" minH='100vh'>
+      {/* <VStack align="start" spacing={4}   th='12vw' p={4} mt={4} ml={4} h='90vh' bg='#8fa39b' borderRadius='5px' boxShadow='lg' position='fixed'>
         <Heading size="md">Drinkwise</Heading>
         <Link href='/admin/userid/dashboard'>dashboard</Link>
         <Text>Sales</Text>
@@ -195,6 +195,8 @@ const EditLocations = () => {
                     mb={4}
                     objectFit='fill'
                     borderRadius='md'
+                    width='600px'
+                    height='200px'
                   />
                   <Text fontSize='lg' fontWeight='bold' mb={2}>{location.branchName}</Text>
                   <Text mb={2}>Operating Hours: {location.schedule}</Text>

@@ -12,7 +12,7 @@ import Image from 'next/image';
 
 import { signOut } from 'next-auth/react';
 
-const SideNav = ({ setCurrentView }) => {
+const EmployeeSideNav = ({ setCurrentView }) => {
 
   const handleSignOut = () => {
     signOut({ callbackUrl: '/employee/login' });
@@ -59,4 +59,4 @@ const SideNav = ({ setCurrentView }) => {
   );
 };
 
-export default SideNav;
+export default EmployeeSideNav;

@@ -1,38 +1,34 @@
 import React, { useRef, useState } from 'react';
 import {
-  Box, Container, Flex, Input, Button, InputGroup, Stack, Link, FormControl, InputRightElement, useToast
+  Box, Container, Flex, Input, Button, InputGroup, Stack, Link, FormControl, InputRightElement, useToast, Tooltip, Heading, Text
 } from '@chakra-ui/react';
+import { InfoIcon } from '@chakra-ui/icons';
+import Navbar from '@/components/Navbar';
+import SmallFooter from '@/components/SmallFooter';
 import { useDrinkContext } from '../../../context/drinkContext';
-import Navbar from '../../components/Navbar';
-import Footer from '../../components/Footer';
 
 export const validatePasswordReq = (password) => {
-  // Password validation regex (>=8 characters, >=1 letter, >=1 number, >=1 special character)
   const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
   return passwordRegex.test(password);
 }
 
 export const validateConfirmPassword = (password, confirmPassword) => {
-  return password == confirmPassword;
+  return password === confirmPassword;
 }
-
-export const validateExistingEmail = (email, customers) => {
-  return customers.some(customer => customer.emailAddress === email);
-}
-
 
 const SignUp = () => {
-  const { customers } = useDrinkContext();
   const usernameRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef();
   const confirmPasswordRef = useRef();
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const toast = useToast();
 
-  const handleShowClick = () => setShowPassword(!showPassword);
+  const handleShowPasswordClick = () => setShowPassword(!showPassword);
+  const handleShowConfirmPasswordClick = () => setShowConfirmPassword(!showConfirmPassword);
 
-  const handleSignUp = (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
 
     const email = emailRef.current.value;
@@ -40,8 +36,6 @@ const SignUp = () => {
     const password = passwordRef.current.value;
     const confirmPassword = confirmPasswordRef.current.value;
 
-
-    // Toast messages
     const toastMessages = {
       signUpSuccess: {
         title: 'Sign Up successful.',
@@ -71,130 +65,131 @@ const SignUp = () => {
         duration: 5000,
         isClosable: true,
       },
+      signUpFailed: {
+        title: 'Sign Up failed.',
+        description: "Something went wrong. Please try again.",
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      }
     };
 
-    // Validation checks
-    if (validateExistingEmail(email, customers)) {
-      toast(toastMessages.signUpFailedEmail);
-      return;
-    } else if (!validatePasswordReq(password)) {
+    if (!validatePasswordReq(password)) {
       toast(toastMessages.signUpFailedPassword);
       return;
     } else if (!validateConfirmPassword(password, confirmPassword)) {
       toast(toastMessages.signUpFailedMatch);
       return;
-    } else {
-      const formData = { email, username, password };
-      console.log(formData);
-      emailRef.current.value = '';
-      usernameRef.current.value = '';
-      passwordRef.current.value = '';
-      confirmPasswordRef.current.value = '';
-      toast(toastMessages.signUpSuccess);
-      return;
+    }
+
+    try {
+      const response = await fetch('/api/customerRegister', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username: username, emailAddress: email, password: password }),
+      });
+
+      if (response.ok) {
+        emailRef.current.value = '';
+        usernameRef.current.value = '';
+        passwordRef.current.value = '';
+        confirmPasswordRef.current.value = '';
+        setShowPassword(false);
+        setShowConfirmPassword(false);
+        toast(toastMessages.signUpSuccess);
+      } else if (response.status === 400) {
+        toast(toastMessages.signUpFailedEmail);
+      } else {
+        toast(toastMessages.signUpFailed);
+      }
+    } catch (error) {
+      console.error('Error registering customer:', error);
+      toast(toastMessages.signUpFailed);
     }
   };
 
   return (
-    <Box bg='#bcc8c3'>
+    <Box bg='#bcc8c3' minHeight="100vh" display="flex" flexDirection="column">
       <Navbar />
-      <Container w='100vw' h='100vh' maxH='100vh' maxW='7xl'>
-        <Flex
-          flexDirection="column"
-          width="100wh"
-          height="100vh"
-          justifyContent="center"
-          alignItems="center"
-        >
-          <Stack
-            flexDir="column"
-            mb="2"
-            justifyContent="center"
-            alignItems="center"
-          >
-            <Box minW={{ base: "90%", md: "468px" }}>
-              <form onSubmit={handleSignUp}>
-                <Stack
-                  spacing={4}
-                  p="3rem"
-                  backgroundColor="#a0b2ab"
-                  boxShadow="md"
-                  borderRadius='2em'
-                >
-                  <FormControl>
-                    <InputGroup>
-                      <Input
-                        ref={emailRef}
-                        type="email"
-                        placeholder="you@domain.com"
-                        backgroundColor="whiteAlpha.900"
-                        required
-                      />
-                    </InputGroup>
+      <Container maxW='lg' py={12} px={6} mt={24} flex="1">
+        <Flex justifyContent='center'>
+          <Stack spacing={6} mx='auto' w='100%' maxW='lg' py={12} px={6}>
+            <Stack align='center'>
+              <Heading fontSize='3xl'>Create an account</Heading>
+              <Text fontSize='md' color='gray.600'>
+                to enjoy all our cool features
+              </Text>
+            </Stack>
+            <Box
+              rounded='lg'
+              bg='white'
+              boxShadow='lg'
+              p={8}
+            >
+              <Stack spacing={4}>
+                <form onSubmit={handleSignUp}>
+                  <FormControl id='email' isRequired>
+                    <Input ref={emailRef} type='email' placeholder='you@domain.com' bg='gray.100' />
                   </FormControl>
-                  <FormControl>
-                    <InputGroup>
-                      <Input
-                        ref={usernameRef}
-                        type="text"
-                        placeholder="Username"
-                        backgroundColor="whiteAlpha.900"
-                        required
-                      />
-                    </InputGroup>
+                  <FormControl id='username' isRequired>
+                    <Input ref={usernameRef} type='text' placeholder='Username' bg='gray.100' />
                   </FormControl>
-                  <FormControl>
+                  <FormControl id='password' isRequired>
                     <InputGroup>
                       <Input
                         ref={passwordRef}
-                        type={showPassword ? "text" : "password"}
-                        placeholder="Password"
-                        backgroundColor="whiteAlpha.900"
-                        required
+                        type={showPassword ? 'text' : 'password'}
+                        placeholder='Password'
+                        bg='gray.100'
                       />
-                      <InputRightElement width="4.5rem">
-                        <Button h="1.75rem" size="sm" onClick={handleShowClick}>
-                          {showPassword ? "Hide" : "Show"}
+                      <InputRightElement width='4.5rem'>
+                        <Button variant='ghost' onClick={handleShowPasswordClick}>
+                          {showPassword ? 'Hide' : 'Show'}
                         </Button>
                       </InputRightElement>
                     </InputGroup>
                   </FormControl>
-                  <FormControl>
+                  <FormControl id='confirmPassword' isRequired>
                     <InputGroup>
                       <Input
                         ref={confirmPasswordRef}
-                        type={showPassword ? "text" : "password"}
-                        placeholder="Confirm Password"
-                        backgroundColor="whiteAlpha.900"
-                        required
+                        type={showConfirmPassword ? 'text' : 'password'}
+                        placeholder='Confirm Password'
+                        bg='gray.100'
                       />
-                      <InputRightElement width="4.5rem">
-                        <Button h="1.75rem" size="sm" onClick={handleShowClick}>
-                          {showPassword ? "Hide" : "Show"}
+                      <InputRightElement width='4.5rem'>
+                        <Button variant='ghost' onClick={handleShowConfirmPasswordClick}>
+                          {showConfirmPassword ? 'Hide' : 'Show'}
                         </Button>
                       </InputRightElement>
                     </InputGroup>
                   </FormControl>
-                  <Button
-                    borderRadius={'2em'}
-                    type="submit"
-                    variant="solid"
-                    width="full"
-                    _hover={{ bg: 'teal' }}
-                  >
-                    Sign Up
-                  </Button>
+                  <Stack spacing={6} pt={2}>
+                    <Button
+                      loadingText='Submitting'
+                      size='lg'
+                      bg='teal.400'
+                      color='white'
+                      _hover={{ bg: 'teal.500' }}
+                      type='submit'
+                    >
+                      Sign Up
+                    </Button>
+                  </Stack>
+                </form>
+                <Stack pt={4}>
+                  <Text align='center'>
+                    Already a user? <Link color='teal.400' href='/user/sign-in'>Login</Link>
+                  </Text>
                 </Stack>
-              </form>
+              </Stack>
             </Box>
           </Stack>
-          <Box>
-            Have an account?{" "}
-            <Link href="/login" _hover={{ color: 'teal' }}> Login </Link>
-          </Box>
         </Flex>
-        <Footer />
       </Container>
+      <SmallFooter/>
     </Box>
   );
 };

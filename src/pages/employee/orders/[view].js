@@ -1,18 +1,17 @@
 // pages/orders/[view].js
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
 import SideNav from '@/components/SideNav';
-import IncomingOrders from '@/pages/employee/incomingOrders';
-import InProgressOrders from '@/pages/employee/inProgressOrders';
-import CompletedOrders from '@/pages/employee/completedOrders';
+import IncomingOrders from '@/components/incomingOrders';
+import InProgressOrders from '@/components/inProgressOrders';
+import CompletedOrders from '@/components/completedOrders';
 import { Box, Flex, Spacer } from '@chakra-ui/react';
+import { withRole } from '../../../../lib/auth';
 
 const Orders = () => {
     const router = useRouter();
     const { view } = router.query;
-    console.log(view);
+    // console.log(view);
     const [currentView, setCurrentView] = useState(view || 'incoming');
 
     useEffect(() => {
@@ -32,7 +31,7 @@ const Orders = () => {
     };
 
     return (
-        <Box bg="#bcc8c3">
+        <Box bg="#f0f0f0" overflowX="auto">
             <Flex>
                 <SideNav setCurrentView={setCurrentView} />
                 <Box flex="1" py={5} px={{ base: 4, md: 12 }}>
@@ -44,5 +43,9 @@ const Orders = () => {
         </Box>
     );
 };
+
+
+//auth
+export const getServerSideProps = withRole(['employee', 'admin'], '/employee/login');
 
 export default Orders;

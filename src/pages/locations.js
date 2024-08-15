@@ -1,24 +1,10 @@
-import React, { useContext } from "react";
-import { useDrinkContext } from "../../context/drinkContext";
-import Navbar from "../components/Navbar";
-import Footer from "@/components/Footer";
-import {
-  Box,
-  Image,
-  Text,
-  Heading,
-  Grid,
-  GridItem,
-  Card,
-  CardBody,
-  Stack,
-  Container,
-  Flex,
-  useColorModeValue
-} from "@chakra-ui/react";
+// pages/locations.js
+import { getSession } from 'next-auth/react';
+import { Box, Container, Flex, Grid, GridItem, Image, Text, Heading, Stack, useColorModeValue, Card, CardBody } from '@chakra-ui/react';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
-const Locations = () => {
-  const { locations } = useDrinkContext();
+function LocationsPage({ locations }) {
   const cardBgColor = useColorModeValue("#a0b2ab", "#283E38");
   const cardHoverBgColor = useColorModeValue("#8f9f9a", "#1F2D2B");
 
@@ -26,37 +12,37 @@ const Locations = () => {
     <Box bg="#bcc8c3">
       <Navbar />
       <Container w='100vw' minH='100vh' maxW='7xl' py={10} >
-      <Flex direction="column" justify="center" align="center" w="100%" h='100%' mt={32}>
+        <Flex direction="column" justify="center" align="center" w="100%" h='100%' mt={32}>
           <Grid templateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }} gap={6} p={4}>
-            {locations.map((location, index) => (
-              <GridItem key={index}>
+            {locations.map((location) => (
+              <GridItem key={location._id}>
                 <Card
                   borderRadius="lg"
-                  width="280px"
+                  width="400px"
                   overflow="hidden"
                   boxShadow="md"
                   bg={cardBgColor}
-                  _hover={{ bg: cardHoverBgColor, transform: "scale(1.05)", transition: "all 0.3s ease-in-out" }}
+                  _hover={{ bg: cardHoverBgColor, transform: "scale(1.0)", transition: "all 0.3s ease-in-out" }}
                 >
-                  {location.image && (
+                  {location.imagePath && (
                     <Image
-                      src={location.image}
-                      alt={`${location.name} location`}
+                      src={location.imagePath}
+                      alt={`${location.branchName} location`}
                       objectFit="cover"
-                      height="150px"
+                      height="200px"
                       width="100%"
                     />
                   )}
                   <CardBody p={4}>
                     <Stack spacing={3}>
                       <Heading size="md" textAlign="center" color="white">
-                        {location.name}
+                        {location.branchName}
                       </Heading>
                       <Text textAlign="center" color="white">
-                        Operating Hours: {location.operatingHour}
+                        Operating Hours: {location.schedule}
                       </Text>
                       <Text color="white" fontSize="md" textAlign="center">
-                        Phone: {location.phoneNumber}
+                        Phone: {location.contactNumber}
                       </Text>
                     </Stack>
                   </CardBody>
@@ -66,9 +52,28 @@ const Locations = () => {
           </Grid>
         </Flex>
       </Container>
-      <Footer/>
+      <Footer />
     </Box>
   );
-};
+}
 
-export default Locations;
+export async function getServerSideProps(context) {
+  // const session = await getSession(context);
+  // if (!session || session.user.role !== 'customer') {
+  //   // if (!session) {
+  //   return {
+  //     redirect: {
+  //       destination: '/login',
+  //       permanent: false,
+  //     },
+  //   };
+  // }
+
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/locations`);
+  const locations = await res.json();
+  return {
+    props: { locations },
+  };
+}
+
+export default LocationsPage;

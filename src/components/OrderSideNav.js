@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   IconButton,
   Drawer,
@@ -17,10 +17,28 @@ import {
 } from '@chakra-ui/react';
 import { useDisclosure } from '@chakra-ui/react';
 import { ArrowForwardIcon, ArrowBackIcon } from '@chakra-ui/icons';
-import { FaBook, FaClipboardList, FaCreditCard, FaMapMarkerAlt, FaGlobe, FaUser } from 'react-icons/fa';
+import { FaBook, FaClipboardList, FaCreditCard, FaMapMarkerAlt, FaGlobe, FaUser, FaUserCircle } from 'react-icons/fa';
+import { signOut } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
+import { useDrinkContext } from '../../context/drinkContext';
+import { usePathname } from 'next/navigation';
 
 const OrderSideNav = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [signedIn, setSignedIn] = useState(false);
+  const {visitedLocationID, setVisitedLocationID} = useDrinkContext();
+
+  const { data: session } = useSession();
+  const pathname = usePathname();
+
+  useEffect(() => {
+    session ? setSignedIn(true) : setSignedIn(false);
+  }, [session, signedIn, visitedLocationID]);
+
+  // User sign out
+  const handleSignOut = () => {
+    signOut({ callbackUrl: '/user/sign-in' });
+  };
 
   return (
     <>
@@ -50,13 +68,13 @@ const OrderSideNav = () => {
             <List spacing={4} pt={10} pl={5}>
               <ListItem>
                 <ListIcon as={FaBook} color='teal.500' />
-                <Link href='/catalogue'>
+                <Link href={`/order/store/${visitedLocationID}/catalogue`}>
                   <Text as='b' fontSize='lg'>Catalogue</Text>
                 </Link>
               </ListItem>
               <ListItem>
                 <ListIcon as={FaClipboardList} color='teal.500' />
-                <Link href='/orders'>
+                <Link href={signedIn ? `/account/${session.user.sub}/orders` : `/user/sign-in`}>
                   <Text as='b' fontSize='lg'>My Orders</Text>
                 </Link>
               </ListItem>
@@ -72,9 +90,9 @@ const OrderSideNav = () => {
                   <Text as='b' fontSize='lg'>Change Location</Text>
                 </Link>
               </ListItem>
-              <ListItem >
-                <HStack  justfiy='flex-start'>
-                <ListIcon as={FaGlobe} color='teal.500' />
+              <ListItem>
+                <HStack justfiy='flex-start'>
+                  <ListIcon as={FaGlobe} color='teal.500' />
                   <Text as='b' fontSize='lg'>Language</Text>
                   <select>
                     <option value='en'>English</option>
@@ -83,18 +101,30 @@ const OrderSideNav = () => {
                   </select>
                 </HStack>
               </ListItem>
-              <ListItem>
-                <ListIcon as={FaUser} color='teal.500' />
-                <Link href='/user/sign-in'>
-                  <Text as='b' fontSize='lg'>Sign In</Text>
-                </Link>
-              </ListItem>
-              <ListItem>
-                <ListIcon as={FaUser} color='teal.500' />
-                <Link href='/user/sign-out'>
-                  <Text as='b' fontSize='lg'>Sign Out</Text>
-                </Link>
-              </ListItem>
+              {signedIn && (
+                <>
+                  <ListItem>
+                    <ListIcon as={FaUserCircle} color='teal.500' />
+                    <Link href={`/account/${session.user.sub}/profile`}>
+                      <Text as='b' fontSize='lg'>My Account</Text>
+                    </Link>
+                  </ListItem>
+                  <ListItem>
+                    <ListIcon as={FaUser} color='teal.500' />
+                    <Link href='#' onClick={handleSignOut}>
+                      <Text as='b' fontSize='lg'>Sign Out</Text>
+                    </Link>
+                  </ListItem>
+                </>
+              )}
+              {!signedIn && (
+                <ListItem>
+                  <ListIcon as={FaUser} color='teal.500' />
+                  <Link href='/user/sign-in'>
+                    <Text as='b' fontSize='lg'>Sign In</Text>
+                  </Link>
+                </ListItem>
+              )}
             </List>
           </DrawerBody>
         </DrawerContent>

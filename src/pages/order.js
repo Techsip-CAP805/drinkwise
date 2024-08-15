@@ -5,8 +5,11 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import SmallFooter from '@/components/SmallFooter';
 import { Link } from '@chakra-ui/next-js'
+import { useSession } from 'next-auth/react';
+
 
 const OrderPage = () => {
+
   return (
     <Box bg='#bcc8c3' minH='100vh'>
     <Navbar/>

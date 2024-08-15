@@ -1,11 +1,17 @@
-import React, { useRef, useState } from 'react';
-import { Box, Container, SimpleGrid, Card, CardBody, Image, Text, VStack, Input, Select, HStack, Button, Heading, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton } from '@chakra-ui/react';
+import React, { useState, useEffect, useRef } from 'react';
+import {
+  Box, Container, SimpleGrid, Card, CardBody, Image, Text, VStack,
+  Input, Select, HStack, Button, Heading, useDisclosure, Modal,
+  ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody,
+  ModalCloseButton
+} from '@chakra-ui/react';
 import { AddIcon, EditIcon, DeleteIcon } from '@chakra-ui/icons';
-import { useDrinkContext } from '../../../../../context/drinkContext';
 import Link from 'next/link';
+import AdminSideNav from '@/components/AdminSideNav.js';
+import { withRole } from '../../../../../lib/auth';
 
 const EditLocations = () => {
-  const { locations, setLocations } = useDrinkContext();
+  const [locations, setLocations] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [sortBy, setSortBy] = useState('name');
   const [editingLocation, setEditingLocation] = useState(null);
@@ -18,24 +24,57 @@ const EditLocations = () => {
   const postalCodeRef = useRef();
   const addressRef = useRef();
 
-  const handleAddLocation = () => {
-    setLocations([...locations, {
-      id: locations.length + 1,
-      name: nameRef.current.value,
+  useEffect(() => {
+    fetchLocations();
+  }, []);
+
+  const fetchLocations = async () => {
+    try {
+      const response = await fetch('/api/editLocations');
+      const data = await response.json();
+      setLocations(data.data);
+    } catch (error) {
+      console.error('Failed to fetch locations:', error);
+    }
+  };
+
+  const handleAddLocation = async () => {
+    const newLocation = {
+      branchName: nameRef.current.value,
       operatingHour: operatingHourRef.current.value,
       phoneNumber: phoneNumberRef.current.value,
-      image: imageRef.current.value,
+      imagePath: imageRef.current.value,
       postalCode: postalCodeRef.current.value,
       address: addressRef.current.value
-    }]);
+    };
 
-    // Resetting fields
-    nameRef.current.value = '';
-    operatingHourRef.current.value = '';
-    phoneNumberRef.current.value = '';
-    imageRef.current.value = '';
-    postalCodeRef.current.value = '';
-    addressRef.current.value = '';
+    try {
+      const response = await fetch('/api/editLocations', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newLocation)
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // Refresh locations after adding
+        fetchLocations();
+        // Resetting fields
+        nameRef.current.value = '';
+        operatingHourRef.current.value = '';
+        phoneNumberRef.current.value = '';
+        imageRef.current.value = '';
+        postalCodeRef.current.value = '';
+        addressRef.current.value = '';
+      } else {
+        console.error('Failed to add location:', data.error);
+      }
+    } catch (error) {
+      console.error('Failed to add location:', error);
+    }
   };
 
   const handleEditLocation = (location) => {
@@ -43,28 +82,70 @@ const EditLocations = () => {
     onOpen();
   };
 
-  const handleUpdateLocation = () => {
-    setLocations(locations.map(loc => loc.id === editingLocation.id ? editingLocation : loc));
-    setEditingLocation(null);
-    onClose();
+  const handleUpdateLocation = async () => {
+    try {
+      const response = await fetch(`/api/editLocations/${editingLocation._id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(editingLocation)
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setLocations(locations.map(loc => loc._id === editingLocation._id ? data.data : loc));
+        setEditingLocation(null);
+        onClose();
+      } else {
+        console.error('Failed to update location:', data.error);
+      }
+    } catch (error) {
+      console.error('Failed to update location:', error);
+    }
   };
 
-  const handleDeleteLocation = (id) => {
-    setLocations(locations.filter(loc => loc.id !== id));
+  const handleDeleteLocation = async (id) => {
+    try {
+      await fetch(`/api/editLocations/${id}`, {
+        method: 'DELETE'
+      });
+      setLocations(locations.filter(loc => loc._id !== id));
+    } catch (error) {
+      console.error('Failed to delete location:', error);
+    }
   };
 
   const filteredLocations = locations
-    .filter(location => location.name.toLowerCase().includes(searchTerm.toLowerCase()))
-    .sort((a, b) => (a.name > b.name ? 1 : -1));
+    .filter(location => location && location.branchName && location.branchName.toLowerCase().includes(searchTerm.toLowerCase()))
+    .sort((a, b) => (a.branchName > b.branchName ? 1 : -1));
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setEditingLocation(prev => ({ ...prev, [name]: value }));
+    const [field, nestedField] = name.split('.');
+
+    setEditingLocation(prev => {
+      if (nestedField) {
+        return {
+          ...prev,
+          [field]: {
+            ...prev[field],
+            [nestedField]: value
+          }
+        };
+      } else {
+        return {
+          ...prev,
+          [field]: value
+        };
+      }
+    });
   };
 
   return (
-    <Box bg='#bcc8c3' minH='100vh'>
-      <VStack align="start" spacing={4} width='12vw' p={4} mt={4} ml={4} h='90vh' bg='#8fa39b' borderRadius='5px' boxShadow='lg' position='fixed'>
+    <Box bg="#f7f7f7" minH='100vh'>
+      {/* <VStack align="start" spacing={4}   th='12vw' p={4} mt={4} ml={4} h='90vh' bg='#8fa39b' borderRadius='5px' boxShadow='lg' position='fixed'>
         <Heading size="md">Drinkwise</Heading>
         <Link href='/admin/userid/dashboard'>dashboard</Link>
         <Text>Sales</Text>
@@ -74,8 +155,10 @@ const EditLocations = () => {
         <Link href='/admin/userid/edit/menu/order' ml={4}>edit order menu</Link>
         <Text>Locations</Text>
         <Link href='/admin/userid/edit/locations'>edit locations</Link>
-      </VStack>
-      <Container w='calc(100vw - 240px)' minH='100vh' py={10} maxW='6xl' centerContent>
+      </VStack> */}
+      <AdminSideNav />
+      <Container w='calc(100vw - 240px)' minH='100vh' py={10} maxW='7xl' ml="250px" centerContent>
+        <VStack w='100%' >
         <VStack spacing={4} alignItems='center' mb={6}>
           <Input
             placeholder='Search locations...'
@@ -88,7 +171,7 @@ const EditLocations = () => {
           <HStack spacing={4} w='70%'>
             <Text w='15%'>Sort by:</Text>
             <Select value={sortBy} onChange={e => setSortBy(e.target.value)} bg='white' boxShadow='md'>
-              <option value='name'>Name</option>
+              <option value='branchName'>Name</option>
               <option value='operatingHour'>Operating Hour</option>
             </Select>
           </HStack>
@@ -104,20 +187,33 @@ const EditLocations = () => {
           </Box>
           <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={10} mt={10}>
             {filteredLocations.map((location) => (
-              <Card key={location.id} w={['17rem', '18rem']}>
+              <Card key={location._id} w={['17rem', '18rem']}>
                 <CardBody>
-                  <Image src={location.image} alt={location.name} mb={4} objectFit='fill' borderRadius='md' />
-                  <Text fontSize='lg' fontWeight='bold' mb={2}>{location.name}</Text>
-                  <Text mb={2}>Operating Hours: {location.operatingHour}</Text>
-                  <Text mb={2}>Phone: {location.phoneNumber}</Text>
-                  <Text mb={2}>Address: {location.address}</Text>
-                  <Text mb={2}>Postal Code: {location.postalCode}</Text>
+                  <Image
+                    src={location.imagePath}
+                    alt={location.branchName}
+                    mb={4}
+                    objectFit='fill'
+                    borderRadius='md'
+                    width='600px'
+                    height='200px'
+                  />
+                  <Text fontSize='lg' fontWeight='bold' mb={2}>{location.branchName}</Text>
+                  <Text mb={2}>Operating Hours: {location.schedule}</Text>
+                  <Text mb={2}>Phone: {location.contactNumber}</Text>
+                  <Text mb={2}>
+                    Address:
+                    {location.branchLocation ?
+                      `${location.branchLocation.addressLine1}, ${location.branchLocation.city}` : 'N/A'}
+                  </Text>
+                  <Text mb={2}>Postal Code: {location.branchLocation ? location.branchLocation.postalCode : 'N/A'}</Text>
                   <HStack spacing={4} mt={4}>
                     <Button onClick={() => handleEditLocation(location)} leftIcon={<EditIcon />} colorScheme='blue'>Edit</Button>
-                    <Button onClick={() => handleDeleteLocation(location.id)} leftIcon={<DeleteIcon />} colorScheme='red'>Delete</Button>
+                    <Button onClick={() => handleDeleteLocation(location._id)} leftIcon={<DeleteIcon />} colorScheme='red'>Delete</Button>
                   </HStack>
                 </CardBody>
               </Card>
+
             ))}
           </SimpleGrid>
         </VStack>
@@ -129,68 +225,61 @@ const EditLocations = () => {
             <ModalBody>
               <Input
                 placeholder='Name'
-                name='name'
-                value={editingLocation?.name || ''}
+                name='branchName'
+                value={editingLocation?.branchName || ''}
                 onChange={handleChange}
-                bg='white'
                 mb={2}
-                boxShadow='sm'
               />
               <Input
                 placeholder='Operating Hour'
-                name='operatingHour'
-                value={editingLocation?.operatingHour || ''}
+                name='schedule'
+                value={editingLocation?.schedule || ''}
                 onChange={handleChange}
-                bg='white'
                 mb={2}
-                boxShadow='sm'
               />
               <Input
                 placeholder='Phone Number'
-                name='phoneNumber'
-                value={editingLocation?.phoneNumber || ''}
+                name='contactNumber'
+                value={editingLocation?.contactNumber || ''}
                 onChange={handleChange}
-                bg='white'
                 mb={2}
-                boxShadow='sm'
               />
               <Input
                 placeholder='Image URL'
-                name='image'
-                value={editingLocation?.image || ''}
+                name='imagePath'
+                value={editingLocation?.imagePath || ''}
                 onChange={handleChange}
-                bg='white'
                 mb={2}
-                boxShadow='sm'
               />
               <Input
                 placeholder='Postal Code'
-                name='postalCode'
-                value={editingLocation?.postalCode || ''}
+                name='branchLocation.postalCode'
+                value={editingLocation?.branchLocation?.postalCode || ''}
                 onChange={handleChange}
-                bg='white'
                 mb={2}
-                boxShadow='sm'
               />
               <Input
                 placeholder='Address'
-                name='address'
-                value={editingLocation?.address || ''}
+                name='branchLocation.addressLine1'
+                value={editingLocation?.branchLocation?.addressLine1 || ''}
                 onChange={handleChange}
-                bg='white'
                 mb={2}
-                boxShadow='sm'
               />
             </ModalBody>
             <ModalFooter>
-              <Button colorScheme='blue' leftIcon={<EditIcon />} onClick={handleUpdateLocation}>Update Location</Button>
-              <Button variant='ghost' ml={3} onClick={onClose}>Cancel</Button>
+              <Button onClick={handleUpdateLocation} colorScheme='blue'>Save</Button>
+              <Button onClick={onClose} ml={3}>Cancel</Button>
             </ModalFooter>
           </ModalContent>
         </Modal>
+        </VStack>
       </Container>
     </Box>
   );
 };
+
+
+//auth
+export const getServerSideProps = withRole(['admin'], '/admin/login');
 
 export default EditLocations;

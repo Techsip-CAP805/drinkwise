@@ -1,99 +1,95 @@
-import React, { useRef } from 'react';
-import Navbar from "../../components/Navbar";
-import Footer from "../../components/Footer";
-import SideNav from "../../components/SideNav";
+// employee login
+import React, { useState, useRef } from 'react';
+import { useToast, Box, Container, Flex, Input, Button, InputGroup, Stack, Link, FormControl, FormHelperText, InputRightElement, Heading } from '@chakra-ui/react';
+import Router from 'next/router';
+import { signIn } from 'next-auth/react';
 
-import {
-  Box,
-  Button,
-  Container,
-  Flex,
-  Input,
-  Heading,
-  VStack,
-  useToast,
-} from '@chakra-ui/react';
-
-const LoginPage = () => {
-  const emailRef = useRef();
-  const passwordRef = useRef();
+const EmpLogin = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
   const toast = useToast();
 
-  const handleLogin = (e) => {
-    e.preventDefault();
+  const handleShowClick = () => setShowPassword(!showPassword);
+
+  const handleLogin = async (event) => {
+    event.preventDefault();
 
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
 
-    if (email === 'test@example.com' && password === 'password') {
+    const result = await signIn('credentials', {
+      redirect: false,
+      email,
+      password,
+      userType: 'employee' //for employee login
+    });
+
+    if (result.error) {
       toast({
-        title: 'Login successful.',
-        description: "You have successfully logged in.",
-        status: 'success',
-        duration: 5000,
+        title: 'Login Failed',
+        description: result.error,
+        status: 'error',
+        duration: 3000,
         isClosable: true,
-      });
-    } else if (email === '') {
-      toast({
-        title: 'Login failed.',
-            description: "Email field is required.",
-            status: 'error',
-            duration: 5000,
-            isClosable: true,
-      });
-    } else if (password === '') {
-      toast({
-        title: 'Login failed.',
-            description: "Password field is required.",
-            status: 'error',
-            duration: 5000,
-            isClosable: true,
       });
     } else {
       toast({
-        title: 'Login failed.',
-        description: "Invalid email or password.",
-        status: 'error',
-        duration: 5000,
+        title: 'Login Successful',
+        // description: 'Welcome back!',
+        status: 'success',
+        duration: 3000,
         isClosable: true,
       });
+      Router.push('/employee/orders/incoming');
     }
   };
+
   return (
-    <Box bg="#bcc8c3">
-      <Navbar />
-      <SideNav />
-      <Container w="100vw" minH="100vh" maxW="7xl" py={10}>
-        <Flex direction="column" justify="center" align="center" w="100%" h="100%" mt={20}>
-          <VStack spacing={6} p={4} w="100%" align="center">
-            <Heading color="white">Employee Login</Heading>
-            <Box as="form" onSubmit={handleLogin} w={{ base: "90%", md: "80%", lg: "40%" }}>
-              <VStack spacing={4}>
-                <Input
-                  ref={emailRef}
-                  placeholder="Email"
-                  type="email"
-                  bg="white"
-                  color="black"
-                />
-                <Input
-                  ref={passwordRef}
-                  placeholder="Password"
-                  type="password"
-                  bg="white"
-                  color="black"
-                />
-                <Button type="submit" colorScheme="teal" w="full">
-                  Login
-                </Button>
-              </VStack>
+    <Box bg='#bcc8c3'>
+      <Container w='100vw' h='100vh' maxH='100vh' maxW='7xl'>
+        <Flex flexDirection="column" width="100wh" height="100vh" justifyContent="center" alignItems="center">
+          <Stack flexDir="column" mb="2" justifyContent="center" alignItems="center">
+            <Heading mb={4} size='lg'>Employee Login</Heading>
+            <Box minW={{ base: "90%", md: "468px" }}>
+              <form onSubmit={handleLogin}>
+                <Stack spacing={4} p="3rem" backgroundColor="#a0b2ab" boxShadow="md" borderRadius='2em'>
+                  <FormControl>
+                    <InputGroup>
+                      <Input ref={emailRef} type="email" placeholder="you@domain.com" backgroundColor="whiteAlpha.900" required />
+                    </InputGroup>
+                  </FormControl>
+                  <FormControl>
+                    <InputGroup>
+                      <Input
+                        ref={passwordRef}
+                        type={showPassword ? "text" : "password"}
+                        placeholder="password"
+                        backgroundColor="whiteAlpha.900"
+                        required
+                      />
+                      <InputRightElement width="4.5rem">
+                        <Button h="1.75rem" size="sm" onClick={handleShowClick}>{showPassword ? "Hide" : "Show"}</Button>
+                      </InputRightElement>
+                    </InputGroup>
+                    {/* <FormHelperText textAlign="right">
+                      <Link _hover={{ color: 'teal' }}>forgot password?</Link>
+                    </FormHelperText> */}
+                  </FormControl>
+                  <Button borderRadius={'2em'} type="submit" variant="solid" width="full" _hover={{ bg: 'teal' }}>
+                    Login
+                  </Button>
+                </Stack>
+              </form>
             </Box>
-          </VStack>
+          </Stack>
+          {/* <Box>
+            New to us? <Link href="/signUp" _hover={{ color: 'teal' }}> Sign Up </Link>
+          </Box> */}
         </Flex>
       </Container>
-      <Footer />
     </Box>
   );
 };
 
-export default LoginPage;
+export default EmpLogin;

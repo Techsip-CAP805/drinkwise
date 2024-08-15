@@ -77,7 +77,7 @@ const Navbar = () => {
           p={4}
         >
           <Link href='/menu' onClick={onClose} py={3}><Text as='b' fontSize='md'>Menu</Text></Link>
-          <Link href='/location' onClick={onClose} py={3}><Text as='b' fontSize='md'>Location</Text></Link>
+          <Link href='/locations' onClick={onClose} py={3}><Text as='b' fontSize='md'>Location</Text></Link>
           <Link href='/order' onClick={onClose} py={3}><Text as='b' fontSize='md'>Order Online</Text></Link>
           <Link href='/contact' onClick={onClose} py={3}><Text as='b' fontSize='md'>Contact Us</Text></Link>
         </VStack>

@@ -44,7 +44,7 @@ const Contact = () => {
 
     if (nameValid && phoneValid && emailValid && messageValid) {
       const formData = { name, phone, email, message };
-      console.log(formData);
+      // console.log(formData);
 
       nameRef.current.value = '';
       phoneRef.current.value = '';

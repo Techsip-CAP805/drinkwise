@@ -1,4 +1,5 @@
-import React, { useState, useContext } from 'react';
+// pages/locations.js
+import React, { useState, useEffect } from 'react';
 import {
   Box,
   Text,
@@ -7,26 +8,41 @@ import {
   Select,
   VStack,
   HStack,
-  IconButton,
   Divider,
   SimpleGrid,
   Card,
   CardBody
 } from '@chakra-ui/react';
-import { SearchIcon } from '@chakra-ui/icons';
 import Navbar from '@/components/Navbar';
-import { DrinkContext } from '../../../context/drinkContext';
 import Link from 'next/link';
 import Footer from '@/components/Footer';
+import { useDrinkContext } from '../../../context/drinkContext';
+// import { withRole } from '../../../lib/auth';
 
-const SearchLocation = () => {
-  const { locations } = useContext(DrinkContext);
+const SearchLocation = ({ session }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [sortBy, setSortBy] = useState('name');
+  const [locations, setLocations] = useState([]);
+  const {visitedLocationID, setVisitedLocationID} = useDrinkContext();
+
+  useEffect(() => {
+    const fetchLocations = async () => {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/locations`);
+      const data = await res.json();
+      setLocations(data);
+    };
+
+    fetchLocations();
+  }, []);
 
   const filteredLocations = locations
-    .filter(location => location.name.toLowerCase().includes(searchTerm.toLowerCase()))
-    .sort((a, b) => (a.name > b.name ? 1 : -1));
+    .filter(location => location.branchName.toLowerCase().includes(searchTerm.toLowerCase()))
+    .sort((a, b) => {
+      if (sortBy === 'name') {
+        return a.branchName.localeCompare(b.branchName);
+      }
+      return 0; // Replace with actual distance comparison if needed
+    });
 
   return (
     <Box bg='#bcc8c3'>
@@ -60,26 +76,29 @@ const SearchLocation = () => {
 
           <SimpleGrid columns={{ base: 1 }} spacing={5}>
             {filteredLocations.map((location, index) => (
-              <Link href={`/order/store/${location.id}`} key={index} passHref>
-                  <Card borderRadius="md" boxShadow="md">
-                    <CardBody>
-                      <HStack justify="space-between">
-                        <VStack align="start">
-                          <Text fontSize="lg" fontWeight="bold">{location.name}</Text>
-                          <Text>{location.address}</Text>
-                          <Text>{location.postalCode}</Text>
-                        </VStack>
-                      </HStack>
-                    </CardBody>
-                  </Card>
+              <Link href={`/order/store/${location._id}/catalogue`} key={index} passHref onClick={()=> setVisitedLocationID(location._id)}>
+                <Card borderRadius="md" boxShadow="md">
+                  <CardBody>
+                    <HStack justify="space-between">
+                      <VStack align="start">
+                        <Text fontSize="lg" fontWeight="bold">{location.branchName}</Text>
+                        <Text>{location.branchLocation.addressLine1}, {location.branchLocation.city}, {location.branchLocation.province}</Text>
+                        <Text>{location.branchLocation.postalCode}</Text>
+                      </VStack>
+                    </HStack>
+                  </CardBody>
+                </Card>
               </Link>
             ))}
           </SimpleGrid>
         </VStack>
       </Container>
-      <Footer/>
+      <Footer />
     </Box>
   );
 };
+
+// //auth
+// export const getServerSideProps = withRole(['customer'], '/login');
 
 export default SearchLocation;

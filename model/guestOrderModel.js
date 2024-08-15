@@ -1,5 +1,5 @@
-// models/guestOrderModel.js
 import mongoose from 'mongoose';
+
 
 const ingredientSchema = new mongoose.Schema({
   ingredientName: { type: String },
@@ -45,7 +45,10 @@ const orderSchema = new mongoose.Schema({
   timeChoice: { type: String },
   paymentMethod: { type: String },
   items: [drinkSchema],
+  orderStatus: { type: String },
 }, { collection: 'GUEST_ORDER' });
+
+
 
 const GuestOrder = mongoose.models.GUEST_ORDER || mongoose.model('GUEST_ORDER', orderSchema);
 

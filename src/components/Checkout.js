@@ -53,6 +53,7 @@ const Checkout = ({ isOpen, onClose }) => {
       timeChoice,
       paymentMethod,
       items: cart,
+      orderStatus: "pending",
     };
 
     console.log('Order Details:', orderDetails);

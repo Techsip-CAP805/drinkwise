@@ -126,12 +126,13 @@ const InProgressOrders = () => {
                                     {item.drinkName} - Quantity: {item.quantity}
                                   </Text>
                                 </Box>
-                                <HStack spacing={4} mt={6} justify="center">
-                                  <Button colorScheme="blue" textColor="white" size="sm" w="30%" onClick={() => handleStatusChange(order._id, 'completed')}>Complete</Button>
-                                </HStack>
                               </Box>
                             ))}
                           </Box>
+                          {/* Move the Complete button outside of the map function */}
+                          <HStack spacing={4} mt={6} justify="center">
+                            <Button colorScheme="blue" textColor="white" size="sm" w="30%" onClick={() => handleStatusChange(order._id, 'completed')}>Complete</Button>
+                          </HStack>
                         </Stack>
                       </CardBody>
                     </Card>

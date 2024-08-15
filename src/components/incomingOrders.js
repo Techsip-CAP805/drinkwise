@@ -21,7 +21,6 @@ const IncomingOrders = () => {
       if (res.ok) {
         const combinedOrders = [
           ...data.guestOrders.map(order => ({ ...order, orderType: 'guest' })),
-          // ...data.customerOrders.map(customer => customer.orders.map(order => ({ ...order, customerName: customer.customerName, orderType: 'customer' }))).flat()
         ];
 
         // Filter orders to only include those with a "pending" status
@@ -49,9 +48,7 @@ const IncomingOrders = () => {
   
       if (res.ok) {
         setOrders(prevOrders => 
-          prevOrders.map(order => 
-            order._id === orderId ? { ...order, orderStatus: newStatus } : order
-          )
+          prevOrders.filter(order => order._id !== orderId) // Remove the order from the list
         );
         toast({
           description: `Order ${newStatus === 'inProgress' ? 'accepted' : 'rejected'}`,
@@ -67,7 +64,6 @@ const IncomingOrders = () => {
       console.error('Error updating order status:', error);
     }
   };
-  
 
   if (isLoading) {
     return <Box>Loading...</Box>;
@@ -101,12 +97,6 @@ const IncomingOrders = () => {
                               <Text textAlign="center" color="white">Phone: {order.phone}</Text>
                             </>
                           )}
-                          {/* {order.orderType === 'customer' && (
-                            <>
-                              <Text textAlign="center" color="white">Customer Name: {order.customerName}</Text>
-                              <Text textAlign="center" color="white">Total Amount: ${(order.totalAmount).toFixed(2)}</Text>
-                            </>
-                          )} */}
                           <Box>
                             <Heading size="md" textAlign="center" color="white" mt={4}>
                               Orders
@@ -116,17 +106,18 @@ const IncomingOrders = () => {
                                 <Text color="white">Total Amount: ${(item.basePrice * item.quantity).toFixed(2)}</Text>
                                 <Box mt={3}>
                                   <Heading size="sm" color="white">Items:</Heading>
-                                  <Text key={index} color="white">
+                                  <Text color="white">
                                     {item.drinkName} - Quantity: {item.quantity}
                                   </Text>
                                 </Box>
-                                <HStack spacing={4} mt={6} justify="center">
-                                  <Button colorScheme="blue" textColor="white" size="sm" w="30%" onClick={() => handleStatusChange(order._id, 'inProgress', order.orderType)}>Accept</Button>
-                                  <Button colorScheme="blue" textColor="white" size="sm" w="30%" onClick={() => handleStatusChange(order._id, 'rejected', order.orderType)}>Reject</Button>
-                                </HStack>
                               </Box>
                             ))}
                           </Box>
+                          {/* Move the Accept/Reject buttons outside of the map function */}
+                          <HStack spacing={4} mt={6} justify="center">
+                            <Button colorScheme="blue" textColor="white" size="sm" w="30%" onClick={() => handleStatusChange(order._id, 'inProgress', order.orderType)}>Accept</Button>
+                            <Button colorScheme="blue" textColor="white" size="sm" w="30%" onClick={() => handleStatusChange(order._id, 'rejected', order.orderType)}>Reject</Button>
+                          </HStack>
                         </Stack>
                       </CardBody>
                     </Card>

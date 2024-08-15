@@ -15,9 +15,9 @@ import {
 import { Line } from 'react-chartjs-2';
 import Link from 'next/link';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
-import { useDrinkContext } from '../../../../context/drinkContext';
 import { withRole } from '../../../../lib/auth';
 import AdminSideNav from '@/components/AdminSideNav';
+import { useEffect, useState } from 'react';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
@@ -35,8 +35,17 @@ const data = {
 };
 
 export default function Dashboard() {
-  
-  const { locations } = useDrinkContext();
+  const [locations, setLocations] = useState([]);
+
+  useEffect(() => {
+    const fetchLocations = async () => {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/locations`);
+      const data = await res.json();
+      setLocations(data);
+    };
+
+    fetchLocations();
+  }, []);
 
   return (
     <Flex direction="row" minHeight="100vh" bg="#e2e8f0">
@@ -44,7 +53,7 @@ export default function Dashboard() {
         <AdminSideNav />
       </Box>
       <Box flex="1" p={6} ml="250px">
-      <Heading mb={6}>Dashboard</Heading>
+        <Heading mb={6}>Dashboard</Heading>
         <Grid templateColumns="repeat(3, 1fr)" gap={6}>
           <Stat p={4} bg="white" borderRadius="md" shadow="md">
             <StatLabel>Total Sales</StatLabel>
@@ -64,7 +73,7 @@ export default function Dashboard() {
             <Divider mb={4} />
             <VStack spacing={4} align="start">
               {locations.map((location) => (
-                <Text key={location.id}>{location.name}</Text>
+                <Text key={location._id}>{location.branchName}</Text>
               ))}
             </VStack>
           </Box>

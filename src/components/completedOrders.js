@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Text, Heading, VStack, Card, CardBody, Stack, Container, Flex, SimpleGrid, useColorModeValue, Button, HStack, useToast } from '@chakra-ui/react';
-import SideNav from "./SideNav";
+import { Box, Text, Heading, VStack, Container, Flex, Table, Thead, Tbody, Tr, Th, Td, useColorModeValue, useToast } from '@chakra-ui/react';
 
-const InProgressOrders = () => {
+const CompletedOrders = () => {
   const [orders, setOrders] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
-
-  const cardBgColor = useColorModeValue("#a0b2ab", "#283E38");
 
   useEffect(() => {
     fetchOrders();
@@ -19,15 +16,11 @@ const InProgressOrders = () => {
       const res = await fetch(`/api/guestOrderApi`);
       const data = await res.json();
       if (res.ok) {
-        // const combinedOrders = [
-        //   ...data.guestOrders.map(order => ({ ...order, orderType: 'guest' })),
-        //   ...data.customerOrders.map(customer => customer.orders.map(order => ({ ...order, customerName: customer.customerName, orderType: 'customer' }))).flat()
-        // ].filter(order => order.orderStatus === 'completed');
         const completedOrders = data.customerOrders
-                .map(customer => customer.orders
-                    .filter(order => order.orderStatus === 'completed')
-                    .map(order => ({ ...order, username: customer.username, emailAddress: customer.emailAddress })))
-                .flat();
+          .map(customer => customer.orders
+            .filter(order => order.orderStatus === 'completed')
+            .map(order => ({ ...order, username: customer.username, emailAddress: customer.emailAddress })))
+          .flat();
         setOrders(completedOrders);
       } else {
         console.error('Failed to fetch orders');
@@ -53,124 +46,46 @@ const InProgressOrders = () => {
     }
   };
 
-  const handleStatusChange = async (orderId, newStatus, orderType) => {
-   
-
-    try {
-      const res = await fetch(`/api/updateOrderStatus`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ orderId, newStatus, orderType }),
-      });
-
-      if (res.ok) {
-        setOrders(prevOrders => prevOrders.filter(order => order._id !== orderId));
-        toast({
-          description: `Order marked as ${newStatus}`,
-          status: 'success',
-          duration: 5000,
-          isClosable: true,
-          position: "bottom-right"
-        });
-      } else {
-        console.error('Failed to update order status');
-        toast({
-          description: 'Failed to update order status',
-          status: 'error',
-          duration: 5000,
-          isClosable: true,
-          position: "bottom-right"
-        });
-        // Revert state change if update fails
-        setOrders(prevOrders => 
-          prevOrders.map(order => 
-            order._id === orderId ? { ...order, orderStatus: 'inProgress' } : order
-          )
-        );
-      }
-    } catch (error) {
-      console.error('Error updating order status:', error);
-      toast({
-        description: 'Error updating order status',
-        status: 'error',
-        duration: 5000,
-        isClosable: true,
-        position: "bottom-right"
-      });
-      // Revert state change if there's an error
-      setOrders(prevOrders => 
-        prevOrders.map(order => 
-          order._id === orderId ? { ...order, orderStatus: 'inProgress' } : order
-        )
-      );
-    }
-  };
-
   if (isLoading) {
     return <Box>Loading...</Box>;
   }
 
   return (
-    <Box bg="#bcc8c3">
+    <Box bg="#f0f0f0" maxW="100vw" minH="100vh" mb="200px">
       <Box ml="250px">
-        <Container w="100vw" minH="100vh" maxW="50vw" py={10}>
-          <Flex direction="column" justify="center" align="center" w="100%" h="100%" mt={20}>
+        <Container w="100%" maxW="100vw" maxH="100vh" py={10}>
+          <Flex direction="column" w="100%" h="100%" mt={20}>
             <VStack spacing={6} p={4} w="100%" align="center">
-              <Heading color="white">Completed Orders</Heading>
+              <Heading color="gray.700" mb="40px">Completed Orders</Heading>
               {orders.length > 0 ? (
-                <SimpleGrid columns={{ base: 1, md: 1 }} spacing={6} w="100%">
-                  {orders.map((order) => (
-                    <Card
-                      key={order._id}
-                      borderRadius="lg"
-                      overflow="hidden"
-                      boxShadow="md"
-                      bg={cardBgColor}
-                      align={"center"}
-                     
-                    >
-                      <CardBody p={4}>
-                        <Stack spacing={3}>
-                          {order.orderType === 'guest' && (
-                            <>
-                              <Text textAlign="center" color="white">Name: {order.contact} Email: {order.email}</Text>
-                              {/* <Text textAlign="center" color="white">Email: {order.email}</Text>
-                              <Text textAlign="center" color="white">Phone: {order.phone}</Text> */}
-                            </>
-                          )}
-                          {order.orderType === 'customer' && (
-                            <>
-                              <Text textAlign="center" color="white">Customer Name: {order.customerName}</Text>
-                              <Text textAlign="center" color="white">Total Amount: ${(order.totalAmount).toFixed(2)}</Text>
-                            </>
-                          )}
-                          <Box>
-                            <Heading size="md" textAlign="center" color="white" mt={4}>
-                              Order Items
-                            </Heading>
+                <Box w="100%" overflowX="auto">
+                  <Table variant="simple" size="lg" width="100%" border="1px" borderColor="gray.400">
+                    <Thead>
+                      <Tr>
+                        <Th color="gray.700" width="20%" borderBottom="2px" borderRight="1px" borderColor="gray.400">Customer Name</Th>
+                        <Th color="gray.700" width="30%" borderBottom="2px" borderRight="1px" borderColor="gray.400">Email</Th>
+                        <Th color="gray.700" width="50%" borderBottom="2px" borderRight="1px" borderColor="gray.400">Items</Th>
+                      </Tr>
+                    </Thead>
+                    <Tbody>
+                      {orders.map((order) => (
+                        <Tr key={order._id} borderBottom="1px" borderColor="gray.200">
+                          <Td color="gray.700" width="20%" borderRight="1px" borderColor="gray.400">{order.username ? order.username : order.emailAddress}</Td>
+                          <Td color="gray.700" width="30%" borderRight="1px" borderColor="gray.400">{order.emailAddress || order.email}</Td>
+                          <Td color="gray.700" width="50%" borderRight="1px" borderColor="gray.400">
                             {order.items.map((item, index) => (
-                              <Box key={index} p={4} justify = "center" align="center" borderRadius="md" mt={4}>
-                                <Text color="white">Total Amount: ${(item.basePrice * item.quantity).toFixed(2)}</Text>
-                                <Box mt={3}>
-                                  <Heading size="sm" color="white">Item:</Heading>
-                                  <Text color="white">
-                                    {item.drinkName} - Quantity: {item.quantity}
-                                  </Text>
-                                </Box>
-                                <HStack spacing={4} mt={6} justify="center">
-                                </HStack>
-                              </Box>
+                              <Text key={index} color="gray.700">
+                                {item.quantity}x {item.drinkName} - ${((item.basePrice + item.toppingsTotal) * item.quantity).toFixed(2)}
+                              </Text>
                             ))}
-                          </Box>
-                        </Stack>
-                      </CardBody>
-                    </Card>
-                  ))}
-                </SimpleGrid>
+                          </Td>
+                        </Tr>
+                      ))}
+                    </Tbody>
+                  </Table>
+                </Box>
               ) : (
-                <Text textAlign="center" color="white">No in-progress orders found</Text>
+                <Text textAlign="center" color="gray.700">No completed orders found</Text>
               )}
             </VStack>
           </Flex>
@@ -180,4 +95,4 @@ const InProgressOrders = () => {
   );
 };
 
-export default InProgressOrders;
+export default CompletedOrders;

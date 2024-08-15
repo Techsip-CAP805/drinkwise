@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     Modal,
     ModalOverlay,
@@ -23,9 +23,30 @@ import {
     Textarea
 } from '@chakra-ui/react';
 
-//component used for Registration modal
+// Function to check if an image exists
+const imageExists = async (url) => {
+    try {
+        const response = await fetch(url, { method: 'HEAD' });
+        return response.ok;
+    } catch {
+        return false;
+    }
+};
+
 const EditMenuModal = (props) => {
     const { drink, isOpen, onClose, setDrinkImage } = props;
+    const [imageSrc, setImageSrc] = useState('/boba.jpeg'); // Default fallback image
+
+    useEffect(() => {
+        const fetchImage = async () => {
+            if (drink?.imagePath) {
+                const exists = await imageExists(drink.imagePath);
+                setImageSrc(exists ? drink.imagePath : '/boba.jpeg');
+            }
+        };
+
+        fetchImage();
+    }, [drink]);
 
     return (
         <Modal isOpen={isOpen} onClose={onClose}>
@@ -33,8 +54,7 @@ const EditMenuModal = (props) => {
             <ModalContent color="#372F2F" backgroundColor="#BCC8C3" maxWidth="550px">
                 <ModalHeader>
                     <VStack>
-                        {/* added drink?. */}
-                        <Image src={drink?.imagePath} w={300} ratio={1} mt="50px" />
+                        <Image src={imageSrc} w={300} ratio={1} mt="50px" />
                         <Input
                             width="300px"
                             type="file"
@@ -63,7 +83,6 @@ const EditMenuModal = (props) => {
                             <FormLabel color="#372F2F">Name</FormLabel>
                             <Spacer />
                             <Input
-                            //  {/* added drink?. */}
                                 defaultValue={drink?.drinkName}
                                 backgroundColor="#F3F1E8"
                                 borderColor="#7B7875"
@@ -80,7 +99,6 @@ const EditMenuModal = (props) => {
                             <FormLabel color="#372F2F">Description</FormLabel>
                             <Spacer />
                             <Input
-                            // {/* added drink?. */}
                                 defaultValue={drink?.description} 
                                 backgroundColor="#F3F1E8"
                                 borderColor="#7B7875"
@@ -96,21 +114,6 @@ const EditMenuModal = (props) => {
                         <Flex align="center">
                             <FormLabel color="#372F2F">Category</FormLabel>
                             <Spacer />
-                            {/* <Select
-                                defaultValue={drink?.category}
-                                backgroundColor="#F3F1E8"
-                                borderColor="#7B7875"
-                                width="320px"
-                                _hover={{ borderColor: "#A0B2AB" }}
-                                _focus={{ borderColor: "#A0B2AB" }}
-                            >
-                                <option value="Fruit Tea">Fruit Tea</option>
-                                <option value="Milk Tea">Milk Tea</option>
-                                <option value="Slush">Slush</option>
-                                <option value="Specialty Drinks">Specialty Drinks</option>
-                                <option value="Smoothie">Smoothie</option>
-                                <option value="Other">Other</option>
-                            </Select> */}
                             <Input
                                 defaultValue={drink?.category}
                                 backgroundColor="#F3F1E8"
@@ -119,8 +122,7 @@ const EditMenuModal = (props) => {
                                 _hover={{ borderColor: "#A0B2AB" }}
                                 _focus={{ borderColor: "#A0B2AB" }}
                                 isReadOnly
-                            >
-                            </Input>
+                            />
                         </Flex>
                     </FormControl>
 
@@ -129,7 +131,6 @@ const EditMenuModal = (props) => {
                             <FormLabel color="#372F2F">Ingredients</FormLabel>
                             <Spacer />
                             <Textarea
-                            //  {/* added drink?. */}
                                 defaultValue={drink?.ingredients?.map(ingredient => ingredient.ingredientName).join('\n')}
                                 backgroundColor="#F3F1E8"
                                 borderColor="#7B7875"
@@ -148,7 +149,6 @@ const EditMenuModal = (props) => {
                             <Spacer />
                             <Box pr="5px">$</Box>
                             <Input
-                            //  {/* added drink?. */}
                                 defaultValue={drink?.basePrice}
                                 backgroundColor="#F3F1E8"
                                 borderColor="#7B7875"
@@ -164,7 +164,6 @@ const EditMenuModal = (props) => {
                         <Flex align="center">
                             <FormLabel color="#372F2F">Size Options</FormLabel>
                             <Spacer />
-                             {/* added drink?. */}
                             <CheckboxGroup defaultValue={drink?.sizeOptions} width="320px">
                                 <HStack spacing={4}>
                                     <Checkbox value="M" colorScheme="teal">M</Checkbox>
@@ -178,7 +177,6 @@ const EditMenuModal = (props) => {
                         <Flex align="center">
                             <FormLabel color="#372F2F">Ice Level Options</FormLabel>
                             <Spacer />
-                             {/* added drink?. */}
                             <CheckboxGroup defaultValue={drink?.iceLevelOptions}>
                                 <Flex width="320px" justifyContent="flex-end">
                                     <VStack align="flex-end" spacing={4}>
@@ -199,7 +197,6 @@ const EditMenuModal = (props) => {
                         <Flex align="center">
                             <FormLabel color="#372F2F">Sugar Level Options</FormLabel>
                             <Spacer />
-                             {/* added drink?. */}
                             <CheckboxGroup defaultValue={drink?.sugarLevelOptions}>
                                 <Flex width="320px" justifyContent="flex-end">
                                     <VStack align="flex-end" spacing={4}>
@@ -215,7 +212,6 @@ const EditMenuModal = (props) => {
                             </CheckboxGroup>
                         </Flex>
                     </FormControl>
-
                 </ModalBody>
                 <HStack>
                     <Spacer />

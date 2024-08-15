@@ -44,7 +44,7 @@ const imageExists = async (url) => {
 };
 
 const EditMenu = () => {
-  const cardBgColor = useColorModeValue("#a0b2ab", "#283E38");
+  const cardBgColor = useColorModeValue("#f7f7f7", "#1a1a1a"); // Light and dark mode colors
   const cardHoverBgColor = useColorModeValue("#8f9f9a", "#1F2D2B");
 
   const [drinks, setDrinks] = useState([]);
@@ -138,7 +138,7 @@ const EditMenu = () => {
   };
 
   return (
-    <Box bg="#bcc8c3">
+    <Box bg="#f0f0f0">
       <SideNav />
       <Box ml="250px">
         <Container w="100vw" minH="100vh" maxW="7xl" py={10}>
@@ -152,7 +152,7 @@ const EditMenu = () => {
           >
             {Object.keys(groupedDrinks).map((category) => (
               <Box key={category} w="100%">
-                <Heading size="lg" color="white" textAlign="left" mb={4}>
+                <Heading size="lg" color="gray.700" textAlign="left" mb={4}>
                   {category}
                 </Heading>
                 <Grid
@@ -202,13 +202,13 @@ const EditMenu = () => {
                               <Heading
                                 size="md"
                                 textAlign="center"
-                                color="white"
+                                color="gray.700"
                                 mb="10px"
                               >
                                 {drink.drinkName}
                               </Heading>
                               <Text
-                                color="white"
+                                color="gray.700"
                                 fontSize="sm"
                                 textAlign="left"
                               >

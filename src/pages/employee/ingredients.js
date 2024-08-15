@@ -41,7 +41,7 @@ const imageExists = async (url) => {
 };
 
 const EditMenu = () => {
-  const cardBgColor = useColorModeValue("#a0b2ab", "#283E38");
+  const cardBgColor = useColorModeValue("#f7f7f7", "#1a1a1a");
   const cardHoverBgColor = useColorModeValue("#8f9f9a", "#1F2D2B");
 
   const [ingredients, setIngredients] = useState([]);
@@ -146,13 +146,13 @@ const EditMenu = () => {
   }
 
   return (
-    <Box bg="#bcc8c3">
+    <Box bg="#f0f0f0">
       <SideNav />
       <Box ml="250px">
         <Container w='100vw' minH='100vh' maxW='7xl' py={10}>
           <Flex direction="column" justify="center" align="center" w="100%" h='100%' mt={20}>
-            <InputGroup mb={6} w="50%">
-              <InputLeftElement pointerEvents="none">
+            <InputGroup mb={6} w="50%" borderColor="gray.700">
+              <InputLeftElement pointerEvents="none" >
                 <SearchIcon color="gray.300" />
               </InputLeftElement>
               <Input
@@ -162,7 +162,7 @@ const EditMenu = () => {
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </InputGroup>
-            <Select mb={6} w="50%" value={filter} onChange={(e) => setFilter(e.target.value)}>
+            <Select mb={6} w="50%" value={filter} onChange={(e) => setFilter(e.target.value)} borderColor="gray.700">
               <option value="All">All</option>
               <option value="In Stock">In Stock</option>
               <option value="Unavailable">Unavailable</option>
@@ -191,10 +191,10 @@ const EditMenu = () => {
                       <CardBody p={4}>
                         <Stack spacing={3} height="100%">
                           <Box h="50px">
-                            <Heading size="md" textAlign="center" color="white" mb="10px">
+                            <Heading size="md" textAlign="center" color="gray.700" mb="10px">
                               {ingredient.ingredientName}
                             </Heading>
-                            <Text color="white" fontSize="sm" textAlign="left">
+                            <Text color="gray.700" fontSize="sm" textAlign="left">
                               {ingredient.description}
                             </Text>
                           </Box>

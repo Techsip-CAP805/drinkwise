@@ -21,7 +21,7 @@ const EmployeeSideNav = ({ setCurrentView }) => {
   return (
     <Box
       position="fixed"
-      bg="#A0B2AB"
+      bg="#e1e1e1"
       width="250px"
       height="100vh"
       p={5}

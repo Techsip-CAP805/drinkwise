@@ -31,7 +31,7 @@ const Orders = () => {
     };
 
     return (
-        <Box bg="#bcc8c3">
+        <Box bg="#f0f0f0" overflowX="auto">
             <Flex>
                 <SideNav setCurrentView={setCurrentView} />
                 <Box flex="1" py={5} px={{ base: 4, md: 12 }}>

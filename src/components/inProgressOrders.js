@@ -96,7 +96,7 @@ const InProgressOrders = () => {
   }
 
   return (
-    <Box bg="#bcc8c3">
+    <Box bg="#f0f0f0">
       <Box ml="250px">
         <Container w="100vw" minH="100vh" maxW="70vw" py={10}>
           <Flex direction="column" justify="center" align="center" w="100%" h="100%" mt={20}>
@@ -148,7 +148,7 @@ const InProgressOrders = () => {
                   ))}
                 </SimpleGrid>
               ) : (
-                <Text textAlign="center" color="white">No in-progress orders found</Text>
+                <Text textAlign="center" color="gray.700">No In Progress Orders Found</Text>
               )}
             </VStack>
           </Flex>

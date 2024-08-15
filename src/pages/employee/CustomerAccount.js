@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Text, Heading, VStack, Card, CardBody, Stack, Container, Flex, SimpleGrid, useColorModeValue, Button, HStack, useToast } from '@chakra-ui/react';
-import SideNav from "./SideNav";
+import SideNav from '@/components/SideNav';
 
 const GuestOrders = () => {
   const [orders, setOrders] = useState([]);

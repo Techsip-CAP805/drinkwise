@@ -6,14 +6,14 @@ import { useRouter } from 'next/router';
 import { CloseIcon } from '@chakra-ui/icons';
 
 const OrderSummary = () => {
-  const { cart, setCart } = useDrinkContext();
+  const { cart, dispatch } = useDrinkContext();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const router = useRouter();
   const [total, setTotal] = useState(0);
 
   useEffect(() => {
     const calculateTotal = () => {
-      const totalAmount = cart.reduce((acc, item) => acc + item.basePrice * item.quantity, 0);
+      const totalAmount = cart.reduce((acc, item) => acc + (item.basePrice + item.toppingsTotal) * item.quantity, 0);
       setTotal(totalAmount);
     };
 
@@ -21,15 +21,15 @@ const OrderSummary = () => {
   }, [cart]);
 
   const handleDelete = (index) => {
-    const updatedCart = cart.filter((_, i) => i !== index);
-    setCart(updatedCart);
+    dispatch({ type: 'REMOVE_FROM_CART', index });
   };
 
   const handleQuantityChange = (index, quantity) => {
-    const updatedCart = cart.map((item, i) =>
-      i === index ? { ...item, quantity: Math.max(1, parseInt(quantity)) || 1 } : item
-    );
-    setCart(updatedCart);
+    dispatch({
+      type: 'UPDATE_CART_ITEM',
+      index,
+      payload: { quantity: Math.max(1, parseInt(quantity)) || 1 }
+    });
   };
 
   return (
@@ -65,7 +65,7 @@ const OrderSummary = () => {
                     />
                   </HStack>
                   <Text>Price: ${item.basePrice.toFixed(2)} each</Text>
-                  <Text>Total: ${(item.basePrice * item.quantity).toFixed(2)}</Text>
+                  <Text>Total: ${((item.basePrice + item.toppingsTotal) * item.quantity).toFixed(2)}</Text>
                   <Text>Sugar Level: {item.selectedSugar}%</Text>
                   <Text>Ice Level: {item.selectedIce}%</Text>
                   <Text>Toppings: {item.selectedToppings.join(', ')}</Text>

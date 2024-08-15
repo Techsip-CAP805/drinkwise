@@ -4,6 +4,7 @@ import {
   Box,
   Text,
   Container,
+  handleAddToCart,
   Flex,
   Input,
   SimpleGrid,
@@ -11,8 +12,6 @@ import {
   CardBody,
   Image,
   VStack,
-  Divider,
-  Heading,
   Button,
   Tabs,
   TabList,
@@ -28,17 +27,26 @@ import { MdOutlineShoppingCart } from 'react-icons/md';
 const LocationDetails = ({ locations, drinks }) => {
   const router = useRouter();
   const { storeID } = router.query;
-  const { total } = useDrinkContext();
+  const { cart, dispatch } = useDrinkContext();
   const [location, setLocation] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
-  const [cartCount, setCartCount] = useState(0);
+  const [total, setTotal] = useState(0);
 
   useEffect(() => {
     if (storeID && locations.length) {
       const foundLocation = locations.find((location) => location._id === storeID);
       setLocation(foundLocation);
     }
-  }, [storeID, locations, total]);
+  }, [storeID, locations]);
+
+  useEffect(() => {
+    const calculateTotal = () => {
+      const totalAmount = cart.reduce((acc, item) => (acc + (item.basePrice + item.toppingsTotal) * item.quantity), 0);
+      setTotal(totalAmount);
+    };
+
+    calculateTotal();
+  }, [cart]);
 
   if (!location) {
     return <Text>Loading...</Text>;
@@ -49,10 +57,6 @@ const LocationDetails = ({ locations, drinks }) => {
   );
 
   const categories = Array.from(new Set(filteredDrinks.map((drink) => drink.category)));
-
-  const handleAddToCart = () => {
-    setCartCount(cartCount + 1);
-  };
 
   return (
     <Box bg='#bcc8c3' minH='100vh'>

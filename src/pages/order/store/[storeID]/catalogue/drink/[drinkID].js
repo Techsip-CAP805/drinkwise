@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { Box, Text, Image, Button, VStack, HStack, IconButton, Radio, RadioGroup, Stack, Checkbox, CheckboxGroup, Divider, Flex } from '@chakra-ui/react';
 import { CloseIcon, AddIcon, MinusIcon } from '@chakra-ui/icons';
@@ -7,16 +7,14 @@ import { useDrinkContext } from '../../../../../../../context/drinkContext';
 const DrinkDetails = ({ drinks }) => {
   const router = useRouter();
   const { storeID, drinkID } = router.query;
-  const { setCart, toppings, cart, total, setTotal } = useDrinkContext();
+  const { dispatch, toppings, total, setTotal } = useDrinkContext();
   const [quantity, setQuantity] = useState(1);
   const [selectedSugar, setSelectedSugar] = useState('');
   const [selectedIce, setSelectedIce] = useState('');
   const [selectedToppings, setSelectedToppings] = useState([]);
 
-
   const drink = drinks.find(d => d.drinkID == drinkID);
 
-  // console.log(drink);
   if (!drink) {
     return <Text>Loading...</Text>;
   }
@@ -24,7 +22,13 @@ const DrinkDetails = ({ drinks }) => {
   const handleAddToCart = () => {
     const toppingsTotal = selectedToppings.reduce((total, topping) => total + parseFloat(topping.split(':')[1]), 0);
     const toppingsList = selectedToppings.map(topping => topping.split(':')[0]);
-    setCart(prevItems => [...prevItems, { ...drink, quantity, selectedSugar, selectedIce, selectedToppings: toppingsList, toppingsTotal }]);
+
+    // Dispatch action to add item to cart
+    dispatch({
+      type: 'ADD_TO_CART',
+      payload: { ...drink, quantity, selectedSugar, selectedIce, selectedToppings: toppingsList, toppingsTotal }
+    });
+
     setTotal(prevTotal => prevTotal + (drink.basePrice + toppingsTotal) * quantity);
     router.back();
   };
@@ -120,6 +124,5 @@ export async function getServerSideProps(context) {
     props: { drinks },
   };
 }
-
 
 export default DrinkDetails;

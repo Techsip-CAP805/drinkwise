@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import OrderSideNav from '@/components/OrderSideNav';
 import { useRouter } from 'next/router';
+import { useSession } from 'next-auth/react';
 
 const CustomerDashboard = () => {
   const router = useRouter();
+  const { data: session } = useSession();
 
   const renderContent = () => {
     const { section } = router.query;

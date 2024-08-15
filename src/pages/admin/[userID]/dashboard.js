@@ -28,7 +28,7 @@ const data = {
       label: 'Revenue',
       data: [300, 400, 200, 300, 500, 700],
       fill: false,
-      borderColor: 'rgba(75,192,192,1)',
+      borderColor: '#4A90E2', // Softer blue for the line
       tension: 0.1,
     },
   ],
@@ -48,38 +48,38 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <Flex direction="row" minHeight="100vh" bg="#e2e8f0">
-      <Box width="250px" position="fixed" height="100vh">
+    <Flex direction="row" minHeight="100vh" bg="#f7f7f7">  {/* Lighter background */}
+      <Box width="250px" position="fixed" height="100vh" bg="#ffffff"> {/* White background for the navbar */}
         <AdminSideNav />
       </Box>
       <Box flex="1" p={6} ml="250px">
-        <Heading mb={6}>Dashboard</Heading>
+        <Heading mb={6} size="lg" color="#2D3748">Dashboard</Heading>
         <Grid templateColumns="repeat(3, 1fr)" gap={6}>
-          <Stat p={4} bg="white" borderRadius="md" shadow="md">
-            <StatLabel>Total Sales</StatLabel>
-            <StatNumber>$1,250,000</StatNumber>
+          <Stat p={4} bg="white" borderRadius="md" shadow="sm"> {/* Smaller shadow for subtleness */}
+            <StatLabel fontSize="md" color="#4A5568">Total Sales</StatLabel>
+            <StatNumber fontSize="2xl" color="#2D3748">$1,250,000</StatNumber>
             <StatHelpText>
               <StatArrow type="increase" />
               27.7%
             </StatHelpText>
           </Stat>
-          <Stat p={4} bg="white" borderRadius="md" shadow="md">
-            <StatLabel>Total Orders</StatLabel>
-            <StatNumber>1,267</StatNumber>
+          <Stat p={4} bg="white" borderRadius="md" shadow="sm">
+            <StatLabel fontSize="md" color="#4A5568">Total Orders</StatLabel>
+            <StatNumber fontSize="2xl" color="#2D3748">1,267</StatNumber>
             <StatHelpText>This Month</StatHelpText>
           </Stat>
-          <Box p={4} bg="white" borderRadius="md" shadow="md">
-            <Heading size="md" mb={4}>Location Earnings</Heading>
+          <Box p={4} bg="white" borderRadius="md" shadow="sm">
+            <Heading size="md" mb={4} color="#2D3748">Location Earnings</Heading>
             <Divider mb={4} />
             <VStack spacing={4} align="start">
               {locations.map((location) => (
-                <Text key={location._id}>{location.branchName}</Text>
+                <Text key={location._id} color="#2D3748">{location.branchName}</Text>
               ))}
             </VStack>
           </Box>
         </Grid>
-        <Box p={4} bg="white" borderRadius="md" shadow="md" mt={6}>
-          <Heading size="md" mb={4}>
+        <Box p={4} bg="white" borderRadius="md" shadow="sm" mt={6}>
+          <Heading size="md" mb={4} color="#2D3748">
             Revenue Trend
           </Heading>
           <Line data={data} />

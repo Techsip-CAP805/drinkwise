@@ -50,7 +50,7 @@ const EmpLogin = () => {
       <Container w='100vw' h='100vh' maxH='100vh' maxW='7xl'>
         <Flex flexDirection="column" width="100wh" height="100vh" justifyContent="center" alignItems="center">
           <Stack flexDir="column" mb="2" justifyContent="center" alignItems="center">
-            <Heading>Employee Login</Heading>
+            <Heading mb={4} size='lg'>Employee Login</Heading>
             <Box minW={{ base: "90%", md: "468px" }}>
               <form onSubmit={handleLogin}>
                 <Stack spacing={4} p="3rem" backgroundColor="#a0b2ab" boxShadow="md" borderRadius='2em'>

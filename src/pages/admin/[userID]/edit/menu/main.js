@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Box, VStack, Heading, Link, Input, Button, Image, HStack, SimpleGrid, Text, Container, Card, CardBody, Flex } from '@chakra-ui/react';
+import { Box, VStack, Input, Button, Image, HStack, SimpleGrid, Text, Container, Card, CardBody, Flex } from '@chakra-ui/react';
 import { AddIcon, EditIcon, DeleteIcon } from '@chakra-ui/icons';
 import AdminSideNav from '@/components/AdminSideNav.js';
 import { withRole } from '../../../../../../lib/auth';
@@ -102,96 +102,104 @@ const MainMenu = () => {
   );
 
   return (
-    <Box bg='#e2e8f0' minH='100vh' p={0}>
+    <Box bg="#f7f7f7" minH='100vh' p={0}>
       <Flex direction='row' spacing={0} alignItems='start'>
         <AdminSideNav />
         <Container w='calc(100vw - 260px)' minH='100vh' py={10} maxW='7xl' ml="250px">
           <VStack>
-          <VStack spacing={4} alignItems='center' mb={6}>
-            <Input
-              placeholder='Search drinks...'
-              value={searchTerm}
-              onChange={e => setSearchTerm(e.target.value)}
-              bg='white'
-              w='70%'
-              boxShadow='md'
-            />
-            <Box w='70%' bg='white' p={6} borderRadius='md' boxShadow='lg'>
-              <Text fontSize='lg' fontWeight='bold' mb={4}>Add New Drink</Text>
-              <Input placeholder='Drink Name' ref={drinkNameRef} bg='white' mb={2} boxShadow='sm' />
-              <Input placeholder='Description' ref={descriptionRef} bg='white' mb={2} boxShadow='sm' />
-              <Input placeholder='Category' ref={categoryRef} bg='white' mb={2} boxShadow='sm' />
-              <Input placeholder='Base Price' ref={basePriceRef} bg='white' mb={2} boxShadow='sm' type='number' step='0.01' />
-              <Input placeholder='Image Path' ref={imagePathRef} bg='white' mb={2} boxShadow='sm' />
-              <Button onClick={handleAddDrink} leftIcon={<AddIcon />} colorScheme='teal' mt={4}>Add Drink</Button>
-            </Box>
-            {editingDrink && (
+            <VStack spacing={4} alignItems='center' mb={6}>
+              <Input
+                placeholder='Search drinks...'
+                value={searchTerm}
+                onChange={e => setSearchTerm(e.target.value)}
+                bg='white'
+                w='70%'
+                boxShadow='md'
+              />
               <Box w='70%' bg='white' p={6} borderRadius='md' boxShadow='lg'>
-                <Text fontSize='lg' fontWeight='bold' mb={4}>Edit Drink</Text>
-                <Input
-                  placeholder='Drink Name'
-                  value={editingDrink.drinkName}
-                  onChange={e => setEditingDrink({ ...editingDrink, drinkName: e.target.value })}
-                  bg='white'
-                  mb={2}
-                  boxShadow='sm'
-                />
-                <Input
-                  placeholder='Description'
-                  value={editingDrink.description}
-                  onChange={e => setEditingDrink({ ...editingDrink, description: e.target.value })}
-                  bg='white'
-                  mb={2}
-                  boxShadow='sm'
-                />
-                <Input
-                  placeholder='Category'
-                  value={editingDrink.category}
-                  onChange={e => setEditingDrink({ ...editingDrink, category: e.target.value })}
-                  bg='white'
-                  mb={2}
-                  boxShadow='sm'
-                />
-                <Input
-                  placeholder='Base Price'
-                  value={editingDrink.basePrice}
-                  onChange={e => setEditingDrink({ ...editingDrink, basePrice: e.target.value })}
-                  bg='white'
-                  mb={2}
-                  boxShadow='sm'
-                  type='number'
-                  step='0.01'
-                />
-                <Input
-                  placeholder='Image Path'
-                  value={editingDrink.imagePath}
-                  onChange={e => setEditingDrink({ ...editingDrink, imagePath: e.target.value })}
-                  bg='white'
-                  mb={2}
-                  boxShadow='sm'
-                />
-                <Button onClick={handleUpdateDrink} leftIcon={<EditIcon />} colorScheme='blue' mt={4}>Update Drink</Button>
+                <Text fontSize='lg' fontWeight='bold' mb={4}>Add New Drink</Text>
+                <Input placeholder='Drink Name' ref={drinkNameRef} bg='white' mb={2} boxShadow='sm' />
+                <Input placeholder='Description' ref={descriptionRef} bg='white' mb={2} boxShadow='sm' />
+                <Input placeholder='Category' ref={categoryRef} bg='white' mb={2} boxShadow='sm' />
+                <Input placeholder='Base Price' ref={basePriceRef} bg='white' mb={2} boxShadow='sm' type='number' step='0.01' />
+                <Input placeholder='Image Path' ref={imagePathRef} bg='white' mb={2} boxShadow='sm' />
+                <Button onClick={handleAddDrink} leftIcon={<AddIcon />} colorScheme='teal' mt={4}>Add Drink</Button>
               </Box>
-            )}
-          </VStack>
-          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={16} mt={10} w='85%'>
-            {filteredDrinks.map((drink) => (
-              <Card key={drink._id} boxShadow='md'>
-                <CardBody>
-                  <Image src={drink.imagePath} alt={drink.drinkName} boxSize='150px' objectFit='cover' mb={4} />
-                  <Text fontSize='lg' fontWeight='bold' mb={2}>{drink.drinkName}</Text>
-                  <Text>ID: {drink.drinkID}</Text>
-                  <Text>{drink.description}</Text>
-                  <Text>Category: {drink.category}</Text>
-                  <Text>Base Price: ${drink.basePrice ? drink.basePrice.toFixed(2) : 0.0}</Text>
-                  <HStack spacing={4} mt={4}>
-                    <Button onClick={() => handleEditDrink(drink)} leftIcon={<EditIcon />} colorScheme='blue'>Edit</Button>
-                    <Button onClick={() => handleDeleteDrink(drink._id)} leftIcon={<DeleteIcon />} colorScheme='red'>Delete</Button>
-                  </HStack>
-                </CardBody>
-              </Card>
-            ))}
-          </SimpleGrid>
+              {editingDrink && (
+                <Box w='70%' bg='white' p={6} borderRadius='md' boxShadow='lg'>
+                  <Text fontSize='lg' fontWeight='bold' mb={4}>Edit Drink</Text>
+                  <Input
+                    placeholder='Drink Name'
+                    value={editingDrink.drinkName}
+                    onChange={e => setEditingDrink({ ...editingDrink, drinkName: e.target.value })}
+                    bg='white'
+                    mb={2}
+                    boxShadow='sm'
+                  />
+                  <Input
+                    placeholder='Description'
+                    value={editingDrink.description}
+                    onChange={e => setEditingDrink({ ...editingDrink, description: e.target.value })}
+                    bg='white'
+                    mb={2}
+                    boxShadow='sm'
+                  />
+                  <Input
+                    placeholder='Category'
+                    value={editingDrink.category}
+                    onChange={e => setEditingDrink({ ...editingDrink, category: e.target.value })}
+                    bg='white'
+                    mb={2}
+                    boxShadow='sm'
+                  />
+                  <Input
+                    placeholder='Base Price'
+                    value={editingDrink.basePrice}
+                    onChange={e => setEditingDrink({ ...editingDrink, basePrice: e.target.value })}
+                    bg='white'
+                    mb={2}
+                    boxShadow='sm'
+                    type='number'
+                    step='0.01'
+                  />
+                  <Input
+                    placeholder='Image Path'
+                    value={editingDrink.imagePath}
+                    onChange={e => setEditingDrink({ ...editingDrink, imagePath: e.target.value })}
+                    bg='white'
+                    mb={2}
+                    boxShadow='sm'
+                  />
+                  <Button onClick={handleUpdateDrink} leftIcon={<EditIcon />} colorScheme='blue' variant="outline" mt={4}>Update Drink</Button>
+                </Box>
+              )}
+            </VStack>
+            <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={16} mt={10} w='85%'>
+              {filteredDrinks.map((drink) => (
+                <Card key={drink._id} bg='white' borderRadius='md' boxShadow='md'>
+                  <CardBody>
+                    <Image 
+                      src={drink.imagePath} 
+                      alt={drink.drinkName} 
+                      boxSize='150px' 
+                      objectFit='cover' 
+                      mb={4} 
+                      borderRadius='full'
+                      onError={(e) => e.target.src = '/images/drinks/drinks_placeholder.jpg'}
+                    />
+                    <Text fontSize='lg' fontWeight='bold' mb={2}>{drink.drinkName}</Text>
+                    <Text>ID: {drink.drinkID}</Text>
+                    <Text>{drink.description}</Text>
+                    <Text>Category: {drink.category}</Text>
+                    <Text>Base Price: ${drink.basePrice ? drink.basePrice.toFixed(2) : 0.0}</Text>
+                    <HStack spacing={4} mt={4}>
+                      <Button onClick={() => handleEditDrink(drink)} leftIcon={<EditIcon />} colorScheme='blue' variant="outline">Edit</Button>
+                      <Button onClick={() => handleDeleteDrink(drink._id)} leftIcon={<DeleteIcon />} colorScheme='red' variant="outline">Delete</Button>
+                    </HStack>
+                  </CardBody>
+                </Card>
+              ))}
+            </SimpleGrid>
           </VStack>
         </Container>
       </Flex>

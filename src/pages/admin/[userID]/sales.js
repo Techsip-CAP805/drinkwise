@@ -6,7 +6,7 @@ import { withRole } from '../../../../lib/auth';
 
 const sales = () => {
   return (
-    <Box bg='#e2e8f0' vw='100vw' minH='100vh'>
+    <Box bg="#f7f7f7" vw='100vw' minH='100vh'>
       {/* <VStack align="start" spacing={4} w='12vw' p={4} mt={4} ml={4} h='90vh' bg='#8fa39b' borderRadius='5px' boxShadow='lg' position='fixed' >
         <Heading size="md">Drinkwise</Heading>
         <Link href='/admin/userid/dashboard'>dashboard</Link>

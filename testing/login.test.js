@@ -4,7 +4,7 @@ import {
     , screen
     , fireEvent
 } from '@testing-library/react';
-import LoginPage from '../src/pages/employee/login.js';
+import LoginPage from '../src/pages/employee/sign-in.js/index.js';
 import {
     ChakraProvider
     , useToast

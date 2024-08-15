@@ -20,10 +20,13 @@ const IncomingOrders = () => {
       const data = await res.json();
       if (res.ok) {
 
+        console.log(data.customerOrders);
         // Filter orders to only include those with a "pending" status
-        const pendingOrders = data.customerOrders.res.filter(order => order.orderStatus === 'pending');
-        setOrders(pendingOrders);
+        // const pendingOrders = data.customerOrders.filter(order => order.orderStatus === 'pending');
+        const pendingOrders = data.customerOrders.map(customer => customer.orders.map(order => ({ ...order, username: customer.username, emailAddress: customer.emailAddress }))).flat()
         console.log(pendingOrders);
+        setOrders(pendingOrders);
+        
       } else {
         console.error('Failed to fetch orders');
       }
@@ -101,7 +104,7 @@ const IncomingOrders = () => {
                             </Heading>
                             {order.items.map((item, index) => (
                               <Box key={index} p={4} bg="gray.700" borderRadius="md" mt={4}>
-                                <Text color="white">Total Amount: ${(item.basePrice * item.quantity).toFixed(2)}</Text>
+                                <Text color="white">Total Amount: ${((item.basePrice + item.toppingsTotal) * item.quantity).toFixed(2)}</Text>
                                 <Box mt={3}>
                                   <Heading size="sm" color="white">Items:</Heading>
                                   <Text color="white">

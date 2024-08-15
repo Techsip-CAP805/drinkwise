@@ -18,18 +18,18 @@ function LocationsPage({ locations }) {
               <GridItem key={location._id}>
                 <Card
                   borderRadius="lg"
-                  width="280px"
+                  width="400px"
                   overflow="hidden"
                   boxShadow="md"
                   bg={cardBgColor}
-                  _hover={{ bg: cardHoverBgColor, transform: "scale(1.05)", transition: "all 0.3s ease-in-out" }}
+                  _hover={{ bg: cardHoverBgColor, transform: "scale(1.0)", transition: "all 0.3s ease-in-out" }}
                 >
                   {location.imagePath && (
                     <Image
                       src={location.imagePath}
                       alt={`${location.branchName} location`}
                       objectFit="cover"
-                      height="150px"
+                      height="200px"
                       width="100%"
                     />
                   )}

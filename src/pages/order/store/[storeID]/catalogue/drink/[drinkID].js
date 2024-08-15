@@ -4,7 +4,7 @@ import { Box, Text, Image, Button, VStack, HStack, IconButton, Radio, RadioGroup
 import { CloseIcon, AddIcon, MinusIcon } from '@chakra-ui/icons';
 import { useDrinkContext } from '../../../../../../../context/drinkContext';
 
-const DrinkDetails = ({drinks}) => {
+const DrinkDetails = ({ drinks }) => {
   const router = useRouter();
   const { storeID, drinkID } = router.query;
   const { setCart, toppings, cart, total, setTotal } = useDrinkContext();
@@ -48,7 +48,18 @@ const DrinkDetails = ({drinks}) => {
         <Text fontSize='2xl' fontWeight='bold'>{drink.drinkName}</Text>
         <IconButton icon={<CloseIcon />} onClick={() => router.back()} />
       </HStack>
-      <Image src={drink.imagePath} alt={drink.drinkName} boxSize='200px' borderRadius='full' mx='auto' my={4} />
+      <Image 
+      src={drink.imagePath} 
+      alt={drink.drinkName} 
+      boxSize='200px' 
+      borderRadius='full' 
+      mx='auto' 
+      my='20px'
+      objectFit="cover"
+      y={4} 
+      onError={(e) => {
+        e.target.src = '/images/drinks/drinks_placeholder.jpg'
+      }}/>
       <Text>{drink.description}</Text>
       <Text>Price: ${drink.basePrice.toFixed(2)}</Text>
       <Divider my={4} />
@@ -106,7 +117,7 @@ export async function getServerSideProps(context) {
   const drinkRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/orderMenu`);
   const drinks = await drinkRes.json();
   return {
-    props: {drinks},
+    props: { drinks },
   };
 }
 

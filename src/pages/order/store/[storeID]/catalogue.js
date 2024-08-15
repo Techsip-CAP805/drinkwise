@@ -86,7 +86,15 @@ const LocationDetails = ({ locations, drinks }) => {
                     <Link href={`/order/store/${storeID}/catalogue/drink/${drink.drinkID}`} key={drink.drinkID}>
                       <Card bg='white' h='150px' borderRadius='md' boxShadow='sm'>
                         <CardBody display='flex' flexDirection='row' alignItems='center'>
-                          <Image src={drink.imagePath} alt={drink.drinkName} boxSize='60px' borderRadius='full' mr={4} />
+                          <Image
+                            src={drink.imagePath}
+                            alt={drink.drinkName}
+                            boxSize='60px'
+                            borderRadius='full'
+                            objectFit="cover"
+                            mr={4}
+                            onError={(e) => e.target.src = '/images/drinks/drinks_placeholder.jpg'}
+                          />
                           <VStack align='start' spacing={1}>
                             <Text fontSize='lg' fontWeight='bold'>
                               {drink.drinkName}
@@ -108,7 +116,15 @@ const LocationDetails = ({ locations, drinks }) => {
                         <Link href={`/order/store/${storeID}/catalogue/drink/${drink.drinkID}`} key={drink.drinkID}>
                           <Card bg='white' h='150px' borderRadius='md' boxShadow='sm'>
                             <CardBody display='flex' flexDirection='row' alignItems='center'>
-                              <Image src={drink.imagePath} alt={drink.drinkName} boxSize='60px' borderRadius='full' mr={4} />
+                              <Image
+                                src={drink.imagePath}
+                                alt={drink.drinkName}
+                                boxSize='60px'
+                                borderRadius='full'
+                                objectFit="cover"
+                                mr={4}
+                                onError={(e) => e.target.src = '/images/drinks/drinks_placeholder.jpg'}
+                              />
                               <VStack align='start' spacing={1}>
                                 <Text fontSize='lg' fontWeight='bold'>
                                   {drink.drinkName}
@@ -135,7 +151,7 @@ const LocationDetails = ({ locations, drinks }) => {
           colorScheme='teal'
           borderRadius='full'
           boxShadow='lg'
-          onClick={()=>handleAddToCart}
+          onClick={handleAddToCart}
         >
           <MdOutlineShoppingCart />
           <Text as='abbr'>${total.toFixed(2)}</Text>
@@ -146,7 +162,6 @@ const LocationDetails = ({ locations, drinks }) => {
 };
 
 export async function getServerSideProps(context) {
-
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/locations`);
   const locations = await res.json();
   const drinkRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/orderMenu`);

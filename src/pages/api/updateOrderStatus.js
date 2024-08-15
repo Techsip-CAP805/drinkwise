@@ -1,5 +1,5 @@
 import { connectToDatabase } from '../../../lib/mongodb';
-import GuestOrder from '../../../model/guestOrderModel';
+import Customer from '../../../model/customerModel';
 
 export default async function handler(req, res) {
   await connectToDatabase();
@@ -8,8 +8,21 @@ export default async function handler(req, res) {
     const { orderId, newStatus } = req.body;
 
     try {
-      // Update the order's status rather than deleting it
-      await GuestOrder.findByIdAndUpdate(orderId, { orderStatus: newStatus });
+      // Find the customer who has the order with the given orderId
+      const customer = await Customer.findOne({ "orders._id": orderId });
+
+      if (!customer) {
+        return res.status(404).json({ error: 'Order not found' });
+      }
+
+      // Update the status of the specific order
+      customer.orders.forEach(order => {
+        if (order._id.toString() === orderId) {
+          order.orderStatus = newStatus;
+        }
+      });
+
+      await customer.save(); // Save the updated customer document
 
       res.status(200).json({ message: 'Order status updated successfully' });
     } catch (error) {

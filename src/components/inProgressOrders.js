@@ -116,9 +116,9 @@ const InProgressOrders = () => {
                     >
                       <CardBody p={4}>
                         <Stack spacing={3}>
-                          <Text textAlign="center" color="white">Contact: {order.contact}</Text>
-                          <Text textAlign="center" color="white">Email: {order.email}</Text>
-                          <Text textAlign="center" color="white">Phone: {order.phone}</Text>
+                        <Text textAlign="center" color="white">Contact: {order.username}</Text>
+                          <Text textAlign="center" color="white">Email: {order.emailAddress}</Text>
+                          {/* <Text textAlign="center" color="white">Phone: {order.phone}</Text> */}
                           <Box>
                             <Heading size="md" textAlign="center" color="white" mt={4}>
                               Order Items

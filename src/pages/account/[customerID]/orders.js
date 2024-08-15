@@ -2,12 +2,16 @@ import React, { useEffect, useState } from 'react';
 import OrderSideNav from '@/components/OrderSideNav';
 import { useSession } from 'next-auth/react';
 import { Box, Text, Heading, VStack, Card, CardBody, Stack, Container, Flex, Divider, HStack, useColorModeValue } from '@chakra-ui/react';
+import { useDrinkContext } from '../../../../context/drinkContext';
 
 const CustomerDashboard = () => {
   const [customer, setCustomer] = useState(null);
   const { data: session, status } = useSession();
   const cardBgColor = useColorModeValue("#f7f7f7", "#1a1a1a"); // Light and dark mode colors
   const cardTextColor = useColorModeValue("#333", "#fff");
+  const {visitedLocationID, setVisitedLocationID} = useDrinkContext();
+
+  console.log("VISIT ID : ", visitedLocationID);
 
   const getCustomerInfo = async () => {
     if (!session?.user?.sub) return;  // Exit if session is not available

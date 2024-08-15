@@ -26,15 +26,14 @@ import { usePathname } from 'next/navigation';
 const OrderSideNav = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [signedIn, setSignedIn] = useState(false);
-  const { lastVisited, setLastVisited } = useDrinkContext();
+  const {visitedLocationID, setVisitedLocationID} = useDrinkContext();
 
   const { data: session } = useSession();
   const pathname = usePathname();
 
   useEffect(() => {
     session ? setSignedIn(true) : setSignedIn(false);
-    setLastVisited(pathname);
-  }, [session, signedIn, lastVisited]);
+  }, [session, signedIn, visitedLocationID]);
 
   // User sign out
   const handleSignOut = () => {
@@ -69,7 +68,7 @@ const OrderSideNav = () => {
             <List spacing={4} pt={10} pl={5}>
               <ListItem>
                 <ListIcon as={FaBook} color='teal.500' />
-                <Link href=''>
+                <Link href={`/order/store/${visitedLocationID}/catalogue`}>
                   <Text as='b' fontSize='lg'>Catalogue</Text>
                 </Link>
               </ListItem>

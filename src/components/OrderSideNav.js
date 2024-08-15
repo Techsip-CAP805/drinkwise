@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   IconButton,
   Drawer,
@@ -17,36 +17,26 @@ import {
 } from '@chakra-ui/react';
 import { useDisclosure } from '@chakra-ui/react';
 import { ArrowForwardIcon, ArrowBackIcon } from '@chakra-ui/icons';
-import { FaBook, FaClipboardList, FaCreditCard, FaMapMarkerAlt, FaGlobe, FaUser } from 'react-icons/fa';
+import { FaBook, FaClipboardList, FaCreditCard, FaMapMarkerAlt, FaGlobe, FaUser, FaUserCircle } from 'react-icons/fa';
 import { signOut } from 'next-auth/react';
 import { useSession } from 'next-auth/react';
 import { useDrinkContext } from '../../context/drinkContext';
-import { usePathname } from 'next/navigation'
-
+import { usePathname } from 'next/navigation';
 
 const OrderSideNav = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [signedIn, setSignedIn] = useState(false);
-  const {lastVisited, setLastVisited} = useDrinkContext();
+  const { lastVisited, setLastVisited } = useDrinkContext();
 
-  const {data: session} = useSession();
+  const { data: session } = useSession();
   const pathname = usePathname();
 
-  console.log("mount session: ", session);
-
-  // const validateSession = async() => {
-  //   session ? setSignedIn(prevValue => !prevValue) : setSignedIn(prevValue => !prevValue) 
-  // }
-
-  useEffect(()=> {
-    console.log("USE EFFECT SESSION: ", session);
+  useEffect(() => {
     session ? setSignedIn(true) : setSignedIn(false);
-    console.log("LAST VISITED URL", pathname);
     setLastVisited(pathname);
-    console.log()
-  },[session, signedIn, lastVisited])
+  }, [session, signedIn, lastVisited]);
 
-  // user sign out
+  // User sign out
   const handleSignOut = () => {
     signOut({ callbackUrl: '/user/sign-in' });
   };
@@ -83,7 +73,7 @@ const OrderSideNav = () => {
                   <Text as='b' fontSize='lg'>Catalogue</Text>
                 </Link>
               </ListItem>
-                <ListItem>
+              <ListItem>
                 <ListIcon as={FaClipboardList} color='teal.500' />
                 <Link href={signedIn ? `/account/${session.user.sub}/orders` : `/user/sign-in`}>
                   <Text as='b' fontSize='lg'>My Orders</Text>
@@ -101,7 +91,7 @@ const OrderSideNav = () => {
                   <Text as='b' fontSize='lg'>Change Location</Text>
                 </Link>
               </ListItem>
-              <ListItem >
+              <ListItem>
                 <HStack justfiy='flex-start'>
                   <ListIcon as={FaGlobe} color='teal.500' />
                   <Text as='b' fontSize='lg'>Language</Text>
@@ -112,22 +102,30 @@ const OrderSideNav = () => {
                   </select>
                 </HStack>
               </ListItem>
-                  {!signedIn && (
-                    <ListItem>
-                    <ListIcon as={FaUser} color='teal.500' />
-                    <Link href='/user/sign-in'>
-                      <Text as='b' fontSize='lg'>Sign In</Text>
+              {signedIn && (
+                <>
+                  <ListItem>
+                    <ListIcon as={FaUserCircle} color='teal.500' />
+                    <Link href={`/account/${session.user.sub}/profile`}>
+                      <Text as='b' fontSize='lg'>My Account</Text>
                     </Link>
                   </ListItem>
-                  )}
-                  {signedIn && (
-                    <ListItem>
+                  <ListItem>
                     <ListIcon as={FaUser} color='teal.500' />
                     <Link href='#' onClick={handleSignOut}>
                       <Text as='b' fontSize='lg'>Sign Out</Text>
                     </Link>
                   </ListItem>
-                  )}
+                </>
+              )}
+              {!signedIn && (
+                <ListItem>
+                  <ListIcon as={FaUser} color='teal.500' />
+                  <Link href='/user/sign-in'>
+                    <Text as='b' fontSize='lg'>Sign In</Text>
+                  </Link>
+                </ListItem>
+              )}
             </List>
           </DrawerBody>
         </DrawerContent>

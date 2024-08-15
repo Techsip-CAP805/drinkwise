@@ -43,7 +43,7 @@ const SignIn = () => {
         isClosable: true,
       });
       //go back to before login page URL
-      router.push(lastVisited);
+      router.back();
     }
   };
 

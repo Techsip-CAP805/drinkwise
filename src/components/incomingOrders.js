@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Text, Heading, VStack, Card, CardBody, Stack, Container, Flex, SimpleGrid, useColorModeValue, Button, HStack, useToast } from '@chakra-ui/react';
-import SideNav from "./SideNav";
 
 const IncomingOrders = () => {
   const [orders, setOrders] = useState([]);
@@ -19,14 +18,12 @@ const IncomingOrders = () => {
       const res = await fetch(`/api/guestOrderApi`);
       const data = await res.json();
       if (res.ok) {
-
-        console.log(data.customerOrders);
-        // Filter orders to only include those with a "pending" status
-        // const pendingOrders = data.customerOrders.filter(order => order.orderStatus === 'pending');
-        const pendingOrders = data.customerOrders.map(customer => customer.orders.map(order => ({ ...order, username: customer.username, emailAddress: customer.emailAddress }))).flat()
-        console.log(pendingOrders);
+        const pendingOrders = data.customerOrders
+          .map(customer => customer.orders
+            .filter(order => order.orderStatus === 'pending')
+            .map(order => ({ ...order, username: customer.username, emailAddress: customer.emailAddress, orderType: 'customer' })))
+          .flat();
         setOrders(pendingOrders);
-        
       } else {
         console.error('Failed to fetch orders');
       }
@@ -38,6 +35,13 @@ const IncomingOrders = () => {
   };
 
   const handleStatusChange = async (orderId, newStatus, orderType) => {
+    // Optimistically update the state
+    setOrders(prevOrders => 
+      prevOrders.map(order => 
+        order._id === orderId ? { ...order, orderStatus: newStatus } : order
+      )
+    );
+
     try {
       const res = await fetch(`/api/updateOrderStatus`, {
         method: 'POST',
@@ -48,9 +52,7 @@ const IncomingOrders = () => {
       });
   
       if (res.ok) {
-        setOrders(prevOrders => 
-          prevOrders.filter(order => order._id !== orderId) // Remove the order from the list
-        );
+        setOrders(prevOrders => prevOrders.filter(order => order._id !== orderId)); // Remove the order from the list
         toast({
           description: `Order ${newStatus === 'inProgress' ? 'accepted' : 'rejected'}`,
           status: newStatus === 'inProgress' ? 'success' : 'warning',
@@ -63,6 +65,12 @@ const IncomingOrders = () => {
       }
     } catch (error) {
       console.error('Error updating order status:', error);
+      // Revert the optimistic update if the request fails
+      setOrders(prevOrders => 
+        prevOrders.map(order => 
+          order._id === orderId ? { ...order, orderStatus: 'pending' } : order
+        )
+      );
     }
   };
 
@@ -91,13 +99,8 @@ const IncomingOrders = () => {
                     >
                       <CardBody p={4}>
                         <Stack spacing={3}>
-                          {/* {order.orderType === 'guest' && ( */}
-                            <>
-                              <Text textAlign="center" color="white">Contact: {order.username}</Text>
-                              <Text textAlign="center" color="white">Email: {order.emailAddress}</Text>
-                              {/* <Text textAlign="center" color="white">Phone: {order.phone}</Text> */}
-                            </>
-                          {/* )} */}
+                          <Text textAlign="center" color="white">Contact: {order.username}</Text>
+                          <Text textAlign="center" color="white">Email: {order.emailAddress}</Text>
                           <Box>
                             <Heading size="md" textAlign="center" color="white" mt={4}>
                               Orders
@@ -107,9 +110,7 @@ const IncomingOrders = () => {
                                 <Text color="white">Total Amount: ${((item.basePrice + item.toppingsTotal) * item.quantity).toFixed(2)}</Text>
                                 <Box mt={3}>
                                   <Heading size="sm" color="white">Items:</Heading>
-                                  <Text color="white">
-                                    {item.drinkName} - Quantity: {item.quantity}
-                                  </Text>
+                                  <Text color="white"> {item.drinkName} - Quantity: {item.quantity} </Text>
                                 </Box>
                               </Box>
                             ))}

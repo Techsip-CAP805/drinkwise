@@ -89,12 +89,17 @@ const CustomerDashboard = () => {
                             <Text color={cardTextColor} fontWeight="bold" fontSize="lg">
                               Status: {cap(order.orderStatus)}
                             </Text>
+                            <Text color={cardTextColor} fontWeight="bold" fontSize="lg">
+                              Order Method: {cap(order.orderingMethod)}
+                            </Text>
+                            <Text color={cardTextColor} fontWeight="bold" fontSize="lg">
+                              Payment Method: {cap(order.paymentMethod)}
+                            </Text>
                           </Box>
                           <Box>
                             {order.items.map((item, index) => (
                               <Box key={index} mt={3}>
-                                <Text color={cardTextColor}>Total Amount: ${(item.basePrice * item.quantity).toFixed(2)}</Text>
-                                <Text color={cardTextColor}>Item: {item.drinkName} - Quantity: {item.quantity}</Text>
+                                <Text color={cardTextColor}>{item.quantity}x {item.drinkName} - ${(item.basePrice * item.quantity).toFixed(2)} </Text>
                               </Box>
                             ))}
                           </Box>

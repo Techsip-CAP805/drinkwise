@@ -31,6 +31,7 @@ const LocationDetails = ({ locations, drinks }) => {
   const [location, setLocation] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [total, setTotal] = useState(0);
+  const {visitedLocationID, setVisitedLocationID} = useDrinkContext();
 
   useEffect(() => {
     if (storeID && locations.length) {
@@ -38,15 +39,22 @@ const LocationDetails = ({ locations, drinks }) => {
       setLocation(foundLocation);
     }
   }, [storeID, locations]);
-
+  
+  useEffect(() => {
+    if (location) {
+      setVisitedLocationID(location._id);
+      console.log('CURRENT LOCATION ID: ', location._id);
+    }
+  }, [location, setVisitedLocationID]);
+  
   useEffect(() => {
     const calculateTotal = () => {
       const totalAmount = cart.reduce((acc, item) => (acc + (item.basePrice + item.toppingsTotal) * item.quantity), 0);
       setTotal(totalAmount);
     };
-
     calculateTotal();
   }, [cart]);
+  
 
   if (!location) {
     return <Text>Loading...</Text>;

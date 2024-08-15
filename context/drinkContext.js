@@ -31,7 +31,7 @@ const cartReducer = (state, action) => {
 };
 
 const DrinkProvider = ({ children }) => {
-  const [locations, setLocations] = useState("");
+  const [visitedLocationID, setVisitedLocationID] = useState("");
   const [drinks, setDrinks] = useState(drinkData);
   const [customers, setCustomers] = useState(customerData);
   const [ingredients, setIngredients] = useState(ingredientsData);
@@ -41,6 +41,19 @@ const DrinkProvider = ({ children }) => {
   const [cart, dispatch] = useReducer(cartReducer, []);
   const [lastVisited, setLastVisited] = useState("");
   const [prevVisitedStore, setPrevVisitedStore] = useState("");
+
+  useEffect(() => {
+    if (visitedLocationID) {
+      localStorage.setItem('visitedLocationID', visitedLocationID);
+    }
+  }, [visitedLocationID]);
+  
+  useEffect(() => {
+    const storedLocationID = localStorage.getItem('visitedLocationID');
+    if (storedLocationID && !visitedLocationID) {
+      setVisitedLocationID(storedLocationID);
+    }
+  }, [setVisitedLocationID, visitedLocationID]);
 
   // Load cart from localStorage when the component mounts
   useEffect(() => {
@@ -72,8 +85,8 @@ const DrinkProvider = ({ children }) => {
   }, [cart]);
 
   const drinkContextObject = {
-    locations,
-    setLocations,
+    visitedLocationID,
+    setVisitedLocationID,
     drinks,
     setDrinks,
     customers,

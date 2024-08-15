@@ -16,12 +16,14 @@ import {
 import Navbar from '@/components/Navbar';
 import Link from 'next/link';
 import Footer from '@/components/Footer';
+import { useDrinkContext } from '../../../context/drinkContext';
 // import { withRole } from '../../../lib/auth';
 
 const SearchLocation = ({ session }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [sortBy, setSortBy] = useState('name');
   const [locations, setLocations] = useState([]);
+  const {visitedLocationID, setVisitedLocationID} = useDrinkContext();
 
   useEffect(() => {
     const fetchLocations = async () => {
@@ -74,7 +76,7 @@ const SearchLocation = ({ session }) => {
 
           <SimpleGrid columns={{ base: 1 }} spacing={5}>
             {filteredLocations.map((location, index) => (
-              <Link href={`/order/store/${location._id}/catalogue`} key={index} passHref>
+              <Link href={`/order/store/${location._id}/catalogue`} key={index} passHref onClick={()=> setVisitedLocationID(location._id)}>
                 <Card borderRadius="md" boxShadow="md">
                   <CardBody>
                     <HStack justify="space-between">

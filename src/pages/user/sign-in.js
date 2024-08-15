@@ -1,15 +1,20 @@
 import React, { useContext, useRef } from 'react';
 import { useToast, Box, Button, Container, Heading, Input, VStack, Text, Image, HStack } from '@chakra-ui/react';
 import { Link } from '@chakra-ui/next-js';
-import Router from 'next/router';
+import { useRouter } from 'next/router';
 import { signIn } from 'next-auth/react';
 import Navbar from '@/components/Navbar';
 import SmallFooter from '@/components/SmallFooter';
+import { useDrinkContext } from '../../../context/drinkContext';
 
 const SignIn = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
   const toast = useToast();
+  const router = useRouter();
+  const {lastVisited} = useDrinkContext();
+
+  console.log("LAST VISITED: ", lastVisited);
 
   const handleLogin = async () => {
     const email = emailRef.current.value;
@@ -37,7 +42,8 @@ const SignIn = () => {
         duration: 3000,
         isClosable: true,
       });
-      Router.back();
+      //go back to before login page URL
+      router.push(lastVisited);
     }
   };
 

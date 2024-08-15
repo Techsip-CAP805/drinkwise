@@ -24,6 +24,7 @@ const DrinkProvider = ({ children }) => {
   const [toppings, setToppings] = useState(toppingData);
   const [total, setTotal] = useState(0);
   const [cart, setCart] = useState([]);
+  const [lastVisited, setLastVisited] = useState("");
   const [prevVisitedStore, setPrevVisitedStore] = useState("");
 
   const drinkContextObject = {
@@ -42,7 +43,9 @@ const DrinkProvider = ({ children }) => {
     cart,
     setCart,
     total,
-    setTotal
+    setTotal,
+    lastVisited,
+    setLastVisited
   }
 
   return (

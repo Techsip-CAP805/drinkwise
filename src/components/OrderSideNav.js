@@ -20,13 +20,17 @@ import { ArrowForwardIcon, ArrowBackIcon } from '@chakra-ui/icons';
 import { FaBook, FaClipboardList, FaCreditCard, FaMapMarkerAlt, FaGlobe, FaUser } from 'react-icons/fa';
 import { signOut } from 'next-auth/react';
 import { useSession } from 'next-auth/react';
+import { useDrinkContext } from '../../context/drinkContext';
+import { usePathname } from 'next/navigation'
 
 
 const OrderSideNav = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [signedIn, setSignedIn] = useState(false);
+  const {lastVisited, setLastVisited} = useDrinkContext();
 
   const {data: session} = useSession();
+  const pathname = usePathname();
 
   console.log("mount session: ", session);
 
@@ -37,7 +41,10 @@ const OrderSideNav = () => {
   useEffect(()=> {
     console.log("USE EFFECT SESSION: ", session);
     session ? setSignedIn(true) : setSignedIn(false);
-  },[session, signedIn])
+    console.log("LAST VISITED URL", pathname);
+    setLastVisited(pathname);
+    console.log()
+  },[session, signedIn, lastVisited])
 
   // user sign out
   const handleSignOut = () => {

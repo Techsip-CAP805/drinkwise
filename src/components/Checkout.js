@@ -112,7 +112,14 @@ const Checkout = ({ isOpen, onClose }) => {
         });
       }
     }else{
-      //push to customer colleciton order
+      //push to customer collection order
+      const res = await fetch(`/api/updateCustomer`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(profileData),
+      });
     }
   };
 

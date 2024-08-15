@@ -8,11 +8,8 @@ export default async function handler(req, res) {
     const { orderId, newStatus } = req.body;
 
     try {
-      if (newStatus === 'rejected') {
-        await GuestOrder.findByIdAndDelete(orderId);
-      } else {
-        await GuestOrder.findByIdAndUpdate(orderId, { orderStatus: newStatus });
-      }
+      // Update the order's status rather than deleting it
+      await GuestOrder.findByIdAndUpdate(orderId, { orderStatus: newStatus });
 
       res.status(200).json({ message: 'Order status updated successfully' });
     } catch (error) {

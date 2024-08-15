@@ -21,7 +21,7 @@ const IncomingOrders = () => {
       if (res.ok) {
         const combinedOrders = [
           ...data.guestOrders.map(order => ({ ...order, orderType: 'guest' })),
-          ...data.customerOrders.map(customer => customer.orders.map(order => ({ ...order, customerName: customer.customerName, orderType: 'customer' }))).flat()
+          // ...data.customerOrders.map(customer => customer.orders.map(order => ({ ...order, customerName: customer.customerName, orderType: 'customer' }))).flat()
         ];
 
         // Filter orders to only include those with a "pending" status
@@ -46,12 +46,16 @@ const IncomingOrders = () => {
         },
         body: JSON.stringify({ orderId, newStatus, orderType }),
       });
-
+  
       if (res.ok) {
-        setOrders(prevOrders => prevOrders.filter(order => order._id !== orderId));
+        setOrders(prevOrders => 
+          prevOrders.map(order => 
+            order._id === orderId ? { ...order, orderStatus: newStatus } : order
+          )
+        );
         toast({
           description: `Order ${newStatus === 'inProgress' ? 'accepted' : 'rejected'}`,
-          status: newStatus === 'inProgress' ? 'success' : 'error',
+          status: newStatus === 'inProgress' ? 'success' : 'warning',
           duration: 5000,
           isClosable: true,
           position: "bottom-right"
@@ -63,6 +67,7 @@ const IncomingOrders = () => {
       console.error('Error updating order status:', error);
     }
   };
+  
 
   if (isLoading) {
     return <Box>Loading...</Box>;
@@ -96,12 +101,12 @@ const IncomingOrders = () => {
                               <Text textAlign="center" color="white">Phone: {order.phone}</Text>
                             </>
                           )}
-                          {order.orderType === 'customer' && (
+                          {/* {order.orderType === 'customer' && (
                             <>
                               <Text textAlign="center" color="white">Customer Name: {order.customerName}</Text>
                               <Text textAlign="center" color="white">Total Amount: ${(order.totalAmount).toFixed(2)}</Text>
                             </>
-                          )}
+                          )} */}
                           <Box>
                             <Heading size="md" textAlign="center" color="white" mt={4}>
                               Orders

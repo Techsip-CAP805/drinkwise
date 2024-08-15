@@ -23,7 +23,7 @@ const Checkout = ({ isOpen, onClose }) => {
   const orderingMethodRef = useRef();
   const timeChoiceRef = useRef();
   const paymentMethodRef = useRef();
-  const { cart, setCart, setTotal } = useDrinkContext();
+  const { cart, dispatch, setTotal } = useDrinkContext();  // Updated to use dispatch instead of setCart
   const toast = useToast();
 
   const handlePlaceOrder = async () => {
@@ -76,15 +76,19 @@ const Checkout = ({ isOpen, onClose }) => {
 
       toast({
         title: 'Order placed!',
-        description: '您的order送出去了',
+        description: 'Your order has been successfully placed.',
         status: 'success',
         duration: 5000,
         isClosable: true,
       });
 
-      // Empty cart & clear total
-      setCart([]);
+      // Empty cart, clear total, and remove cart from localStorage
+      dispatch({ type: 'LOAD_CART', payload: [] });  // Use dispatch to clear the cart
       setTotal(0);
+      console.log('Before removing cart from localStorage:', localStorage.getItem('cart'));
+      localStorage.removeItem('cart'); // Clear cart from localStorage
+      console.log('After removing cart from localStorage:', localStorage.getItem('cart'));
+
       onClose(); // Close the modal after placing the order
     } catch (error) {
       console.error('Error placing order:', error);

@@ -4,7 +4,6 @@ import {
   Box,
   Text,
   Container,
-  handleAddToCart,
   Flex,
   Input,
   SimpleGrid,
@@ -31,7 +30,7 @@ const LocationDetails = ({ locations, drinks }) => {
   const [location, setLocation] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [total, setTotal] = useState(0);
-  const {visitedLocationID, setVisitedLocationID} = useDrinkContext();
+  const { visitedLocationID, setVisitedLocationID } = useDrinkContext();
 
   useEffect(() => {
     if (storeID && locations.length) {
@@ -39,22 +38,24 @@ const LocationDetails = ({ locations, drinks }) => {
       setLocation(foundLocation);
     }
   }, [storeID, locations]);
-  
+
   useEffect(() => {
     if (location) {
       setVisitedLocationID(location._id);
       console.log('CURRENT LOCATION ID: ', location._id);
     }
   }, [location, setVisitedLocationID]);
-  
+
   useEffect(() => {
     const calculateTotal = () => {
-      const totalAmount = cart.reduce((acc, item) => (acc + (item.basePrice + item.toppingsTotal) * item.quantity), 0);
+      const totalAmount = cart.reduce(
+        (acc, item) => acc + (item.basePrice + item.toppingsTotal) * item.quantity,
+        0
+      );
       setTotal(totalAmount);
     };
     calculateTotal();
   }, [cart]);
-  
 
   if (!location) {
     return <Text>Loading...</Text>;
@@ -67,24 +68,24 @@ const LocationDetails = ({ locations, drinks }) => {
   const categories = Array.from(new Set(filteredDrinks.map((drink) => drink.category)));
 
   return (
-    <Box bg='#bcc8c3' minH='100vh'>
+    <Box bg="#bcc8c3" minH="100vh">
       <Flex>
         <OrderSideNav />
-        <Container maxW='container.xl' py={10} pt={20}>
-          <Flex direction='column' align='center' mb={6}>
-            <Text fontSize='3xl' fontWeight='bold'>
+        <Container maxW="container.xl" py={10} pt={20}>
+          <Flex direction="column" align="center" mb={6}>
+            <Text fontSize="3xl" fontWeight="bold">
               {location.branchName}
             </Text>
             <Text>{location.branchLocation.postalCode}</Text>
           </Flex>
           <Input
-            placeholder='Search drinks...'
+            placeholder="Search drinks..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            bg='white'
+            bg="white"
             mb={8}
           />
-          <Tabs variant='enclosed' colorScheme='teal' defaultIndex={0}>
+          <Tabs variant="enclosed" colorScheme="teal" defaultIndex={0}>
             <TabList>
               <Tab>All</Tab>
               {categories.map((category) => (
@@ -94,29 +95,74 @@ const LocationDetails = ({ locations, drinks }) => {
             <TabPanels>
               <TabPanel>
                 <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={5}>
-                  {filteredDrinks.map((drink) => (
-                    <Link href={`/order/store/${storeID}/catalogue/drink/${drink.drinkID}`} key={drink.drinkID}>
-                      <Card bg='white' h='150px' borderRadius='md' boxShadow='sm'>
-                        <CardBody display='flex' flexDirection='row' alignItems='center'>
+                  {filteredDrinks.map((drink) => {
+                    const isSoldOut = location.unavailableDrinks.some(
+                      (unavailableDrink) => unavailableDrink.drinkID === drink.drinkID
+                    );
+
+                    return isSoldOut ? (
+                      <Card
+                        key={drink.drinkID}
+                        bg="white"
+                        h="150px"
+                        borderRadius="md"
+                        boxShadow="sm"
+                        opacity={0.6}
+                      >
+                        <CardBody display="flex" flexDirection="row" alignItems="center">
                           <Image
                             src={drink.imagePath}
                             alt={drink.drinkName}
-                            boxSize='60px'
-                            borderRadius='full'
+                            boxSize="60px"
+                            borderRadius="full"
                             objectFit="cover"
                             mr={4}
-                            onError={(e) => e.target.src = '/images/drinks/drinks_placeholder.jpg'}
+                            onError={(e) =>
+                              (e.target.src = '/images/drinks/drinks_placeholder.jpg')
+                            }
                           />
-                          <VStack align='start' spacing={1}>
-                            <Text fontSize='lg' fontWeight='bold'>
-                              {drink.drinkName}
+                          <VStack align="start" spacing={1}>
+                            <Text fontSize="lg" fontWeight="bold">
+                              {drink.drinkName} (Sold Out)
                             </Text>
-                            <Text fontSize='md'>${drink.basePrice.toFixed(2)}</Text>
+                            <Text fontSize="md">${drink.basePrice.toFixed(2)}</Text>
                           </VStack>
                         </CardBody>
                       </Card>
-                    </Link>
-                  ))}
+                    ) : (
+                      <Link
+                        href={`/order/store/${storeID}/catalogue/drink/${drink.drinkID}`}
+                        key={drink.drinkID}
+                      >
+                        <Card
+                          bg="white"
+                          h="150px"
+                          borderRadius="md"
+                          boxShadow="sm"
+                        >
+                          <CardBody display="flex" flexDirection="row" alignItems="center">
+                            <Image
+                              src={drink.imagePath}
+                              alt={drink.drinkName}
+                              boxSize="60px"
+                              borderRadius="full"
+                              objectFit="cover"
+                              mr={4}
+                              onError={(e) =>
+                                (e.target.src = '/images/drinks/drinks_placeholder.jpg')
+                              }
+                            />
+                            <VStack align="start" spacing={1}>
+                              <Text fontSize="lg" fontWeight="bold">
+                                {drink.drinkName}
+                              </Text>
+                              <Text fontSize="md">${drink.basePrice.toFixed(2)}</Text>
+                            </VStack>
+                          </CardBody>
+                        </Card>
+                      </Link>
+                    );
+                  })}
                 </SimpleGrid>
               </TabPanel>
               {categories.map((category) => (
@@ -124,29 +170,74 @@ const LocationDetails = ({ locations, drinks }) => {
                   <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={5}>
                     {filteredDrinks
                       .filter((drink) => drink.category === category)
-                      .map((drink) => (
-                        <Link href={`/order/store/${storeID}/catalogue/drink/${drink.drinkID}`} key={drink.drinkID}>
-                          <Card bg='white' h='150px' borderRadius='md' boxShadow='sm'>
-                            <CardBody display='flex' flexDirection='row' alignItems='center'>
+                      .map((drink) => {
+                        const isSoldOut = location.unavailableDrinks.some(
+                          (unavailableDrink) => unavailableDrink.drinkID === drink.drinkID
+                        );
+
+                        return isSoldOut ? (
+                          <Card
+                            key={drink.drinkID}
+                            bg="white"
+                            h="150px"
+                            borderRadius="md"
+                            boxShadow="sm"
+                            opacity={0.6}
+                          >
+                            <CardBody display="flex" flexDirection="row" alignItems="center">
                               <Image
                                 src={drink.imagePath}
                                 alt={drink.drinkName}
-                                boxSize='60px'
-                                borderRadius='full'
+                                boxSize="60px"
+                                borderRadius="full"
                                 objectFit="cover"
                                 mr={4}
-                                onError={(e) => e.target.src = '/images/drinks/drinks_placeholder.jpg'}
+                                onError={(e) =>
+                                  (e.target.src = '/images/drinks/drinks_placeholder.jpg')
+                                }
                               />
-                              <VStack align='start' spacing={1}>
-                                <Text fontSize='lg' fontWeight='bold'>
-                                  {drink.drinkName}
+                              <VStack align="start" spacing={1}>
+                                <Text fontSize="lg" fontWeight="bold">
+                                  {drink.drinkName} (Sold Out)
                                 </Text>
-                                <Text fontSize='md'>${drink.basePrice.toFixed(2)}</Text>
+                                <Text fontSize="md">${drink.basePrice.toFixed(2)}</Text>
                               </VStack>
                             </CardBody>
                           </Card>
-                        </Link>
-                      ))}
+                        ) : (
+                          <Link
+                            href={`/order/store/${storeID}/catalogue/drink/${drink.drinkID}`}
+                            key={drink.drinkID}
+                          >
+                            <Card
+                              bg="white"
+                              h="150px"
+                              borderRadius="md"
+                              boxShadow="sm"
+                            >
+                              <CardBody display="flex" flexDirection="row" alignItems="center">
+                                <Image
+                                  src={drink.imagePath}
+                                  alt={drink.drinkName}
+                                  boxSize="60px"
+                                  borderRadius="full"
+                                  objectFit="cover"
+                                  mr={4}
+                                  onError={(e) =>
+                                    (e.target.src = '/images/drinks/drinks_placeholder.jpg')
+                                  }
+                                />
+                                <VStack align="start" spacing={1}>
+                                  <Text fontSize="lg" fontWeight="bold">
+                                    {drink.drinkName}
+                                  </Text>
+                                  <Text fontSize="md">${drink.basePrice.toFixed(2)}</Text>
+                                </VStack>
+                              </CardBody>
+                            </Card>
+                          </Link>
+                        );
+                      })}
                   </SimpleGrid>
                 </TabPanel>
               ))}
@@ -156,17 +247,16 @@ const LocationDetails = ({ locations, drinks }) => {
       </Flex>
       <Link href={`/order/store/${storeID}/guest/summary`}>
         <Button
-          position='fixed'
+          position="fixed"
           bottom={14}
           right={40}
           p={6}
-          colorScheme='teal'
-          borderRadius='full'
-          boxShadow='lg'
-          onClick={handleAddToCart}
+          colorScheme="teal"
+          borderRadius="full"
+          boxShadow="lg"
         >
           <MdOutlineShoppingCart />
-          <Text as='abbr'>${total.toFixed(2)}</Text>
+          <Text as="abbr">${total.toFixed(2)}</Text>
         </Button>
       </Link>
     </Box>

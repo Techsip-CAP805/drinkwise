@@ -48,6 +48,7 @@ const Checkout = ({ isOpen, onClose }) => {
     const orderingMethod = orderingMethodRef.current.value;
     const timeChoice = timeChoiceRef.current.value;
     const paymentMethod = paymentMethodRef.current.value;
+    const orderDatetime = new Date().toISOString();
 
     if (!session && (!contact || !email)) {
       toast({
@@ -81,11 +82,12 @@ const Checkout = ({ isOpen, onClose }) => {
         paymentMethod: paymentMethod,
         items: cart,
         orderStatus: "pending",
+        // orderDatetime: orderDatetime
       }
     };
 
-    console.log(session?.user);
-    console.log('Order Details:', orderDetails);
+    // console.log(session?.user);
+    // console.log('Order Details:', orderDetails);
 
     if (!session) {
       try {
@@ -98,6 +100,7 @@ const Checkout = ({ isOpen, onClose }) => {
         });
 
         if (!response.ok) {
+          console.log(JSON.stringify(orderDetails));
           throw new Error("Failed to place order");
         }
 

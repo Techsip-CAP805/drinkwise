@@ -15,6 +15,8 @@ import {
   useToast
 } from '@chakra-ui/react';
 import { useDrinkContext } from '../../context/drinkContext';
+import { useSession } from 'next-auth/react';
+
 
 const Checkout = ({ isOpen, onClose }) => {
   const contactRef = useRef();
@@ -25,6 +27,7 @@ const Checkout = ({ isOpen, onClose }) => {
   const paymentMethodRef = useRef();
   const { cart, dispatch, setTotal } = useDrinkContext();  // Updated to use dispatch instead of setCart
   const toast = useToast();
+  const { data: session } = useSession();
 
   const handlePlaceOrder = async () => {
     const contact = contactRef.current.value;
@@ -57,48 +60,59 @@ const Checkout = ({ isOpen, onClose }) => {
     };
 
     console.log('Order Details:', orderDetails);
+    
+    //if session exist: guest checkout, if not then customer
+    if (session) {
+      try {
+        const response = await fetch("/api/guestCheckout", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(orderDetails),
+        });
 
-    try {
-      const response = await fetch('/api/guestCheckout', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(orderDetails),
-      });
+        if (!response.ok) {
+          throw new Error("Failed to place order");
+        }
 
-      if (!response.ok) {
-        throw new Error('Failed to place order');
+        const result = await response.json();
+        console.log("Order placed successfully:", result);
+
+        toast({
+          title: "Order placed!",
+          description: "Your order has been successfully placed.",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
+
+        // Empty cart, clear total, and remove cart from localStorage
+        dispatch({ type: "LOAD_CART", payload: [] }); // Use dispatch to clear the cart
+        setTotal(0);
+        console.log(
+          "Before removing cart from localStorage:",
+          localStorage.getItem("cart")
+        );
+        localStorage.removeItem("cart"); // Clear cart from localStorage
+        console.log(
+          "After removing cart from localStorage:",
+          localStorage.getItem("cart")
+        );
+
+        onClose(); // Close the modal after placing the order
+      } catch (error) {
+        console.error("Error placing order:", error);
+        toast({
+          title: "Error",
+          description: "Failed to place order. Please try again.",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
       }
-
-      const result = await response.json();
-      console.log('Order placed successfully:', result);
-
-      toast({
-        title: 'Order placed!',
-        description: 'Your order has been successfully placed.',
-        status: 'success',
-        duration: 5000,
-        isClosable: true,
-      });
-
-      // Empty cart, clear total, and remove cart from localStorage
-      dispatch({ type: 'LOAD_CART', payload: [] });  // Use dispatch to clear the cart
-      setTotal(0);
-      console.log('Before removing cart from localStorage:', localStorage.getItem('cart'));
-      localStorage.removeItem('cart'); // Clear cart from localStorage
-      console.log('After removing cart from localStorage:', localStorage.getItem('cart'));
-
-      onClose(); // Close the modal after placing the order
-    } catch (error) {
-      console.error('Error placing order:', error);
-      toast({
-        title: 'Error',
-        description: 'Failed to place order. Please try again.',
-        status: 'error',
-        duration: 5000,
-        isClosable: true,
-      });
+    }else{
+      //push to customer colleciton order
     }
   };
 

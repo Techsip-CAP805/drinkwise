@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useState, useReducer, useEffect } from 'react';
 
 const drinkData = require('../data/drinkData.json');
-const locationData = require('../data/locationData.json');
 const customerData = require('../data/customerData.json');
 const ingredientsData = require('../data/ingredientsData.json');
 const employeeData = require('../data/employeeData.json');
@@ -32,7 +31,7 @@ const cartReducer = (state, action) => {
 };
 
 const DrinkProvider = ({ children }) => {
-  const [locations, setLocations] = useState(locationData);
+  const [locations, setLocations] = useState("");
   const [drinks, setDrinks] = useState(drinkData);
   const [customers, setCustomers] = useState(customerData);
   const [ingredients, setIngredients] = useState(ingredientsData);

@@ -46,32 +46,25 @@ const CustomerProfile = ({ locations }) => {
   }, [session, toast]);
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setCustomer((prevCustomer) => {
-      // Create a new object that excludes `orders` and `__v`
-      const updatedCustomer = {
-        username: prevCustomer.username,
-        customerName: prevCustomer.customerName,
-        emailAddress: prevCustomer.emailAddress,
-        preferredBranch: prevCustomer.preferredBranch,
-        accountCreationDate: prevCustomer.accountCreationDate,
-      };
-      return updatedCustomer;
-    });
+    setCustomer({ ...customer, [e.target.name]: e.target.value });
   };
 
   const handleUpdateProfile = async () => {
     setUpdating(true);
-    console.log("CUSTOMER OBJECT: ", customer);
+  
+    // Create a new object that excludes `orders` and `__v`
+    const { orders, __v, ...profileData } = customer;
+    
+    console.log(profileData);
     try {
       const res = await fetch(`/api/updateCustomer`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(customer),
+        body: JSON.stringify(profileData),
       });
-
+  
       if (res.ok) {
         toast({
           title: "Profile updated successfully",
@@ -93,6 +86,7 @@ const CustomerProfile = ({ locations }) => {
       setUpdating(false);
     }
   };
+  
 
   if (loading) {
     return (

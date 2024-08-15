@@ -24,6 +24,8 @@ const CustomerDashboard = () => {
     if (status === 'authenticated') {
       getCustomerInfo();
     }
+
+    console.log("CUSTOMER: ", customer);
   }, [session, status]);
 
   const renderContent = () => {

@@ -6,7 +6,7 @@ const EditAccountInfo = ({ initialData, setFormData }) => {
   const [formData, setLocalFormData] = useState(null);
   const [session, setSession] = useState(null);
   const toast = useToast();
-  const cardBgColor = useColorModeValue("#a0b2ab", "#283E38");
+  const cardBgColor = useColorModeValue("#f7f7f7", "#1a1a1a"); // Light and dark mode colors
 
   useEffect(() => {
     if (initialData) {
@@ -126,7 +126,7 @@ const EditAccountInfo = ({ initialData, setFormData }) => {
               <Input
                 type="password"
                 name="password"
-                value={formData.password || ''}
+                value={'placeholder' || ''}
                 onChange={handleChange}
                 backgroundColor="#D3D3D3"
                 readOnly

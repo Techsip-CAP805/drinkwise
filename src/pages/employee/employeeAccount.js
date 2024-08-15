@@ -98,7 +98,7 @@ const EmployeeAccount = () => {
   };
 
   return (
-    <Box bg="#bcc8c3">
+    <Box bg="#f0f0f0">
       <SideNav />
       <Box ml="250px">
         <Container w="100vw" minH="100vh" maxW="7xl" py={10}>

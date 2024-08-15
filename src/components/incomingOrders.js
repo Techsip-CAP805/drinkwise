@@ -23,7 +23,12 @@ const IncomingOrders = () => {
         console.log(data.customerOrders);
         // Filter orders to only include those with a "pending" status
         // const pendingOrders = data.customerOrders.filter(order => order.orderStatus === 'pending');
-        const pendingOrders = data.customerOrders.map(customer => customer.orders.map(order => ({ ...order, username: customer.username, emailAddress: customer.emailAddress }))).flat()
+        // const pendingOrders = data.customerOrders.map(customer => customer.orders.map(order => ({ ...order, username: customer.username, emailAddress: customer.emailAddress }))).flat()
+        const pendingOrders = data.customerOrders
+                .map(customer => customer.orders
+                    .filter(order => order.orderStatus === 'pending')
+                    .map(order => ({ ...order, username: customer.username, emailAddress: customer.emailAddress })))
+                .flat();
         console.log(pendingOrders);
         setOrders(pendingOrders);
         

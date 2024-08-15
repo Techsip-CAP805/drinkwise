@@ -18,8 +18,14 @@ const InProgressOrders = () => {
       const res = await fetch(`/api/guestOrderApi`);
       const data = await res.json();
       if (res.ok) {
-        const guestOrders = data.guestOrders.filter(order => order.orderStatus === 'inProgress');
-        setOrders(guestOrders);
+        // const guestOrders = data.guestOrders.filter(order => order.orderStatus === 'inProgress');
+        const inProgressOrders = data.customerOrders
+                .map(customer => customer.orders
+                    .filter(order => order.orderStatus === 'inProgress')
+                    .map(order => ({ ...order, username: customer.username, emailAddress: customer.emailAddress })))
+                .flat();
+        setOrders(inProgressOrders);
+        
       } else {
         console.error('Failed to fetch orders');
         toast({

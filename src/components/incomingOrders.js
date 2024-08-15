@@ -6,7 +6,8 @@ const IncomingOrders = () => {
   const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
 
-  const cardBgColor = useColorModeValue("#a0b2ab", "#283E38");
+  const cardBgColor = useColorModeValue("#f7f7f7", "#1a1a1a"); // Light and dark mode colors
+  const cardTextColor = useColorModeValue("#333", "#fff");
 
   useEffect(() => {
     fetchOrders();
@@ -84,7 +85,7 @@ const IncomingOrders = () => {
         <Container w="100vw" minH="100vh" maxW="70vw" py={10}>
           <Flex direction="column" justify="center" align="center" w="100%" h="100%" mt={20}>
             <VStack spacing={6} p={4} w="100%" align="center">
-              <Heading color="white">Incoming Orders</Heading>
+              <Heading color="gray.700" mb="40px">Incoming Orders</Heading>
               {orders.length > 0 ? (
                 <SimpleGrid columns={{ base: 1, md: 2 }} spacing={6} w="100%">
                   {orders.map((order) => (
@@ -98,28 +99,34 @@ const IncomingOrders = () => {
                       w="100%"
                     >
                       <CardBody p={4}>
+                        <Box p={5}>
                         <Stack spacing={3}>
-                          <Text textAlign="center" color="white">Contact: {order.username}</Text>
-                          <Text textAlign="center" color="white">Email: {order.emailAddress}</Text>
+                          <Text textAlign="left" color="gray.700">Customer: {order.username}</Text>
+                          <Text textAlign="left" color="gray.700">Email: {order.emailAddress}</Text>
+                          {/* <Text textAlign="left" color="gray.700">Contact No: {order.phoneNumber}</Text> */}
                           <Box>
-                            <Heading size="md" textAlign="center" color="white" mt={4}>
+                            <Heading size="md" textAlign="left" color="gray.700" mt={4}>
                               Orders
                             </Heading>
                             {order.items.map((item, index) => (
-                              <Box key={index} p={4} bg="gray.700" borderRadius="md" mt={4}>
-                                <Text color="white">Total Amount: ${((item.basePrice + item.toppingsTotal) * item.quantity).toFixed(2)}</Text>
-                                <Box mt={3}>
-                                  <Heading size="sm" color="white">Items:</Heading>
-                                  <Text color="white"> {item.drinkName} - Quantity: {item.quantity} </Text>
-                                </Box>
+                              <Box key={index} mt={3}>
+                                <Text color={cardTextColor}>{item.quantity}x {item.drinkName} - ${((item.basePrice + item.toppingsTotal) * item.quantity).toFixed(2)} </Text>
+                                {item.selectedToppings.length > 0 && (
+                                  <Text ml={10} color={cardTextColor}>
+                                    Add: {item.selectedToppings.toString()}
+                                  </Text>
+                                )}
+                                <Text ml={10} color={cardTextColor}>Sugar: {item.selectedSugar} </Text>
+                                <Text ml={10} color={cardTextColor}>Ice: {item.selectedIce} </Text>
                               </Box>
                             ))}
                           </Box>
                           <HStack spacing={4} mt={6} justify="center">
-                            <Button colorScheme="blue" textColor="white" size="sm" w="30%" onClick={() => handleStatusChange(order._id, 'inProgress', order.orderType)}>Accept</Button>
-                            <Button colorScheme="blue" textColor="white" size="sm" w="30%" onClick={() => handleStatusChange(order._id, 'rejected', order.orderType)}>Reject</Button>
+                            <Button backgroundColor="teal.500" textColor="gray.700" size="sm" w="30%" onClick={() => handleStatusChange(order._id, 'inProgress', order.orderType)}>Accept</Button>
+                            <Button backgroundColor="gray.500" textColor="gray.700" size="sm" w="30%" onClick={() => handleStatusChange(order._id, 'rejected', order.orderType)}>Reject</Button>
                           </HStack>
                         </Stack>
+                        </Box>
                       </CardBody>
                     </Card>
                   ))}

@@ -9,7 +9,7 @@ const CustomerDashboard = () => {
   const { data: session, status } = useSession();
   const cardBgColor = useColorModeValue("#f7f7f7", "#1a1a1a"); // Light and dark mode colors
   const cardTextColor = useColorModeValue("#333", "#fff");
-  const {visitedLocationID, setVisitedLocationID} = useDrinkContext();
+  const { visitedLocationID, setVisitedLocationID } = useDrinkContext();
 
   console.log("VISIT ID : ", visitedLocationID);
 
@@ -51,9 +51,8 @@ const CustomerDashboard = () => {
   if (status === 'loading' || !customer) {
     return <div>Loading...</div>;  // Loading state while fetching data
   }
-
   const sortedOrders = sortOrders(customer.orders);
-
+  console.log(sortedOrders);
   return (
     <div style={{ display: 'flex', minHeight: '100vh', backgroundColor: '#f0f0f0' }}>
       <OrderSideNav />
@@ -99,7 +98,17 @@ const CustomerDashboard = () => {
                           <Box>
                             {order.items.map((item, index) => (
                               <Box key={index} mt={3}>
-                                <Text color={cardTextColor}>{item.quantity}x {item.drinkName} - ${(item.basePrice * item.quantity).toFixed(2)} </Text>
+                                <Text color={cardTextColor}>{item.quantity}x {item.drinkName} - ${((item.basePrice + item.toppingsTotal) * item.quantity).toFixed(2)} </Text>
+                                {/* {order.items.item.selectedToppings.map((topping) => (
+                                    <Text color={cardTextColor}>Add: {topping.selectedToppings} </Text>
+                                ))} */}
+                                {item.selectedToppings.length > 0 && (
+                                  <Text ml={10} color={cardTextColor}>
+                                    Add: {item.selectedToppings.toString()}
+                                  </Text>
+                                )}
+                                <Text ml={10} color={cardTextColor}>Sugar: {item.selectedSugar} </Text>
+                                <Text ml={10} color={cardTextColor}>Ice: {item.selectedIce} </Text>
                               </Box>
                             ))}
                           </Box>
